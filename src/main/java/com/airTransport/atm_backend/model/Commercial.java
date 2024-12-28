@@ -1,5 +1,5 @@
 package com.airTransport.atm_backend.model;
-
+import  com.airTransport.atm_backend.service.FlightSearch;
 import java.util.List;
 
 public class Commercial extends Booking implements FlightSearch{

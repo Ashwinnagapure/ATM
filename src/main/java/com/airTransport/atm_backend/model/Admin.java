@@ -1,7 +1,13 @@
 package com.airTransport.atm_backend.model;
+import com.airTransport.atm_backend.service.CrewManagement;
+import com.airTransport.atm_backend.service.FlightManagement;
+import com.airTransport.atm_backend.service.Log;
+
+import com.airTransport.atm_backend.service.UserManagement;
+
 import java.util.List;
 
-public class Admin extends User implements Log,CrewManagement,FlightManagemnt,UserManagement {
+public class Admin extends User implements Log,CrewManagement, FlightManagement, UserManagement {
 
     private long adminId ;
 
@@ -25,8 +31,8 @@ public class Admin extends User implements Log,CrewManagement,FlightManagemnt,Us
     }
 
     @Override
-    public Enum trackFlightStatus() {
-        return null;
+    public boolean trackFlightStatus() {
+        return true;
     }
 
     @Override
