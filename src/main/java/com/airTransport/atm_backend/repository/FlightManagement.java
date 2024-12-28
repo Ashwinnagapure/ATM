@@ -1,7 +1,7 @@
-package com.airTransport.atm_backend.repository;
+package com.airTransport.atm_backend.service;
 
 public interface FlightManagement {
-    public Enum trackFlightStatus();
+    public boolean trackFlightStatus();
     public boolean scheduleFlights();
     public boolean cancelFlights();
 }

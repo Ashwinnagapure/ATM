@@ -1,39 +1,55 @@
 package com.airTransport.atm_backend.model;
 
-public abstract class User {
-    protected long userId;
-    protected String name;
-    protected String email;
-    protected String password;
-    protected Enum userType;
 
-    public boolean signUp(String params) {
-        // Implementation
-        return true;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "users")
+public class User {
+
+    @Id
+    private Long id;
+
+
+    private String username;
+
+
+    private String email;
+
+
+    private String password;
+
+    public Long getId() {
+        return id;
     }
 
-    public boolean login(String params) {
-        // Implementation
-        return true;
+    public String getUsername() {
+        return username;
     }
 
-    public boolean logout(String params) {
-        // Implementation
-        return true;
+    public String getEmail() {
+        return email;
     }
 
-    public boolean changePassword(String oldPass, String newPass) {
-        // Implementation
-        return true;
+    public String getPassword() {
+        return password;
     }
 
-    public boolean updateProfile(String params) {
-        // Implementation
-        return true;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public boolean resetPassword(String params) {
-        // Implementation
-        return true;
+    public void setUsername(String username) {
+        this.username = username;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 }
