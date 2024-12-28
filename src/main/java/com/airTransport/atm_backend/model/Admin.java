@@ -13,24 +13,6 @@ public class Admin extends User implements Log, FlightManagement, UserManagement
     private EmergencyAlert emergencyAlert;
     private Notification notification;
 
-    /*
-    @Override
-    public List<String> pilot() {
-        return List.of();
-    }
-
-    @Override
-    public List<String> cabinCrew() {
-        return List.of();
-    }
-
-    @Override
-    public List<String> groundStaff() {
-        return List.of();
-    }
-
-    */
-
     @Override
     public boolean trackFlightStatus() {
         return true;
