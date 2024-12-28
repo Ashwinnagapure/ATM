@@ -1,7 +1,5 @@
 package com.airTransport.atm_backend.model;
-import com.airTransport.atm_backend.service.TravelPreferences;
-import java.util.ArrayList;
-import java.util.List;
+import com.airTransport.atm_backend.repository.TravelPreferences;
 
 
 public class Passenger extends User implements TravelPreferences {

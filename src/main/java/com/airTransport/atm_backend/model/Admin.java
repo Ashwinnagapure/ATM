@@ -1,7 +1,11 @@
 package com.airTransport.atm_backend.model;
+import com.airTransport.atm_backend.repository.FlightManagement;
+import com.airTransport.atm_backend.repository.Log;
+import com.airTransport.atm_backend.repository.UserManagement;
+
 import java.util.List;
 
-public class Admin extends User implements Log,CrewManagement,FlightManagemnt,UserManagement {
+public class Admin extends User implements Log, FlightManagement, UserManagement {
 
     private long adminId ;
 
@@ -9,6 +13,7 @@ public class Admin extends User implements Log,CrewManagement,FlightManagemnt,Us
     private EmergencyAlert emergencyAlert;
     private Notification notification;
 
+    /*
     @Override
     public List<String> pilot() {
         return List.of();
@@ -24,9 +29,11 @@ public class Admin extends User implements Log,CrewManagement,FlightManagemnt,Us
         return List.of();
     }
 
+    */
+
     @Override
-    public Enum trackFlightStatus() {
-        return null;
+    public boolean trackFlightStatus() {
+        return true;
     }
 
     @Override
@@ -50,7 +57,7 @@ public class Admin extends User implements Log,CrewManagement,FlightManagemnt,Us
     }
 
     @Override
-    public Boolean deleteUserAccount(String paramas) {
+    public Boolean deleteUserAccount(String params) {
         return null;
     }
 

@@ -1,4 +1,4 @@
-package com.airTransport.atm_backend.service;
+package com.airTransport.atm_backend.repository;
 
 import java.util.List;
 
