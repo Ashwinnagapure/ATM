@@ -14,8 +14,8 @@ public class Admin extends User implements Log, FlightManagement, UserManagement
     private Notification notification;
 
     @Override
-    public boolean trackFlightStatus() {
-        return true;
+    public Enum trackFlightStatus() {
+        return null;
     }
 
     @Override

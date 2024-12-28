@@ -1,7 +1,7 @@
 package com.airTransport.atm_backend.service;
 
 import com.airTransport.atm_backend.model.CrewManagement;
-import com.airTransport.atm_backend.model.Role;
+import com.airTransport.atm_backend.model.enums.Role;
 import com.airTransport.atm_backend.repository.CrewManagementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

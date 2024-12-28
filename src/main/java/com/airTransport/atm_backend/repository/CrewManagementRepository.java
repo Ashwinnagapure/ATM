@@ -1,7 +1,7 @@
 package com.airTransport.atm_backend.repository;
 
 import com.airTransport.atm_backend.model.CrewManagement;
-import com.airTransport.atm_backend.model.Role;
+import com.airTransport.atm_backend.model.enums.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,8 +1,7 @@
 package com.airTransport.atm_backend.model;
 
+import com.airTransport.atm_backend.model.enums.Role;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "crew_management")
