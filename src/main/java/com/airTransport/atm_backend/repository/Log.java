@@ -1,4 +1,4 @@
-package com.airTransport.atm_backend.service;
+package com.airTransport.atm_backend.repository;
 
 public interface Log {
     public Boolean saveLog(String params);

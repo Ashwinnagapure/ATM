@@ -1,8 +1,8 @@
-package com.airTransport.atm_backend.service;
+package com.airTransport.atm_backend.repository;
 import java.util.List;
 
 public interface UserManagement {
-    public Boolean deleteUserAccount(String paramas);
+    public Boolean deleteUserAccount(String params);
     public boolean createUserAccount(String params);
     public boolean deactivateUserAccount(String params) ;
     public List<String> getallUsers();
