@@ -1,4 +1,5 @@
 package com.airTransport.atm_backend.model;
+import com.airTransport.atm_backend.model.flight.Flight;
 import com.airTransport.atm_backend.service.CrewManagement;
 import com.airTransport.atm_backend.service.FlightManagement;
 import com.airTransport.atm_backend.service.Log;
@@ -30,20 +31,6 @@ public class Admin extends User implements Log,CrewManagement, FlightManagement,
         return List.of();
     }
 
-    @Override
-    public boolean trackFlightStatus() {
-        return true;
-    }
-
-    @Override
-    public boolean scheduleFlights() {
-        return false;
-    }
-
-    @Override
-    public boolean cancelFlights() {
-        return false;
-    }
 
     @Override
     public Boolean saveLog(String params) {
@@ -73,5 +60,20 @@ public class Admin extends User implements Log,CrewManagement, FlightManagement,
     @Override
     public List<String> getallUsers() {
         return List.of();
+    }
+
+    @Override
+    public boolean trackFlightStatus(long flightId) {
+        return false;
+    }
+
+    @Override
+    public boolean scheduleFlights(Flight flight) {
+        return false;
+    }
+
+    @Override
+    public boolean cancelFlights(long flightId) {
+        return false;
     }
 }

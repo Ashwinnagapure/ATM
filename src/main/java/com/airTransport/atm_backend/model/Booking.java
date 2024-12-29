@@ -1,5 +1,7 @@
 package com.airTransport.atm_backend.model;
 
+import com.airTransport.atm_backend.model.flight.Flight;
+
 public class Booking {
     private long bookingId;
     private Passenger passenger;

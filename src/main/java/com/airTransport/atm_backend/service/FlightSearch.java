@@ -1,9 +1,10 @@
 package com.airTransport.atm_backend.service;
 
+import com.airTransport.atm_backend.model.flight.Flight;
 import java.util.List;
 
 public interface FlightSearch {
-    public List<String> sortByPrice(String params) ;
-    public List<String> sortByAirline(String params) ;
-    public List<String> sortByClass(String params) ;
+    List<Flight> sortByPrice();
+    List<Flight> sortByAirline();
+    List<Flight> sortByClass();
 }
