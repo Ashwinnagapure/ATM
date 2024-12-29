@@ -1,18 +1,10 @@
-package com.airTransport.atm_backend.model;
+package com.airTransport.atm_backend.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import java.util.Date;
 
-@Entity
-public class Booking {
+public class BookingDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String passengerName;
     private String flightNumber;
     private Date bookingDate;
@@ -20,9 +12,10 @@ public class Booking {
     private String status;
 
     // Constructors
-    public Booking() {}
+    public BookingDTO() {}
 
-    public Booking(String passengerName, String flightNumber, Date bookingDate, Date flightDate, String status) {
+    public BookingDTO(Long id, String passengerName, String flightNumber, Date bookingDate, Date flightDate, String status) {
+        this.id = id;
         this.passengerName = passengerName;
         this.flightNumber = flightNumber;
         this.bookingDate = bookingDate;
