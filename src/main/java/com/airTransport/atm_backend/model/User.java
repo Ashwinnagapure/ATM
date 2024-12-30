@@ -1,9 +1,11 @@
 package com.airTransport.atm_backend.model;
 
 
+import com.airTransport.atm_backend.model.enums.UserType;
 import jakarta.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users")
 public class User {
 
@@ -18,6 +20,9 @@ public class User {
 
 
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
     public Long getId() {
         return id;
@@ -51,5 +56,11 @@ public class User {
         this.password = password;
     }
 
+    public UserType getUserType() {
+        return userType;
+    }
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
 
 }

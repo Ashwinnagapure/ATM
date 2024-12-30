@@ -1,6 +1,7 @@
 package com.airTransport.atm_backend.service.Impl;
 
 import com.airTransport.atm_backend.model.User;
+import com.airTransport.atm_backend.model.enums.UserType;
 import com.airTransport.atm_backend.repository.UserRepository;
 import com.airTransport.atm_backend.service.UserService;
 import org.springframework.stereotype.Service;
@@ -33,13 +34,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String createUser(User user) {
+    public String addUser(User user) {
         userRepository.save(user);
-        return "User created Successfully!";
+        return "User Added Successfully!";
     }
 
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<User> getUsersByType(UserType userType) {
+        return userRepository.findByUserType(userType);
     }
 }
