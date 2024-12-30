@@ -1,6 +1,6 @@
 package com.airTransport.atm_backend.repository;
 
-import com.airTransport.atm_backend.model.flight.Flight;
+import com.airTransport.atm_backend.model.Flight;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

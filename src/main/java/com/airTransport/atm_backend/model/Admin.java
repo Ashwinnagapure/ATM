@@ -1,5 +1,4 @@
 package com.airTransport.atm_backend.model;
-import com.airTransport.atm_backend.model.flight.Flight;
 import com.airTransport.atm_backend.service.CrewManagement;
 import com.airTransport.atm_backend.service.FlightManagement;
 import com.airTransport.atm_backend.service.Log;

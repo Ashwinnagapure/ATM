@@ -1,6 +1,6 @@
 package com.airTransport.atm_backend.service;
 
-import com.airTransport.atm_backend.model.flight.Flight;
+import com.airTransport.atm_backend.model.Flight;
 import com.airTransport.atm_backend.repository.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

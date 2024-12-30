@@ -1,4 +1,4 @@
-package com.airTransport.atm_backend.model.flight;
+package com.airTransport.atm_backend.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
