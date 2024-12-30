@@ -2,6 +2,7 @@ package com.airTransport.atm_backend.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Booking {
@@ -13,7 +14,11 @@ public class Booking {
     private String flightNumber;
     private LocalDateTime bookingDate;
     private LocalDateTime travelDate;
-    private String status; // e.g., PENDING, CONFIRMED
+    private String status;
+
+    // In Booking.java
+    @OneToMany(mappedBy = "booking")
+    private List<Baggage> baggages;// e.g., PENDING, CONFIRMED
 
     // Getters and Setters
 
