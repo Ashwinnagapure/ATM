@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bookings")
+@RequestMapping("/bookings")
 public class BookingController {
 
     @Autowired
@@ -37,6 +37,23 @@ public class BookingController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
         if (bookingService.deleteBooking(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Add a new booking
+    @PostMapping
+    public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO bookingDTO) {
+        BookingDTO createdBooking = bookingService.createBooking(bookingDTO);
+        return ResponseEntity.ok(createdBooking);
+    }
+
+    // Confirm booking by ID
+    @PutMapping("/{id}/confirm")
+    public ResponseEntity<Void> confirmBooking(@PathVariable Long id) {
+        if (bookingService.confirmBooking(id)) {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();

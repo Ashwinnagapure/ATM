@@ -1,36 +1,22 @@
 package com.airTransport.atm_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import java.util.Date;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Booking {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String passengerName;
     private String flightNumber;
-    private Date bookingDate;
-    private Date flightDate;
-    private String status;
-
-    // Constructors
-    public Booking() {}
-
-    public Booking(String passengerName, String flightNumber, Date bookingDate, Date flightDate, String status) {
-        this.passengerName = passengerName;
-        this.flightNumber = flightNumber;
-        this.bookingDate = bookingDate;
-        this.flightDate = flightDate;
-        this.status = status;
-    }
+    private LocalDateTime bookingDate;
+    private LocalDateTime travelDate;
+    private String status; // e.g., PENDING, CONFIRMED
 
     // Getters and Setters
+
     public Long getId() {
         return id;
     }
@@ -55,20 +41,20 @@ public class Booking {
         this.flightNumber = flightNumber;
     }
 
-    public Date getBookingDate() {
+    public LocalDateTime getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Date bookingDate) {
+    public void setBookingDate(LocalDateTime bookingDate) {
         this.bookingDate = bookingDate;
     }
 
-    public Date getFlightDate() {
-        return flightDate;
+    public LocalDateTime getTravelDate() {
+        return travelDate;
     }
 
-    public void setFlightDate(Date flightDate) {
-        this.flightDate = flightDate;
+    public void setTravelDate(LocalDateTime travelDate) {
+        this.travelDate = travelDate;
     }
 
     public String getStatus() {

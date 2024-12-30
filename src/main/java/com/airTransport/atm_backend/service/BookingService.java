@@ -1,3 +1,4 @@
+
 package com.airTransport.atm_backend.service;
 
 import com.airTransport.atm_backend.dto.BookingDTO;
@@ -39,6 +40,32 @@ public class BookingService {
         return false;
     }
 
+    // Add a new booking
+    @Transactional
+    public BookingDTO createBooking(BookingDTO bookingDTO) {
+        Booking booking = new Booking();
+        booking.setPassengerName(bookingDTO.getPassengerName());
+        booking.setFlightNumber(bookingDTO.getFlightNumber());
+        booking.setBookingDate(bookingDTO.getBookingDate());
+        booking.setTravelDate(bookingDTO.getTravelDate());
+        booking.setStatus(bookingDTO.getStatus());
+        Booking savedBooking = bookingRepository.save(booking);
+        return convertToDTO(savedBooking);
+    }
+
+    // Confirm booking
+    @Transactional
+    public boolean confirmBooking(Long id) {
+        Optional<Booking> bookingOptional = bookingRepository.findById(id);
+        if (bookingOptional.isPresent()) {
+            Booking booking = bookingOptional.get();
+            booking.setStatus("CONFIRMED");
+            bookingRepository.save(booking);
+            return true;
+        }
+        return false;
+    }
+
     // Convert entity to DTO
     private BookingDTO convertToDTO(Booking booking) {
         return new BookingDTO(
@@ -46,7 +73,7 @@ public class BookingService {
                 booking.getPassengerName(),
                 booking.getFlightNumber(),
                 booking.getBookingDate(),
-                booking.getFlightDate(),
+                booking.getTravelDate(),
                 booking.getStatus()
         );
     }

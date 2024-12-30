@@ -1,25 +1,25 @@
 package com.airTransport.atm_backend.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class BookingDTO {
 
     private Long id;
     private String passengerName;
     private String flightNumber;
-    private Date bookingDate;
-    private Date flightDate;
+    private LocalDateTime bookingDate;
+    private LocalDateTime travelDate;
     private String status;
 
     // Constructors
     public BookingDTO() {}
 
-    public BookingDTO(Long id, String passengerName, String flightNumber, Date bookingDate, Date flightDate, String status) {
+    public BookingDTO(Long id, String passengerName, String flightNumber, LocalDateTime bookingDate, LocalDateTime travelDate, String status) {
         this.id = id;
         this.passengerName = passengerName;
         this.flightNumber = flightNumber;
         this.bookingDate = bookingDate;
-        this.flightDate = flightDate;
+        this.travelDate = travelDate;
         this.status = status;
     }
 
@@ -48,20 +48,20 @@ public class BookingDTO {
         this.flightNumber = flightNumber;
     }
 
-    public Date getBookingDate() {
+    public LocalDateTime getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Date bookingDate) {
+    public void setBookingDate(LocalDateTime bookingDate) {
         this.bookingDate = bookingDate;
     }
 
-    public Date getFlightDate() {
-        return flightDate;
+    public LocalDateTime getTravelDate() {
+        return travelDate;
     }
 
-    public void setFlightDate(Date flightDate) {
-        this.flightDate = flightDate;
+    public void setTravelDate(LocalDateTime travelDate) {
+        this.travelDate = travelDate;
     }
 
     public String getStatus() {
