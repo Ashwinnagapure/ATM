@@ -1,7 +1,7 @@
 package com.airTransport.atm_backend.controller;
 
 import com.airTransport.atm_backend.dto.BookingDTO;
-import com.airTransport.atm_backend.service.BookingService;
+import com.airTransport.atm_backend.service.Impl.BookingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.List;
 public class BookingController {
 
     @Autowired
-    private BookingService bookingService;
+    private BookingServiceImpl bookingService;
 
     // Get all bookings
     @GetMapping
