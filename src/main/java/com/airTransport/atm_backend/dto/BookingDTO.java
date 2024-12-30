@@ -1,22 +1,29 @@
-package com.airTransport.atm_backend.model;
+package com.airTransport.atm_backend.dto;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-public class Booking {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class BookingDTO {
 
+    private Long id;
     private String passengerName;
     private String flightNumber;
     private LocalDateTime bookingDate;
     private LocalDateTime travelDate;
-    private String status; // e.g., PENDING, CONFIRMED
+    private String status;
+
+    // Constructors
+    public BookingDTO() {}
+
+    public BookingDTO(Long id, String passengerName, String flightNumber, LocalDateTime bookingDate, LocalDateTime travelDate, String status) {
+        this.id = id;
+        this.passengerName = passengerName;
+        this.flightNumber = flightNumber;
+        this.bookingDate = bookingDate;
+        this.travelDate = travelDate;
+        this.status = status;
+    }
 
     // Getters and Setters
-
     public Long getId() {
         return id;
     }
