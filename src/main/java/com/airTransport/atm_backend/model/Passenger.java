@@ -1,44 +1,24 @@
 package com.airTransport.atm_backend.model;
-import com.airTransport.atm_backend.repository.TravelPreferences;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "passengers")
+@PrimaryKeyJoinColumn(name = "id")
+public class Passenger extends User {
 
 
-public class Passenger extends User implements TravelPreferences {
-    private long passengerId;
-    private String contact;
-    private Notification notification;
+    private String complaint;
 
-    public boolean saveTravelPreferences(String params) {
-        // Implementation
-        return true;
+
+    public String getComplaint() {
+        return complaint;
     }
-
-
-    public String requestRefund(String params){
-        return "";
-    }
-
-    public Boolean selectPaymentMethod(String  params){
-        return true;
-    }
-
-// In place of integers we have to Documents as List
-
-//public Boolean storeTravelDocuments(String abc, List<Integer> params) {
-//        return true;
-//}
-//
-// public List<Integer> getTravelDocuments(String params) {
-//        return new ArrayList<>();
-// }
-
-    @Override
-    public void saveTravelPreferences(String params, TravelPreferences a) {
-
-    }
-
-    @Override
-    public TravelPreferences getTravelPreferences(String params) {
-        return null;
+    public void setComplaint(String complaint) {
+        this.complaint = complaint;
     }
 
 
