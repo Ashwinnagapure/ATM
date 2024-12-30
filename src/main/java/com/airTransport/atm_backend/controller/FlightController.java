@@ -1,8 +1,8 @@
 package com.airTransport.atm_backend.controller;
 
 import com.airTransport.atm_backend.model.Flight;
-import com.airTransport.atm_backend.service.FlightManagement;
-import com.airTransport.atm_backend.service.FlightSearch;
+import com.airTransport.atm_backend.service.FlightManagementService;
+import com.airTransport.atm_backend.service.FlightSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +13,15 @@ import java.util.List;
 public class FlightController {
 
     @Autowired
-    private FlightManagement flightManagement;
+    private FlightManagementService flightManagement;
 
     @Autowired
-    private FlightSearch flightSearch;
+    private FlightSearchService flightSearch;
+
+    @GetMapping("/test")
+    public String test(){
+        return "Hello";
+    }
 
     @PostMapping("/schedule")
     public boolean scheduleFlight(@RequestBody Flight flight) {

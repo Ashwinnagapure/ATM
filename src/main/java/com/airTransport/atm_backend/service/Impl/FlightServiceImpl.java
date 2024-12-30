@@ -2,8 +2,8 @@ package com.airTransport.atm_backend.service.Impl;
 
 import com.airTransport.atm_backend.model.Flight;
 import com.airTransport.atm_backend.repository.FlightRepository;
-import com.airTransport.atm_backend.service.FlightManagement;
-import com.airTransport.atm_backend.service.FlightSearch;
+import com.airTransport.atm_backend.service.FlightManagementService;
+import com.airTransport.atm_backend.service.FlightSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FlightServiceImpl implements FlightManagement, FlightSearch {
+public class FlightServiceImpl implements FlightManagementService, FlightSearchService {
 
     @Autowired
     private FlightRepository flightRepository;
