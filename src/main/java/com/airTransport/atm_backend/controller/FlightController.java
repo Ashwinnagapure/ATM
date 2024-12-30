@@ -20,7 +20,7 @@ public class FlightController {
 
     @GetMapping("/test")
     public String test(){
-        return "Hello";
+        return "Amar";
     }
 
     @PostMapping("/schedule")
