@@ -1,29 +1,26 @@
 package com.airTransport.atm_backend.model;
 
-import com.airTransport.atm_backend.repository.FlightSearch;
+import com.airTransport.atm_backend.service.FlightSearchService;
 
 import java.util.List;
 
-public class Commercial extends Booking implements FlightSearch {
+public class Commercial extends Booking implements FlightSearchService {
     private long commercialId;
     private Payment payment;
 
-    public boolean checkIn(String params){
-     return true;
-    }
 
     @Override
-    public List<String> sortByPrice(String params) {
+    public List<Flight> sortByPrice() {
         return List.of();
     }
 
     @Override
-    public List<String> sortByAirline(String params) {
+    public List<Flight> sortByAirline() {
         return List.of();
     }
 
     @Override
-    public List<String> sortByClass(String params) {
+    public List<Flight> sortByClass() {
         return List.of();
     }
 }
