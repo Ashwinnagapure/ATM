@@ -1,25 +1,21 @@
-package com.airTransport.atm_backend.model;
+package com.airTransport.atm_backend.dto;
 
-import jakarta.persistence.*;
+public class CharterDTO {
 
-@Entity
-public class Charter {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long charterId;
-
-    @Column(nullable = false)
-    private String vehicleType; // Helicopter or Private Jet
-
-    @Column(nullable = false)
+    private String vehicleType;
     private Double price;
-
-    @Column(nullable = false)
     private String passengerName;
-
-    @Column(nullable = false)
     private String flightNumber;
+
+    // Constructor
+    public CharterDTO(Long charterId, String vehicleType, Double price, String passengerName, String flightNumber) {
+        this.charterId = charterId;
+        this.vehicleType = vehicleType;
+        this.price = price;
+        this.passengerName = passengerName;
+        this.flightNumber = flightNumber;
+    }
 
     // Getters and Setters
     public Long getCharterId() {
@@ -60,10 +56,5 @@ public class Charter {
 
     public void setFlightNumber(String flightNumber) {
         this.flightNumber = flightNumber;
-    }
-
-    // Business Method Example
-    public boolean isLuxury() {
-        return "privateJet".equalsIgnoreCase(vehicleType);
     }
 }
