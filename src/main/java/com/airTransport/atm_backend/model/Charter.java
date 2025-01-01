@@ -1,69 +1,89 @@
 package com.airTransport.atm_backend.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "charters")
 public class Charter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long charterId;
+    private long charterId;
 
-    @Column(nullable = false)
-    private String vehicleType; // Helicopter or Private Jet
+    @Enumerated(EnumType.STRING)
+    private VehicleType vehicleType;
 
-    @Column(nullable = false)
-    private Double price;
+    private String source;
+    private String destination;
+    private LocalDateTime departure;
+    private LocalDateTime arrival;
 
-    @Column(nullable = false)
-    private String passengerName;
+    @Enumerated(EnumType.STRING)
+    private CharterStatus status;
 
-    @Column(nullable = false)
-    private String flightNumber;
+    public enum VehicleType {
+        HELICOPTER, PRIVATE_JET
+    }
+
+    public enum CharterStatus {
+        ON_TIME, DELAYED, CANCELLED
+    }
 
     // Getters and Setters
-    public Long getCharterId() {
+    public long getCharterId() {
         return charterId;
     }
 
-    public void setCharterId(Long charterId) {
+    public void setCharterId(long charterId) {
         this.charterId = charterId;
     }
 
-    public String getVehicleType() {
+    public VehicleType getVehicleType() {
         return vehicleType;
     }
 
-    public void setVehicleType(String vehicleType) {
+    public void setVehicleType(VehicleType vehicleType) {
         this.vehicleType = vehicleType;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getSource() {
+        return source;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setSource(String source) {
+        this.source = source;
     }
 
-    public String getPassengerName() {
-        return passengerName;
+    public String getDestination() {
+        return destination;
     }
 
-    public void setPassengerName(String passengerName) {
-        this.passengerName = passengerName;
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
-    public String getFlightNumber() {
-        return flightNumber;
+    public LocalDateTime getDeparture() {
+        return departure;
     }
 
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
+    public void setDeparture(LocalDateTime departure) {
+        this.departure = departure;
     }
 
-    // Business Method Example
-    public boolean isLuxury() {
-        return "privateJet".equalsIgnoreCase(vehicleType);
+    public LocalDateTime getArrival() {
+        return arrival;
+    }
+
+    public void setArrival(LocalDateTime arrival) {
+        this.arrival = arrival;
+    }
+
+    public CharterStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CharterStatus status) {
+        this.status = status;
     }
 }

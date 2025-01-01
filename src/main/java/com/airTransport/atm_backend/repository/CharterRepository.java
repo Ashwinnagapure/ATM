@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CharterRepository extends JpaRepository<Charter, Long> {
-    // Custom query methods if needed
 }
