@@ -1,5 +1,7 @@
 package com.airTransport.atm_backend.model;
 
+import com.airTransport.atm_backend.model.enums.VehicleType;
+import com.airTransport.atm_backend.model.enums.CharterStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -21,14 +23,6 @@ public class Charter {
 
     @Enumerated(EnumType.STRING)
     private CharterStatus status;
-
-    public enum VehicleType {
-        HELICOPTER, PRIVATE_JET
-    }
-
-    public enum CharterStatus {
-        ON_TIME, DELAYED, CANCELLED
-    }
 
     // Getters and Setters
     public long getCharterId() {

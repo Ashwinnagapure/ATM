@@ -1,5 +1,6 @@
 package com.airTransport.atm_backend.model;
 
+import com.airTransport.atm_backend.model.enums.FlightStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -22,10 +23,6 @@ public class Flight {
     private double price; // Added price field
     private String airline; // Added airline field
     private String flightClass; // Added flightClass field
-
-    public enum FlightStatus {
-        ON_TIME, DELAYED, CANCELLED
-    }
 
     // Getters and Setters
     public long getFlightId() { return flightId; }

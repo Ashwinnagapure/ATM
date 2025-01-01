@@ -1,5 +1,6 @@
 package com.airTransport.atm_backend.model;
 
+import com.airTransport.atm_backend.model.enums.*;
 import jakarta.persistence.*;
 
 @Entity
@@ -95,44 +96,5 @@ public class TravelPreferences {
 
     public void setArrivalTime(ArrivalTime arrivalTime) {
         this.arrivalTime = arrivalTime;
-    }
-
-    // Enums for Travel Preferences
-    public enum TravelClass {
-        ECONOMY,
-        PREMIUM_ECONOMY,
-        BUSINESS,
-        FIRST_CLASS
-    }
-
-    public enum MealPreference {
-        VEGETARIAN,
-        NON_VEGETARIAN,
-        VEGAN,
-        GLUTEN_FREE,
-        DIABETIC,
-        LOW_SODIUM
-    }
-
-    public enum AirlinePreference {
-        AIR_INDIA,
-        INDIGO,
-        SPICEJET,
-        EMIRATES,
-        QATAR_AIRWAYS
-    }
-
-    public enum DepartureTime {
-        MORNING,
-        AFTERNOON,
-        EVENING,
-        NIGHT
-    }
-
-    public enum ArrivalTime {
-        MORNING,
-        AFTERNOON,
-        EVENING,
-        NIGHT
     }
 }
