@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/baggage")
 public class BaggageController {
@@ -48,5 +49,7 @@ public class BaggageController {
     public boolean reportLostBaggage(@PathVariable Long baggageId, @RequestBody String feedback) {
         return baggageService.reportLostBaggage(baggageId, feedback);
     }
+
+    
 
 }
