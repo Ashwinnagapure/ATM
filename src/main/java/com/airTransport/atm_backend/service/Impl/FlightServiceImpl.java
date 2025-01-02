@@ -36,21 +36,6 @@ public class FlightServiceImpl implements FlightManagementService, FlightSearchS
         return false;
     }
 
-//    @Override
-//    public List<Flight> sortByPrice() {
-//        return flightRepository.findAll(Sort.by(Sort.Order.asc("price")));
-//    }
-
-//    @Override
-//    public List<Flight> sortByAirline() {
-//        return flightRepository.findAll(Sort.by(Sort.Order.asc("airline")));
-//    }
-//
-//    @Override
-//    public List<Flight> sortByClass() {
-//        return flightRepository.findAll(Sort.by(Sort.Order.asc("flightClass")));
-//    }
-//
 
     @Override
     public List<Flight> sortByPrice() {
