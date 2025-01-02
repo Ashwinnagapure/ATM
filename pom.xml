@@ -27,7 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 		    <sonar.organization>saransh-2829</sonar.organization>
 			<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
