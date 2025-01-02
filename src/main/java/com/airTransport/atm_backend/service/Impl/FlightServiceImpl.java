@@ -67,6 +67,10 @@ public class FlightServiceImpl implements FlightManagementService, FlightSearchS
         return flightRepository.findAllByOrderByFlightClassAsc();
     }
 
+    @Override
+    public List<Flight> getAllFlights(String source, String destination) {
+        return flightRepository.findBySourceAndDestination(source, destination);
+    }
 
 
 }

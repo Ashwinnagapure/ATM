@@ -47,4 +47,9 @@ public class FlightController {
     public List<Flight> sortByClass() {
         return flightSearch.sortByClass();
     }
+
+    @GetMapping("/get-all-flights")
+    public List<Flight> getAllFlights(@RequestParam String source, @RequestParam String destination) {
+        return flightSearch.getAllFlights(source, destination);
+    }
 }
