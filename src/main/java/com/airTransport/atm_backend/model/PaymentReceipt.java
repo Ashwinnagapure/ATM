@@ -15,6 +15,10 @@ public class PaymentReceipt {
     @JoinColumn(name = "payment_id", referencedColumnName = "paymentId")
     private Payment payment;
 
+    @OneToOne
+    @JoinColumn(name = "bookingId",referencedColumnName = "id")
+    private Booking booking;
+
     // Getters and Setters
     public long getTransactionId() {
         return transactionId;
@@ -36,4 +40,12 @@ public class PaymentReceipt {
         // Placeholder logic for receipt download
         return null;
     }
+
+    public Booking getBooking() {
+        return booking;
+    }
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
 }

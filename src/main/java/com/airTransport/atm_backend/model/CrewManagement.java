@@ -20,8 +20,13 @@ public class CrewManagement {
     @Column(nullable = false)
     private boolean availability;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "adminId", nullable = false)
+    private Admin admin;
+
     // Constructors, Getters, and Setters
-    public CrewManagement() {}
+    public CrewManagement() {
+    }
 
     public CrewManagement(String name, Role role, boolean availability) {
         this.name = name;
@@ -59,5 +64,12 @@ public class CrewManagement {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 }

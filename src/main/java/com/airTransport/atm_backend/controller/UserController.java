@@ -1,56 +1,39 @@
+
+
 package com.airTransport.atm_backend.controller;
 
-import com.airTransport.atm_backend.model.User;
-import com.airTransport.atm_backend.model.enums.UserType;
+
+import com.airTransport.atm_backend.dto.LoginDTO;
+import com.airTransport.atm_backend.dto.UserDTO;
 import com.airTransport.atm_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth")
 public class UserController {
 
-    private final UserService userService;
-
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    private UserService userService;
 
-    }
-    @GetMapping("/search/{userId}")
-    public User getUserDetailsById( @PathVariable("userId")Long userId){
-        return userService.searchUser(userId);
-    }
-    @GetMapping
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
-    }
-    @GetMapping("/type/{userType}")
-    public List<User> getUsersByType(@PathVariable("userType") UserType userType){
-        return userService.getUsersByType(userType);
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
+        String response = userService.registerUser(userDTO);
+        return ResponseEntity.ok(response);
     }
 
-    @PostMapping
-    public String addUser(@RequestBody User user){
-        userService.addUser(user);
-        return "User added successfully";
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
+        String response = userService.loginUser(loginDTO);
+        return ResponseEntity.ok(response);
     }
 
-    @PutMapping
-    public String editUser(@RequestBody User user){
-        userService.updateUser(user);
-        return "User updated Successfully!";
+    @PostMapping("/logout")
+    public ResponseEntity<String> logoutUser() {
+        userService.logout();
+        return ResponseEntity.ok("Logout successful!");
     }
-
-    @DeleteMapping("{userId}")
-    public String deleteUser(@PathVariable("userId") Long userId){
-        userService.removeUser(userId);
-        return "User Deleted Successfully";
-    }
-
-
 
 }
