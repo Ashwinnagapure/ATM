@@ -8,4 +8,5 @@ public interface FlightManagementService {
     boolean scheduleFlights(Flight flight);
     boolean cancelFlights(long flightId);
 
+    Flight getFlightById(Long flightId);
 }

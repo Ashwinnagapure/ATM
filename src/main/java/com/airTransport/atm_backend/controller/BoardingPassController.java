@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/boardingPasses")
+@RequestMapping("/boardingPasses")
 public class BoardingPassController {
 
     @Autowired
@@ -28,6 +28,12 @@ public class BoardingPassController {
     @PostMapping
     public BoardingPass createBoardingPass(@RequestBody BoardingPass boardingPass) {
         return boardingPassService.createBoardingPass(boardingPass);
+    }
+
+    @PostMapping("/generate/{paymentId}")
+    public ResponseEntity<BoardingPass> createBoardingPass(@PathVariable Long paymentId, @RequestBody BoardingPass boardingPass) {
+        BoardingPass createdBoardingPass = boardingPassService.createBoardingPassForPayment(paymentId, boardingPass);
+        return ResponseEntity.ok(createdBoardingPass);
     }
 
     @PutMapping("/{id}")

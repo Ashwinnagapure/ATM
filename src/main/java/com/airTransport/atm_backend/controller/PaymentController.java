@@ -15,9 +15,9 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @PostMapping
-    public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) {
-        PaymentDTO createdPayment = paymentService.createPayment(paymentDTO);
+    @PostMapping("/{bookingId}")
+    public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO,@PathVariable  Long bookingId) {
+        PaymentDTO createdPayment = paymentService.createPayment(paymentDTO,bookingId);
         return ResponseEntity.ok(createdPayment);
     }
 

@@ -2,7 +2,9 @@ package com.airTransport.atm_backend.model;
 
 import com.airTransport.atm_backend.model.enums.VehicleType;
 import com.airTransport.atm_backend.model.enums.CharterStatus;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,6 +25,15 @@ public class Charter {
 
     @Enumerated(EnumType.STRING)
     private CharterStatus status;
+
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "passengerId")
+    private Passenger passenger;
+
+
+    @OneToOne(mappedBy = "charter", cascade = CascadeType.ALL)
+    private Booking booking;
 
     // Getters and Setters
     public long getCharterId() {
@@ -80,4 +91,19 @@ public class Charter {
     public void setStatus(CharterStatus status) {
         this.status = status;
     }
+
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
+    }
+    public Booking getBooking() {
+        return booking;
+    }
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
 }

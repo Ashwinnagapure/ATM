@@ -1,6 +1,11 @@
 package com.airTransport.atm_backend.controller;
 
 import com.airTransport.atm_backend.dto.PaymentReceiptDTO;
+import com.airTransport.atm_backend.mapper.PaymentReceiptMapper;
+import com.airTransport.atm_backend.model.Payment;
+import com.airTransport.atm_backend.model.PaymentReceipt;
+import com.airTransport.atm_backend.repository.PaymentReceiptRepository;
+import com.airTransport.atm_backend.repository.PaymentRepository;
 import com.airTransport.atm_backend.service.PaymentReceiptService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +16,10 @@ public class PaymentReceiptController {
 
     private final PaymentReceiptService receiptService;
 
-    public PaymentReceiptController(PaymentReceiptService receiptService) {
+
+    public PaymentReceiptController(PaymentReceiptService receiptService, PaymentRepository paymentRepository, PaymentReceiptRepository paymentReceiptRepository) {
         this.receiptService = receiptService;
+
     }
 
     @PostMapping
@@ -20,6 +27,7 @@ public class PaymentReceiptController {
         PaymentReceiptDTO createdReceipt = receiptService.createPaymentReceipt(receiptDTO);
         return ResponseEntity.ok(createdReceipt);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<PaymentReceiptDTO> getPaymentReceipt(@PathVariable long id) {

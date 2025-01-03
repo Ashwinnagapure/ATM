@@ -6,22 +6,42 @@ import java.util.List;
 
 @Entity
 public class Booking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String passengerName;
-    private String flightNumber;
+    @ManyToOne
+    @JoinColumn(name = "passenger_id", nullable = false)
+    private Passenger passenger;
+
+    @OneToOne
+    @JoinColumn(name = "flight_id", nullable = false)
+    private Flight flight;
+
+    @OneToOne
+    @JoinColumn(name = "charter_id")
+    private Charter charter;
+
     private LocalDateTime bookingDate;
     private LocalDateTime travelDate;
     private String status;
 
-    // In Booking.java
-    @OneToMany(mappedBy = "booking")
-    private List<Baggage> baggages;// e.g., PENDING, CONFIRMED
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    private List<Baggage> baggages;
+
+    public Booking() {}
+    public Booking(Passenger passenger, Flight flight, LocalDateTime bookingDate, LocalDateTime travelDate, String status) {
+        this.passenger = passenger;
+        this.flight = flight;
+        this.bookingDate = bookingDate;
+        this.travelDate = travelDate;
+        this.status = status;
+    }
+
+
 
     // Getters and Setters
-
     public Long getId() {
         return id;
     }
@@ -30,20 +50,20 @@ public class Booking {
         this.id = id;
     }
 
-    public String getPassengerName() {
-        return passengerName;
+    public Passenger getPassenger() {
+        return passenger;
     }
 
-    public void setPassengerName(String passengerName) {
-        this.passengerName = passengerName;
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
     }
 
-    public String getFlightNumber() {
-        return flightNumber;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 
     public LocalDateTime getBookingDate() {
@@ -68,5 +88,23 @@ public class Booking {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<Baggage> getBaggages() {
+        return baggages;
+    }
+
+    public void setBaggages(List<Baggage> baggages) {
+        this.baggages = baggages;
+    }
+    public Charter getCharter() {
+        return charter;
+    }
+    public void setCharter(Charter charter) {
+        this.charter = charter;
+    }
+    public void addBaggage(Baggage baggage) {
+        baggages.add(baggage);
+        baggage.setBooking(this);
     }
 }

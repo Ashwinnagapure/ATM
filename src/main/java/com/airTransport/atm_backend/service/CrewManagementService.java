@@ -1,5 +1,6 @@
 package com.airTransport.atm_backend.service;
 
+import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.model.CrewManagement;
 import com.airTransport.atm_backend.model.enums.Role;
 import org.springframework.stereotype.Service;
@@ -20,4 +21,7 @@ public interface CrewManagementService {
     List<CrewManagement> getCrewMembersByRole(Role role);
 
     List<CrewManagement> getAvailableCrewMembers();
+
+
+    List<CrewManagement> getCrewByAdmin(Long adminId);
 }

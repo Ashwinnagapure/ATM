@@ -4,7 +4,9 @@ import com.airTransport.atm_backend.dto.PaymentDTO;
 
 public interface PaymentService {
 
-    PaymentDTO createPayment(PaymentDTO paymentDTO);
+
+
+    PaymentDTO createPayment(PaymentDTO paymentDTO, Long bookingId);
 
     PaymentDTO getPaymentById(long id);
 }
