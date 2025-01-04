@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+
     @Override
     public String registerUser(UserDTO userDTO) {
         if (userRepository.existsByEmail(userDTO.getEmail())) {
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String loginUser(LoginDTO loginDTO) {
-        User user = userRepository.findByUsername(loginDTO.getUsername());
+        User user = userRepository.findByEmail(loginDTO.getEmail());
         if (user != null && user.getPassword().equals(loginDTO.getPassword())) {
             return "Login successful!";
         } else {
