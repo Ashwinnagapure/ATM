@@ -32,6 +32,18 @@ public class PaymentReceiptServiceImpl implements PaymentReceiptService {
     }
 
     @Override
+    public PaymentReceiptDTO createReceiptForPayment(Long paymentId) {
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new RuntimeException("Payment not found"));
+
+        PaymentReceipt receipt = new PaymentReceipt();
+        receipt.setPayment(payment);
+        receipt.setBooking(payment.getBooking()); // Setting the booking from payment
+        receiptRepository.save(receipt);
+
+        return PaymentReceiptMapper.toDTO(receipt);
+    }
+    @Override
     public PaymentReceiptDTO getPaymentReceiptById(long id) {
         Optional<PaymentReceipt> receipt = receiptRepository.findById(id);
         return receipt.map(PaymentReceiptMapper::toDTO).orElseThrow(() -> new RuntimeException("Payment not found"));

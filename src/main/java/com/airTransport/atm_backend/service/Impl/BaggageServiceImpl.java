@@ -53,6 +53,7 @@ public class BaggageServiceImpl implements BaggageService {
     }
 
 
+
     @Override
     @Transactional
     public BaggageDTO getBaggageById(Long baggageId) {
@@ -69,9 +70,11 @@ public class BaggageServiceImpl implements BaggageService {
                 .collect(Collectors.toList());
     }
 
-    @Override
+
+
     @Transactional
-    public BaggageDTO createBaggageFromParams(Long bookingId, boolean baggageLimit, Double weight, int luggageCount) {
+    @Override
+    public BaggageDTO createBaggageFromParams(Long bookingId, boolean baggageLimit, double weight, int luggageCount) {
         Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> new RuntimeException("Booking not found"));
         Baggage baggage = new Baggage();
         baggage.setBaggageLimit(baggageLimit);

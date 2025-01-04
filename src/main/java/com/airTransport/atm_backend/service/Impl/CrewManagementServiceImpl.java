@@ -1,5 +1,6 @@
 package com.airTransport.atm_backend.service.Impl;
 
+import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.model.CrewManagement;
 import com.airTransport.atm_backend.model.enums.Role;
 import com.airTransport.atm_backend.repository.CrewManagementRepository;
@@ -13,6 +14,9 @@ import java.util.List;
 public class CrewManagementServiceImpl implements CrewManagementService {
     @Autowired
     private CrewManagementRepository crewMemberRepository;
+
+    @Autowired
+    private  AdminServiceImpl adminService;
 
     @Override
     public CrewManagement addCrewMember(CrewManagement crewMember) {
@@ -48,5 +52,11 @@ public class CrewManagementServiceImpl implements CrewManagementService {
     @Override
     public List<CrewManagement> getAvailableCrewMembers() {
         return crewMemberRepository.findByAvailability(true);
+    }
+
+    @Override
+    public List<CrewManagement> getCrewByAdmin(Long adminId){
+        Admin admin = adminService.getAdminById(adminId);
+        return crewMemberRepository.findByAdmin(admin);
     }
 }

@@ -1,6 +1,8 @@
 package com.airTransport.atm_backend.service.Impl;
 
+import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.model.Charter;
+import com.airTransport.atm_backend.model.Passenger;
 import com.airTransport.atm_backend.repository.CharterRepository;
 import com.airTransport.atm_backend.service.CharterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,12 @@ public class CharterServiceImpl implements CharterService {
 
     @Autowired
     private CharterRepository charterRepository;
+
+    @Autowired
+    private PassengerServiceImpl passengerService;
+
+
+
 
     @Override
     public Charter saveCharter(Charter charter) {
@@ -46,4 +54,12 @@ public class CharterServiceImpl implements CharterService {
     public void deleteCharter(long id) {
         charterRepository.deleteById(id);
     }
+
+    @Override
+    public List<Charter> getChartersByPassenger(Long passengerId) {
+        Passenger passenger = passengerService.getPassengerById(passengerId);
+        return charterRepository.findByPassenger(passenger);
+    }
+
+
 }

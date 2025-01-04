@@ -1,8 +1,10 @@
 package com.airTransport.atm_backend.controller;
 
 import com.airTransport.atm_backend.model.Flight;
+import com.airTransport.atm_backend.model.Passenger;
 import com.airTransport.atm_backend.service.FlightManagementService;
 import com.airTransport.atm_backend.service.FlightSearchService;
+import com.airTransport.atm_backend.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +20,11 @@ public class FlightController {
     @Autowired
     private FlightSearchService flightSearch;
 
+    @Autowired
+    private PassengerService passengerService;
+
     @GetMapping("/test")
-    public String test(){
+    public String test() {
         return "Testing Flight Controller";
     }
 
@@ -47,9 +52,19 @@ public class FlightController {
     public List<Flight> sortByClass() {
         return flightSearch.sortByClass();
     }
+    @PostMapping("/assign-passenger/{flightId}/{passengerId}")
+    public String assignPassengerToFlight(@PathVariable Long flightId, @PathVariable Long passengerId) {
 
-    @GetMapping("/get-all-flights")
-    public List<Flight> getAllFlights(@RequestParam String source, @RequestParam String destination) {
-        return flightSearch.getAllFlights(source, destination);
+        Flight flight = flightManagement.getFlightById(flightId);
+        Passenger passenger = passengerService.getPassengerById(passengerId);
+
+        if (flight != null && passenger != null) {
+            List<Passenger> passengers = flight.getPassengers();
+            passengers.add(passenger);
+            flight.setPassengers(passengers);
+            flightManagement.scheduleFlights(flight);
+            return "Passenger assigned to flight successfully";
+        }
+        return "Flight or Passenger not found";
     }
 }

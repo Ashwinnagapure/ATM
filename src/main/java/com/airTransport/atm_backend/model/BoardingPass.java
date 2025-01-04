@@ -7,9 +7,22 @@ import lombok.Data;
 import java.io.File;
 
 @Entity
-@Data
+
 
 public class BoardingPass {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long boardingPassId;
+
+    private String boardingTime;
+    private String boardingDate;
+    private String boardingGate;
+    private String seat;
+
+    @OneToOne
+    @JoinColumn(name = "paymentId",referencedColumnName = "paymentId",nullable = false)
+    private Payment payment;
 
     public Long getBoardingPassId() {
         return boardingPassId;
@@ -51,14 +64,12 @@ public class BoardingPass {
         this.seat = seat;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardingPassId;
-
-    private String boardingTime;
-    private String boardingDate;
-    private String boardingGate;
-    private String seat;
+    public Payment getPayment() {
+        return payment;
+    }
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
 
     public File downloadBoardingPass(String params) {
         // Implementation logic for downloading boarding pass

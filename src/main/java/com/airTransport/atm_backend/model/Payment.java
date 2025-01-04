@@ -30,12 +30,21 @@ public class Payment {
     public Payment() {
     }
 
+    @OneToOne
+    @JoinColumn(name = "bookingId",referencedColumnName = "id")
+    private Booking booking;
+
+    @OneToOne(mappedBy = "payment",cascade = CascadeType.ALL)
+    private BoardingPass bookingPass;
+
+
     // Constructor with parameters
-    public Payment(double amount, PaymentMethod paymentMethod, PaymentStatus paymentStatus, LocalDate paymentDate) {
+    public Payment(double amount, PaymentMethod paymentMethod, PaymentStatus paymentStatus, LocalDate paymentDate,Booking booking) {
         this.amount = amount;
         this.paymentMethod = paymentMethod;
         this.paymentStatus = paymentStatus;
         this.paymentDate = paymentDate;
+        this.booking=booking;
     }
 
     // Getters and Setters
@@ -78,7 +87,19 @@ public class Payment {
     public void setPaymentDate(LocalDate paymentDate) {
         this.paymentDate = paymentDate;
     }
+    public Booking getBooking() {
+        return booking;
+    }
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
 
+    public BoardingPass getBookingPass() {
+        return bookingPass;
+    }
+    public void setBookingPass(BoardingPass bookingPass) {
+        this.bookingPass = bookingPass;
+    }
     // Other methods for processing payment and refunds
     public boolean processPayment() {
         // Payment processing logic (simplified here)

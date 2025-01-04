@@ -1,5 +1,6 @@
 package com.airTransport.atm_backend.service;
 
+import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.model.Charter;
 
 import java.util.List;
@@ -15,4 +16,7 @@ public interface CharterService {
     Charter updateCharter(long id, Charter charter);
 
     void deleteCharter(long id);
+
+    List<Charter> getChartersByPassenger(Long passengerId);
+
 }

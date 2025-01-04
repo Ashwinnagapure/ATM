@@ -1,7 +1,9 @@
 package com.airTransport.atm_backend.controller;
 
+import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.model.CrewManagement;
 import com.airTransport.atm_backend.model.enums.Role;
+import com.airTransport.atm_backend.service.AdminService;
 import com.airTransport.atm_backend.service.CrewManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +13,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/crew-management")
 public class CrewManagementController {
-    @Autowired
+
     private CrewManagementService crewManagementService;
+    private final AdminService adminService;
+
+    public CrewManagementController(CrewManagementService crewManagementService, AdminService adminService) {
+        this.crewManagementService = crewManagementService;
+        this.adminService = adminService;
+    }
+
 
     @PostMapping
     public CrewManagement addCrewMember(@RequestBody CrewManagement crewMember) {
@@ -42,5 +51,11 @@ public class CrewManagementController {
     @GetMapping("/available")
     public List<CrewManagement> getAvailableCrewMembers() {
         return crewManagementService.getAvailableCrewMembers();
+    }
+
+    @GetMapping("/admin/{adminId}")
+    public List<CrewManagement> getCrewByAdmin(@PathVariable Long adminId) {
+
+        return crewManagementService.getCrewByAdmin(adminId);
     }
 }

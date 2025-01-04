@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface FlightRepository extends JpaRepository<Flight, Long> {
+
     List<Flight> findAllByOrderByPriceAsc();
     List<Flight> findAllByOrderByAirlineAsc();
     List<Flight> findAllByOrderByFlightClassAsc();

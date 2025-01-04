@@ -14,7 +14,7 @@ public class Baggage {
     private Booking booking;
 
     private boolean baggageLimit;
-    private Double weight;
+    private double weight;
     private int luggageCount;
 
     @Column(name = "feedback", length = 1000)
