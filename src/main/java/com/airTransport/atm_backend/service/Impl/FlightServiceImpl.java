@@ -72,12 +72,12 @@ public class FlightServiceImpl implements FlightManagementService, FlightSearchS
         return flightRepository.findAllByOrderByFlightClassAsc();
     }
 
-    // Additional Helper Methods
-
-    public List<Flight> getAllFlights() {
-        // Fetch all flights
-        return flightRepository.findAll();
+    @Override
+    public List<Flight> getAllFlights(String source, String destination) {
+        return flightRepository.findBySourceAndDestination(source, destination);
     }
+
+
 
     public Flight getFlightById(Long flightId) {
         // Fetch a specific flight by ID
