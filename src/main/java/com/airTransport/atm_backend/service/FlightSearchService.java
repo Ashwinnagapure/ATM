@@ -8,6 +8,5 @@ public interface FlightSearchService {
     List<Flight> sortByPrice();
     List<Flight> sortByAirline();
     List<Flight> sortByClass();
-    List<Flight> getAllFlights(String source, String destination);
 
 }

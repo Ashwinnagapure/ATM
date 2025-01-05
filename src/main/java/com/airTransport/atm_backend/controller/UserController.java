@@ -24,7 +24,6 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-
     @CrossOrigin(origins = "http://localhost:5174")
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {

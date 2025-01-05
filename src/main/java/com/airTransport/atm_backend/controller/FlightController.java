@@ -52,13 +52,6 @@ public class FlightController {
     public List<Flight> sortByClass() {
         return flightSearch.sortByClass();
     }
-
-
-    @PostMapping("/details/source-destination")
-    public List<Flight> flightDetailsBySource_Destination(String source, String destination) {
-        return flightSearch.getAllFlights(source, destination);
-    }
-
     @PostMapping("/assign-passenger/{flightId}/{passengerId}")
     public String assignPassengerToFlight(@PathVariable Long flightId, @PathVariable Long passengerId) {
 
@@ -74,6 +67,4 @@ public class FlightController {
         }
         return "Flight or Passenger not found";
     }
-
-
 }

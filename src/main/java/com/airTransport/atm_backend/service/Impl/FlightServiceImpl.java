@@ -7,7 +7,6 @@ import com.airTransport.atm_backend.service.AdminService;
 import com.airTransport.atm_backend.service.FlightManagementService;
 import com.airTransport.atm_backend.service.FlightSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -72,12 +71,12 @@ public class FlightServiceImpl implements FlightManagementService, FlightSearchS
         return flightRepository.findAllByOrderByFlightClassAsc();
     }
 
-    @Override
-    public List<Flight> getAllFlights(String source, String destination) {
-        return flightRepository.findBySourceAndDestination(source, destination);
+    // Additional Helper Methods
+
+    public List<Flight> getAllFlights() {
+        // Fetch all flights
+        return flightRepository.findAll();
     }
-
-
 
     public Flight getFlightById(Long flightId) {
         // Fetch a specific flight by ID

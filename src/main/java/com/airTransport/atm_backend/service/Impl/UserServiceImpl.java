@@ -3,7 +3,9 @@ package com.airTransport.atm_backend.service.Impl;
 
 import com.airTransport.atm_backend.dto.LoginDTO;
 import com.airTransport.atm_backend.dto.UserDTO;
+import com.airTransport.atm_backend.model.Passenger;
 import com.airTransport.atm_backend.model.User;
+import com.airTransport.atm_backend.repository.PassengerRepository;
 import com.airTransport.atm_backend.repository.UserRepository;
 import com.airTransport.atm_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private PassengerRepository passengerRepository;
 
     @Override
     public String registerUser(UserDTO userDTO) {
@@ -30,7 +33,10 @@ public class UserServiceImpl implements UserService {
         }
 
         User newUser = new User(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPassword());
-        userRepository.save(newUser);
+        User save= userRepository.save(newUser);
+
+        Passenger passenger = new Passenger();
+        passenger.setUserId(save.getUserId());
         return "User registered successfully!";
     }
 
