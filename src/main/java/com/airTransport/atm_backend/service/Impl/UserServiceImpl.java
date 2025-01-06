@@ -1,13 +1,11 @@
 package com.airTransport.atm_backend.service.Impl;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import com.airTransport.atm_backend.dto.LoginDTO;
 import com.airTransport.atm_backend.dto.UserDTO;
-import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.model.Passenger;
 import com.airTransport.atm_backend.model.User;
-import com.airTransport.atm_backend.model.enums.UserType;
-import com.airTransport.atm_backend.repository.AdminRepository;
 import com.airTransport.atm_backend.repository.PassengerRepository;
 import com.airTransport.atm_backend.repository.UserRepository;
 import com.airTransport.atm_backend.service.UserService;
@@ -24,8 +22,25 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private PassengerRepository passengerRepository;
-    @Autowired
-    private AdminRepository adminRepository;
+
+
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();  // Fetch all users from DB
+        List<UserDTO> userDTOList = new ArrayList<>();
+
+        // Convert each user entity to a UserDTO
+        for (User user : users) {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setId(user.getId());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setUsername(user.getUsername());
+            userDTO.setRole(user.getRole());
+            // Add other fields if needed
+            userDTOList.add(userDTO);
+        }
+
+        return userDTOList;
+    }
 
     @Override
     public String registerUser(UserDTO userDTO) {
@@ -37,33 +52,11 @@ public class UserServiceImpl implements UserService {
             return "Username is already taken!";
         }
 
-        // Create a new User entity
-        User newUser = new User();
-        newUser.setUsername(userDTO.getUsername());
-        newUser.setEmail(userDTO.getEmail());
-        newUser.setPassword(userDTO.getPassword());
-        newUser.setUserType(userDTO.getUserType()); // Set UserType
-        User savedUser = userRepository.save(newUser);
+        User newUser = new User(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPassword());
+        User save= userRepository.save(newUser);
 
-
-        if (userDTO.getUserType() == UserType.PASSENGER) {
-            Passenger passenger = new Passenger();
-            passenger.setUserId(savedUser.getUserId());
-            passenger.setUsername(savedUser.getUsername());
-            passenger.setEmail(savedUser.getEmail());
-            passenger.setPassword(savedUser.getPassword());
-            passenger.setUserType(savedUser.getUserType());
-            passengerRepository.save(passenger);
-        } else if (userDTO.getUserType() == UserType.ADMIN) {
-            Admin admin = new Admin();
-            admin.setUserId(savedUser.getUserId());
-            admin.setUsername(savedUser.getUsername());
-            admin.setEmail(savedUser.getEmail());
-            admin.setPassword(savedUser.getPassword());
-            admin.setUserType(savedUser.getUserType());
-            adminRepository.save(admin);
-        }
-
+        Passenger passenger = new Passenger();
+        passenger.setUserId(save.getUserId());
         return "User registered successfully!";
     }
 

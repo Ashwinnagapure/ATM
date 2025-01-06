@@ -1,12 +1,11 @@
 package com.airTransport.atm_backend.service;
 
-import com.airTransport.atm_backend.model.Flight;
+import com.airTransport.atm_backend.dto.FlightResponseDTO;
 import java.util.List;
 
 public interface FlightSearchService {
 
-    List<Flight> sortByPrice();
-    List<Flight> sortByAirline();
-    List<Flight> sortByClass();
-
+    List<FlightResponseDTO> sortByPrice();  // Return DTO
+    List<FlightResponseDTO> sortByAirline(); // Return DTO
+    List<FlightResponseDTO> sortByClass(); // Return DTO
 }

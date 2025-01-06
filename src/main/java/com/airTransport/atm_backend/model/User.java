@@ -5,7 +5,6 @@ package com.airTransport.atm_backend.model;
 // as all are of USER role
 
 // enum delete karun taku
-
 import com.airTransport.atm_backend.model.enums.UserType;
 
 
@@ -29,11 +28,11 @@ public class User {
     @Column(nullable = false, length = 65)
     private String password;
 
-    private UserType userType;
+    @Column(nullable = false)
+    private String role = "USER";  // Default role for all users
 
     // Getters, Setters, and Constructor
-    public User() {
-    }
+    public User() {}
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -62,6 +61,7 @@ public class User {
     }
 
 
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -74,13 +74,20 @@ public class User {
         this.password = password;
     }
 
-    public UserType getUserType() {
-        return userType;
+    public String getRole() {
+        return role;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setRole(String role) {
+        this.role = role;
+    }
+    // Getters and setters
+    public Long getId() {
+        return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }
