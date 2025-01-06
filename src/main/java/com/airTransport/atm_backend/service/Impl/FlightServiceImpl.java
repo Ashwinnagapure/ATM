@@ -1,5 +1,7 @@
 package com.airTransport.atm_backend.service.Impl;
 
+import com.airTransport.atm_backend.dto.FlightCreateDTO;
+import com.airTransport.atm_backend.dto.FlightResponseDTO;
 import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.model.Flight;
 import com.airTransport.atm_backend.repository.FlightRepository;
@@ -8,8 +10,8 @@ import com.airTransport.atm_backend.service.FlightManagementService;
 import com.airTransport.atm_backend.service.FlightSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightServiceImpl implements FlightManagementService, FlightSearchService {
@@ -20,24 +22,22 @@ public class FlightServiceImpl implements FlightManagementService, FlightSearchS
     @Autowired
     private AdminService adminService;
 
-    // Implementation of FlightManagementService methods
+    // FlightManagementService Implementation
 
     @Override
     public boolean trackFlightStatus(long flightId) {
-        // Check if flight exists in the repository
         return flightRepository.existsById(flightId);
     }
 
     @Override
-    public boolean scheduleFlights(Flight flight) {
-        // Save the flight entity in the repository
+    public boolean scheduleFlights(FlightCreateDTO flightCreateDTO) {
+        Flight flight = convertToFlightEntity(flightCreateDTO);
         flightRepository.save(flight);
         return true;
     }
 
     @Override
     public boolean cancelFlights(long flightId) {
-        // Check if flight exists and then delete
         if (flightRepository.existsById(flightId)) {
             flightRepository.deleteById(flightId);
             return true;
@@ -45,41 +45,63 @@ public class FlightServiceImpl implements FlightManagementService, FlightSearchS
         return false;
     }
 
-    public List<Flight> getFlightsByAdmin(Long adminId) {
-        // Fetch flights for a specific admin
-        Admin admin = adminService.getAdminById(adminId);
-        return admin.getFlights();
+    @Override
+    public FlightResponseDTO getFlightById(Long flightId) {
+        Flight flight = flightRepository.findById(flightId).orElse(null);
+        return flight != null ? convertToFlightResponseDTO(flight) : null;
     }
 
-    // Implementation of FlightSearchService methods
+    // FlightSearchService Implementation
 
     @Override
-    public List<Flight> sortByPrice() {
-        // Sort flights by price
-        return flightRepository.findAllByOrderByPriceAsc();
-    }
-
-    @Override
-    public List<Flight> sortByAirline() {
-        // Sort flights by airline
-        return flightRepository.findAllByOrderByAirlineAsc();
+    public List<FlightResponseDTO> sortByPrice() {
+        return flightRepository.findAllByOrderByPriceAsc().stream()
+                .map(this::convertToFlightResponseDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Flight> sortByClass() {
-        // Sort flights by class
-        return flightRepository.findAllByOrderByFlightClassAsc();
+    public List<FlightResponseDTO> sortByAirline() {
+        return flightRepository.findAllByOrderByAirlineAsc().stream()
+                .map(this::convertToFlightResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    // Additional Helper Methods
-
-    public List<Flight> getAllFlights() {
-        // Fetch all flights
-        return flightRepository.findAll();
+    @Override
+    public List<FlightResponseDTO> sortByClass() {
+        return flightRepository.findAllByOrderByFlightClassAsc().stream()
+                .map(this::convertToFlightResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    public Flight getFlightById(Long flightId) {
-        // Fetch a specific flight by ID
-        return flightRepository.findById(flightId).orElse(null);
+    // Helper Methods for Conversion
+
+    private Flight convertToFlightEntity(FlightCreateDTO dto) {
+        Flight flight = new Flight();
+        flight.setFlightName(dto.getFlightName());
+        flight.setDeparture(dto.getDeparture());
+        flight.setArrival(dto.getArrival());
+        flight.setSource(dto.getSource());
+        flight.setDestination(dto.getDestination());
+        flight.setPrice(dto.getPrice());
+        flight.setAirline(dto.getAirline());
+        flight.setFlightClass(dto.getFlightClass());
+        flight.setAdmin(adminService.getAdminById(dto.getAdminId()));
+        return flight;
+    }
+
+    private FlightResponseDTO convertToFlightResponseDTO(Flight flight) {
+        FlightResponseDTO dto = new FlightResponseDTO();
+        dto.setFlightId(flight.getFlightId());
+        dto.setFlightName(flight.getFlightName());
+        dto.setDeparture(flight.getDeparture());
+        dto.setArrival(flight.getArrival());
+        dto.setStatus(flight.getStatus());
+        dto.setSource(flight.getSource());
+        dto.setDestination(flight.getDestination());
+        dto.setPrice(flight.getPrice());
+        dto.setAirline(flight.getAirline());
+        dto.setFlightClass(flight.getFlightClass());
+        return dto;
     }
 }

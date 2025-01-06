@@ -2,11 +2,22 @@ package com.airTransport.atm_backend.dto;
 
 public class UserDTO {
 
+
+    private Long id;
     private String username;
     private String email;
     private String password;
+    private String Role;
 
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getUsername() {
         return username;
     }
@@ -31,4 +42,8 @@ public class UserDTO {
         this.password = password;
     }
 
+    public void setRole(String role) {
+
+        this.Role=role;
+    }
 }

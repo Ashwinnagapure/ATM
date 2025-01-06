@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -18,12 +20,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @CrossOrigin(origins = "http://localhost:5174")
+    @GetMapping("/all")
+
+    public List<UserDTO> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
         String response = userService.registerUser(userDTO);
         return ResponseEntity.ok(response);
     }
 
+    @CrossOrigin(origins = "http://localhost:5174")
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
         String response = userService.loginUser(loginDTO);
