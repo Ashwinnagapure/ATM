@@ -1,10 +1,13 @@
 package com.airTransport.atm_backend.dto;
 
+import com.airTransport.atm_backend.model.enums.UserType;
+
 public class UserDTO {
 
     private String username;
     private String email;
     private String password;
+    private UserType userType;
 
 
     public String getUsername() {
@@ -29,6 +32,12 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public UserType getUserType() {
+        return userType;
+    }
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
 }
