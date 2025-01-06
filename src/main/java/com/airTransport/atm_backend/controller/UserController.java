@@ -20,21 +20,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "*")
     @GetMapping("/all")
 
     public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
         String response = userService.registerUser(userDTO);
         return ResponseEntity.ok(response);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
         String response = userService.loginUser(loginDTO);
