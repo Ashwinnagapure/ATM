@@ -33,7 +33,7 @@ public class FlightController {
     }
 
     // Get all flights
-    @CrossOrigin(origins = "http://localhost:5174")
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/all")
     public ResponseEntity<List<FlightResponseDTO>> getAllFlights() {
         List<FlightResponseDTO> flights = flightSearch.sortByPrice(); // or another method to fetch all flights
@@ -41,6 +41,7 @@ public class FlightController {
     }
 
     // Schedule a new flight
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/schedule")
     public ResponseEntity<String> scheduleFlight(@RequestBody FlightCreateDTO flightCreateDTO) {
         boolean isScheduled = flightManagement.scheduleFlights(flightCreateDTO);
