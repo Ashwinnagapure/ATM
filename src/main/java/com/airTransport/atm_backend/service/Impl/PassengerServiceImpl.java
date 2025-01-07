@@ -11,8 +11,13 @@ import java.util.List;
 @Service
 public class PassengerServiceImpl implements PassengerService {
 
-    @Autowired
-    PassengerRepository passengerRepository;
+
+    private final PassengerRepository passengerRepository;
+
+    public PassengerServiceImpl(PassengerRepository passengerRepository) {
+        this.passengerRepository = passengerRepository;
+    }
+
     @Override
     public String addPassenger(Passenger passenger) {
         passengerRepository.save(passenger);
@@ -30,13 +35,14 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public String deletePassenger(Long PassengerId) {
+    public void deletePassenger(Long PassengerId) {
         passengerRepository.deleteById(PassengerId);
-        return"Passenger deleted successfully";
+        //return"Passenger deleted successfully";
     }
 
     @Override
     public Passenger updatePassenger(Passenger passenger) {
         return passengerRepository.save(passenger);
     }
+
 }

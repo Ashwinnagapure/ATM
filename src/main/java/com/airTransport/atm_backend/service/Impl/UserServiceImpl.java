@@ -45,11 +45,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public String registerUser(UserDTO userDTO) {
         if (userRepository.existsByEmail(userDTO.getEmail())) {
-            return "Email is already taken!";
+            System.out.println("Email is already taken!");
+            return "false";
         }
 
         if (userRepository.existsByUsername(userDTO.getUsername())) {
-            return "Username is already taken!";
+            System.out.println("Username is already taken!");
+            return "false";
         }
 
         User newUser = new User(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPassword());
@@ -57,21 +59,27 @@ public class UserServiceImpl implements UserService {
 
         Passenger passenger = new Passenger();
         passenger.setUserId(save.getUserId());
-        return "User registered successfully!";
+        System.out.println("Registration successful");
+        return "true";
     }
 
     @Override
     public String loginUser(LoginDTO loginDTO) {
         User user = userRepository.findByEmail(loginDTO.getEmail());
         if (user != null && user.getPassword().equals(loginDTO.getPassword())) {
-            return "Login successful!";
+            System.out.println("Login successful");
+            return "true";
         } else {
-            return "Invalid username or password!";
+            System.out.println("Invalid username or password!");
+            return "false";
+//            return "Invalid username or password!";
         }
     }
 
     @Override
     public void logout() {
+
+        System.out.println("Logout successful");
         SecurityContextHolder.clearContext();  // Clear session
     }
 
