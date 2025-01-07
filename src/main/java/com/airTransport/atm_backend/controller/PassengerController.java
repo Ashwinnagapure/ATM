@@ -35,10 +35,10 @@ public class PassengerController {
     }
 
     @PutMapping
-    public String updatePassenger(@RequestBody Passenger passenger){
-        passengerService.updatePassenger(passenger);
-        return "Passenger updated successfully";
+    public Passenger updatePassenger(@RequestBody Passenger passenger) {
+        return passengerService.updatePassenger(passenger);
     }
+
 
     @DeleteMapping("/{passengerId}")
     public String deletePassenger(@PathVariable Long passengerId){
