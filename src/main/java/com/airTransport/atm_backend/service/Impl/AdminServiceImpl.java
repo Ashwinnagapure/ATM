@@ -12,12 +12,12 @@ import java.util.List;
 @Service
 public class AdminServiceImpl implements AdminService {
     private final AdminRepository adminRepository;
-    private final NotificationRepository notificationRepository;
 
 
-    public AdminServiceImpl(AdminRepository adminRepository, NotificationRepository notificationRepository) {
+
+    public AdminServiceImpl(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
-        this.notificationRepository = notificationRepository;
+
     }
 
 
@@ -49,10 +49,6 @@ public class AdminServiceImpl implements AdminService {
         return "Admin deleted";
     }
 
-    @Override
-    public Notification sendNotification(Long id ,Notification notification) {
-        Admin admin=getAdminById(id);
-        notification.setAdmin(admin);
-        return notificationRepository.save(notification);
-    }
+
+
 }
