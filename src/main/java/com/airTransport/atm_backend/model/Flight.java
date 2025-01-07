@@ -37,6 +37,7 @@ public class Flight {
     }
 
     // Getters and Setters
+
     public long getFlightId() {
         return flightId;
     }

@@ -32,6 +32,14 @@ public class Passenger extends User {
     @OneToMany(mappedBy = "passenger",cascade = CascadeType.ALL)
     private List<Charter>charters;
 
+
+    public Passenger() {
+
+    }
+
+    public Passenger(long l, String johnDoe, String mail) {
+    }
+
     public String getComplaint() {
         return complaint;
     }

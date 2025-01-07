@@ -12,8 +12,8 @@ public class Admin extends User {
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<Flight> flights;
 
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<Notification> notifications;
+//    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+//    private List<Notification> notifications;
 
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
@@ -25,12 +25,12 @@ public class Admin extends User {
     public void setFlights(List<Flight>flights){
         this.flights=flights;
     }
-    public List<Notification> getNotifications() {
-        return notifications;
-    }
-    public void setNotifications(List<Notification>notifications){
-        this.notifications=notifications;
-    }
+//    public List<Notification> getNotifications() {
+//        return notifications;
+//    }
+//    public void setNotifications(List<Notification>notifications){
+//        this.notifications=notifications;
+//    }
     public List<CrewManagement> getCrewManagements() {
         return crewManagements;
     }

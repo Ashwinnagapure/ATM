@@ -10,6 +10,6 @@ public interface PassengerService {
     public  String addPassenger(Passenger passenger);
     Passenger getPassengerById(Long PassengerId);
     List<Passenger> getAllPassengers();
-    String deletePassenger(Long PassengerId);
+    void deletePassenger(Long PassengerId);
     Passenger updatePassenger(Passenger passenger);
 }
