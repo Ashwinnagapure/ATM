@@ -6,7 +6,7 @@ public class BookingDTO {
 
     private Long id;
     private String passengerName;
-    private String flightNumber;
+    private String flightName;
     private LocalDateTime bookingDate;
     private LocalDateTime travelDate;
     private String status;
@@ -14,10 +14,10 @@ public class BookingDTO {
     // Constructors
     public BookingDTO() {}
 
-    public BookingDTO(Long id, String passengerName, String flightNumber, LocalDateTime bookingDate, LocalDateTime travelDate, String status) {
+    public BookingDTO(Long id, String passengerName, String flightName, LocalDateTime bookingDate, LocalDateTime travelDate, String status) {
         this.id = id;
         this.passengerName = passengerName;
-        this.flightNumber = flightNumber;
+        this.flightName = flightName;
         this.bookingDate = bookingDate;
         this.travelDate = travelDate;
         this.status = status;
@@ -40,12 +40,12 @@ public class BookingDTO {
         this.passengerName = passengerName;
     }
 
-    public String getFlightNumber() {
-        return flightNumber;
+    public String getFlightName() {
+        return flightName;
     }
 
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
+    public void setFlightName(String flightName) {
+        this.flightName = flightName;
     }
 
     public LocalDateTime getBookingDate() {
