@@ -43,9 +43,9 @@ public class AdminController {
         return "Admin deleted";
     }
 
-    @PostMapping("/{id}/notification")
-    public Notification sendNotification(@PathVariable Long id,@RequestBody Notification notification){
-        return adminService.sendNotification(id, notification);
-    }
+//    @PostMapping("/{id}/notification")
+//    public Notification sendNotification(@PathVariable Long id,@RequestBody Notification notification){
+//        return adminService.sendNotification(id, notification);
+//    }
 
 }

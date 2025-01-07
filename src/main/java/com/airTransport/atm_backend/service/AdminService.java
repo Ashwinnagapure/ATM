@@ -12,6 +12,5 @@ public interface AdminService {
     String updateAdmin(Admin admin);
     String deleteAdmin(Long id);
 
-    Notification sendNotification(Long adminId,Notification notification);
 
 }
