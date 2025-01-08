@@ -81,8 +81,12 @@
 			<artifactId>byte-buddy-agent</artifactId>
 			<version>1.14.6</version> <!-- or the latest version -->
 		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

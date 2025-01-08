@@ -6,10 +6,19 @@ import com.airTransport.atm_backend.model.enums.PaymentStatus;
 import java.time.LocalDate;
 
 public class PaymentDTO {
+    private long paymentId;
     private double amount;
     private PaymentMethod paymentMethod;
     private PaymentStatus paymentStatus;
     private LocalDate paymentDate;
+
+    public long getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(long paymentId) {
+        this.paymentId = paymentId;
+    }
 
     public double getAmount() {
         return amount;
