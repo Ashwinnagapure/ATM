@@ -44,26 +44,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">PaymentReceiptMapper</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    66.7%
+    0%
   </span>
   <span class="absValue">
-    (2/3)
+    (0/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    87.5%
+    0%
   </span>
   <span class="absValue">
-    (7/8)
+    (0/8)
   </span>
 </td>
 </tr>
@@ -83,17 +83,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;public class PaymentReceiptMapper {</b>
 &nbsp;
 &nbsp;    public static PaymentReceiptDTO toDTO(PaymentReceipt receipt) {
-<b class="fc">&nbsp;        PaymentReceiptDTO dto = new PaymentReceiptDTO();</b>
-<b class="fc">&nbsp;        dto.setTransactionId(receipt.getTransactionId());</b>
-<b class="fc">&nbsp;        dto.setPaymentId(receipt.getPayment().getPaymentId());</b>
-<b class="fc">&nbsp;        return dto;</b>
+<b class="nc">&nbsp;        PaymentReceiptDTO dto = new PaymentReceiptDTO();</b>
+<b class="nc">&nbsp;        dto.setTransactionId(receipt.getTransactionId());</b>
+<b class="nc">&nbsp;        dto.setPaymentId(receipt.getPayment().getPaymentId());</b>
+<b class="nc">&nbsp;        return dto;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public static PaymentReceipt toEntity(PaymentReceiptDTO dto) {
-<b class="fc">&nbsp;        PaymentReceipt receipt = new PaymentReceipt();</b>
-<b class="fc">&nbsp;        receipt.setTransactionId(dto.getTransactionId());</b>
+<b class="nc">&nbsp;        PaymentReceipt receipt = new PaymentReceipt();</b>
+<b class="nc">&nbsp;        receipt.setTransactionId(dto.getTransactionId());</b>
 &nbsp;        // Payment must be fetched and set in the service layer
-<b class="fc">&nbsp;        return receipt;</b>
+<b class="nc">&nbsp;        return receipt;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -119,7 +119,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 11:34</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

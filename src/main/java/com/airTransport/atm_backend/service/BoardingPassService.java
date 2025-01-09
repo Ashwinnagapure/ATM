@@ -5,12 +5,9 @@ import com.airTransport.atm_backend.model.BoardingPass;
 import java.util.List;
 
 public interface BoardingPassService {
-    List<BoardingPass> getAllBoardingPasses();
-
-    BoardingPass createBoardingPassForPayment(Long paymentId, BoardingPass boardingPass);
-
+    BoardingPass generateBoardingPass(BoardingPass boardingPass);
     BoardingPass getBoardingPassById(Long id);
-    BoardingPass createBoardingPass(BoardingPass boardingPass);
-    BoardingPass updateBoardingPass(Long id, BoardingPass boardingPass);
+    List<BoardingPass> getAllBoardingPasses();
+    BoardingPass updateBoardingPass(Long id, BoardingPass updatedBoardingPass);
     void deleteBoardingPass(Long id);
 }

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > LogRepository</title>
+  <title>Coverage Report > FlightManagementService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.repository</a>
+    <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: LogRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: FlightManagementService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
 
@@ -30,13 +30,13 @@ Current scope:     <a href="../../index.html">all classes</a>
   <th class="name">Class</th>
 </tr>
   <tr>
-    <td class="name">LogRepository$MockitoMock$UGxhvACX</td>
+    <td class="name">FlightManagementService$MockitoMock$cvYItBa7</td>
   </tr>
   <tr>
-    <td class="name">LogRepository$MockitoMock$UGxhvACX$auxiliary$GBPHbTvT</td>
+    <td class="name">FlightManagementService$MockitoMock$cvYItBa7$auxiliary$TKchIrOP</td>
   </tr>
   <tr>
-    <td class="name">LogRepository$MockitoMock$UGxhvACX$auxiliary$TKxUF0XT</td>
+    <td class="name">FlightManagementService$MockitoMock$cvYItBa7$auxiliary$VKBkoaH0</td>
   </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
@@ -48,15 +48,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.Log;
-&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
-&nbsp;import org.springframework.stereotype.Repository;
+&nbsp;import com.airTransport.atm_backend.dto.FlightCreateDTO;
+&nbsp;import com.airTransport.atm_backend.dto.FlightResponseDTO;
+&nbsp;import java.util.List;
 &nbsp;
-&nbsp;@Repository
-&nbsp;public interface LogRepository extends JpaRepository&lt;Log, Long&gt; {
+&nbsp;public interface FlightManagementService {
 &nbsp;
+&nbsp;    boolean trackFlightStatus(long flightId);
+&nbsp;    boolean scheduleFlights(FlightCreateDTO flightCreateDTO); // Accept DTO
+&nbsp;    boolean cancelFlights(long flightId);
+&nbsp;
+&nbsp;    FlightResponseDTO getFlightById(Long flightId); // Return DTO
 &nbsp;}
 </code>
 </pre>
@@ -81,7 +85,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 11:34</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

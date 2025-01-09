@@ -1,43 +1,48 @@
 package com.airTransport.atm_backend.service.Impl;
 
-import com.airTransport.atm_backend.dto.PaymentDTO;
-import com.airTransport.atm_backend.mapper.PaymentMapper;
-import com.airTransport.atm_backend.model.Booking;
+import com.airTransport.atm_backend.exceptions.NotFoundException;
 import com.airTransport.atm_backend.model.Payment;
-import com.airTransport.atm_backend.repository.BookingRepository;
 import com.airTransport.atm_backend.repository.PaymentRepository;
 import com.airTransport.atm_backend.service.PaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    private final PaymentRepository paymentRepository;
-    private final BookingRepository bookingRepository;
-
-    public PaymentServiceImpl(PaymentRepository paymentRepository, BookingRepository bookingRepository) {
-        this.paymentRepository = paymentRepository;
-        this.bookingRepository = bookingRepository;
-    }
-
-
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @Override
-    public PaymentDTO createPayment(PaymentDTO paymentDTO, Long bookingId) {
-        Booking booking = bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new RuntimeException("Booking not found"));
-
-        Payment payment = PaymentMapper.toEntity(paymentDTO);
-        payment.setBooking(booking);
-        paymentRepository.save(payment);
-
-        return PaymentMapper.toDTO(payment);
+    public Payment processPayment(Payment payment) {
+        payment.setStatus("COMPLETED");
+        return paymentRepository.save(payment);
     }
+
     @Override
-    public PaymentDTO getPaymentById(long id) {
-        Optional<Payment> payment = paymentRepository.findById(id);
-        return payment.map(PaymentMapper::toDTO).orElse(null);
+    public Payment getPaymentById(Long id) {
+        return paymentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Payment not found with ID: " + id));
+    }
+
+    @Override
+    public List<Payment> getAllPayments() {
+        return paymentRepository.findAll();
+    }
+
+    @Override
+    public Payment updatePayment(Long id, Payment updatedPayment) {
+        Payment existingPayment = getPaymentById(id);
+        existingPayment.setAmount(updatedPayment.getAmount());
+        existingPayment.setStatus(updatedPayment.getStatus());
+        return paymentRepository.save(existingPayment);
+    }
+
+    @Override
+    public void deletePayment(Long id) {
+        Payment payment = getPaymentById(id);
+        paymentRepository.delete(payment);
     }
 }

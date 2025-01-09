@@ -1,55 +1,45 @@
 package com.airTransport.atm_backend.controller;
 
-import com.airTransport.atm_backend.dto.BaggageDTO;
+import com.airTransport.atm_backend.model.Baggage;
 import com.airTransport.atm_backend.service.BaggageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/baggage")
+@RequestMapping("/baggages")
 public class BaggageController {
 
     @Autowired
     private BaggageService baggageService;
 
-    // Existing endpoints...
-
-    @GetMapping("/{baggageId}")
-    public BaggageDTO getBaggageById(@PathVariable Long baggageId) {
-        return baggageService.getBaggageById(baggageId);
+    // Fetch all baggage for a specific booking
+    @GetMapping("/booking/{bookingId}")
+    public ResponseEntity<List<Baggage>> getBaggageByBookingId(@PathVariable Long bookingId) {
+        List<Baggage> baggages = baggageService.getBaggageByBookingId(bookingId);
+        return ResponseEntity.ok(baggages);
     }
 
-    @GetMapping("/byBooking/{bookingId}")
-    public List<BaggageDTO> getBaggageByBookingId(@PathVariable Long bookingId) {
-        return baggageService.getBaggageByBookingId(bookingId);
+    // Add a new baggage to a specific booking
+    @PostMapping("/booking/{bookingId}")
+    public ResponseEntity<Baggage> addBaggageToBooking(@PathVariable Long bookingId, @RequestBody Baggage baggage) {
+        Baggage createdBaggage = baggageService.addBaggageToBooking(bookingId, baggage);
+        return ResponseEntity.ok(createdBaggage);
     }
 
-    @PostMapping("/create")
-    public BaggageDTO createBaggage(@RequestBody BaggageDTO baggageDTO) {
-        return baggageService.createBaggageFromParams(
-                baggageDTO.getBookingId(),
-                baggageDTO.isBaggageLimit(),
-                baggageDTO.getWeight(),
-                baggageDTO.getLuggageCount());
+    // Update baggage details
+    @PutMapping("/{baggageId}")
+    public ResponseEntity<Baggage> updateBaggage(@PathVariable Long baggageId, @RequestBody Baggage baggage) {
+        Baggage updatedBaggage = baggageService.updateBaggage(baggageId, baggage);
+        return ResponseEntity.ok(updatedBaggage);
     }
 
-
-
-    // New endpoints for the methods
-    @GetMapping("/limit/{baggageId}")
-    public boolean getBaggageLimit(@PathVariable Long baggageId) {
-        return baggageService.getBaggageLimit(baggageId);
+    // Delete baggage by ID
+    @DeleteMapping("/{baggageId}")
+    public ResponseEntity<String> deleteBaggage(@PathVariable Long baggageId) {
+        baggageService.deleteBaggage(baggageId);
+        return ResponseEntity.ok("Baggage deleted successfully.");
     }
-
-
-    @PostMapping("/lost/{baggageId}")
-    public boolean reportLostBaggage(@PathVariable Long baggageId, @RequestBody String feedback) {
-        return baggageService.reportLostBaggage(baggageId, feedback);
-    }
-
-
-
 }

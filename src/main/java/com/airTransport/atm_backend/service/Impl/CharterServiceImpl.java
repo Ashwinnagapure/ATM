@@ -1,8 +1,7 @@
 package com.airTransport.atm_backend.service.Impl;
 
-import com.airTransport.atm_backend.model.Admin;
+import com.airTransport.atm_backend.exceptions.NotFoundException;
 import com.airTransport.atm_backend.model.Charter;
-import com.airTransport.atm_backend.model.Passenger;
 import com.airTransport.atm_backend.repository.CharterRepository;
 import com.airTransport.atm_backend.service.CharterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +15,15 @@ public class CharterServiceImpl implements CharterService {
     @Autowired
     private CharterRepository charterRepository;
 
-    @Autowired
-    private PassengerServiceImpl passengerService;
-
-
-
+    @Override
+    public Charter addCharter(Charter charter) {
+        return charterRepository.save(charter);
+    }
 
     @Override
-    public Charter saveCharter(Charter charter) {
-        return charterRepository.save(charter);
+    public Charter getCharterById(Long id) {
+        return charterRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Charter not found with ID: " + id));
     }
 
     @Override
@@ -33,33 +32,18 @@ public class CharterServiceImpl implements CharterService {
     }
 
     @Override
-    public Charter getCharterById(long id) {
-        return charterRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Charter not found with ID: " + id));
-    }
-
-    @Override
-    public Charter updateCharter(long id, Charter charter) {
+    public Charter updateCharter(Long id, Charter updatedCharter) {
         Charter existingCharter = getCharterById(id);
-        existingCharter.setVehicleType(charter.getVehicleType());
-        existingCharter.setSource(charter.getSource());
-        existingCharter.setDestination(charter.getDestination());
-        existingCharter.setDeparture(charter.getDeparture());
-        existingCharter.setArrival(charter.getArrival());
-        existingCharter.setStatus(charter.getStatus());
+        existingCharter.setVehicleType(updatedCharter.getVehicleType());
+        existingCharter.setPrice(updatedCharter.getPrice());
+        existingCharter.setDepartureTime(updatedCharter.getDepartureTime());
+        existingCharter.setArrivalTime(updatedCharter.getArrivalTime());
         return charterRepository.save(existingCharter);
     }
 
     @Override
-    public void deleteCharter(long id) {
-        charterRepository.deleteById(id);
+    public void deleteCharter(Long id) {
+        Charter charter = getCharterById(id);
+        charterRepository.delete(charter);
     }
-
-    @Override
-    public List<Charter> getChartersByPassenger(Long passengerId) {
-        Passenger passenger = passengerService.getPassengerById(passengerId);
-        return charterRepository.findByPassenger(passenger);
-    }
-
-
 }

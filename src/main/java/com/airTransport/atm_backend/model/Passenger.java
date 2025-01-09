@@ -1,78 +1,67 @@
 package com.airTransport.atm_backend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
 @Table(name = "passengers")
-@PrimaryKeyJoinColumn(name = "id")
-public class Passenger extends User {
+public class Passenger {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String complaint;
+    @Column(nullable = false)
+    private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "passenger_flights",
-            joinColumns = @JoinColumn(name = "passenger_id"),
-            inverseJoinColumns = @JoinColumn(name = "flight_id")
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    )
-    private List<Flight> flights;
+    @Column(nullable = false)
+    private String phone;
 
-    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL)
-    private List<Notification> notification;
+    @ManyToOne
+    @JoinColumn(name = "booking_id", nullable = false)
+    private Booking booking;
 
-    @OneToMany(mappedBy = "passenger",cascade = CascadeType.ALL)
-    private List<Booking> bookings;
-
-    @JsonBackReference
-    @OneToMany(mappedBy = "passenger",cascade = CascadeType.ALL)
-    private List<Charter>charters;
-
-
-    public Passenger() {
-
+    // Getters and Setters
+    public Long getId() {
+        return id;
     }
 
-    public Passenger(long l, String johnDoe, String mail) {
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getComplaint() {
-        return complaint;
+    public String getName() {
+        return name;
     }
 
-    public void setComplaint(String complaint) {
-        this.complaint = complaint;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public List<Notification> getNotification() {
-        return notification;
-    }
-    public void setNotification(List<Notification> notification) {
-        this.notification = notification;
+    public String getEmail() {
+        return email;
     }
 
-    public List<Booking> getBookings(){
-        return bookings;
-    }
-    public void setBookings(List<Booking>bookings){
-        this.bookings = bookings;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public List<Charter>getCharters(){
-        return charters;
-    }
-    public void setCharters(List<Charter>charters){
-        this.charters = charters;
-    }
-    public List<Flight> getFlights() {
-        return flights;
-    }
-    public void setFlights(List<Flight>flights){
-        this.flights=flights;
+    public String getPhone() {
+        return phone;
     }
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
 }

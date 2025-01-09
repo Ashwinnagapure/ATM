@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > TravelPreferences</title>
+  <title>Coverage Report > FlightSearchService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,19 +19,28 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.repository</a>
+    <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: TravelPreferences (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: FlightSearchService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">FlightSearchService$MockitoMock$fg2urFkC</td>
+  </tr>
+  <tr>
+    <td class="name">FlightSearchService$MockitoMock$fg2urFkC$auxiliary$jmM6YYJU</td>
+  </tr>
+  <tr>
+    <td class="name">FlightSearchService$MockitoMock$fg2urFkC$auxiliary$VeNMB2B4</td>
+  </tr>
 <tr>
-  <td class="name">TravelPreferences</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -39,11 +48,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
-&nbsp;public interface TravelPreferences {
-&nbsp;    public void saveTravelPreferences(String params, TravelPreferences tp);
-&nbsp;    public TravelPreferences getTravelPreferences(String params);
+&nbsp;import com.airTransport.atm_backend.dto.FlightResponseDTO;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface FlightSearchService {
+&nbsp;
+&nbsp;    List&lt;FlightResponseDTO&gt; sortByPrice();  // Return DTO
+&nbsp;    List&lt;FlightResponseDTO&gt; sortByAirline(); // Return DTO
+&nbsp;    List&lt;FlightResponseDTO&gt; sortByClass(); // Return DTO
 &nbsp;}
 </code>
 </pre>
@@ -68,7 +82,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 11:34</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

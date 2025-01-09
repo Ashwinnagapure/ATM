@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">BaggageServiceImpl</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (7/7)
+    (0/7)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (4/4)
+    (0/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (34/34)
+    (0/34)
   </span>
 </td>
 </tr>
@@ -104,7 +104,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.util.stream.Collectors;
 &nbsp;
 &nbsp;@Service
-<b class="fc">&nbsp;public class BaggageServiceImpl implements BaggageService {</b>
+<b class="nc">&nbsp;public class BaggageServiceImpl implements BaggageService {</b>
 &nbsp;
 &nbsp;    @Autowired
 &nbsp;    private BaggageRepository baggageRepository;
@@ -117,28 +117,28 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @Override
 &nbsp;    @Transactional
 &nbsp;    public boolean getBaggageLimit(Long baggageId) {
-<b class="fc">&nbsp;        Optional&lt;Baggage&gt; baggageOptional = baggageRepository.findById(baggageId);</b>
-<b class="fc">&nbsp;        if (baggageOptional.isPresent()) {</b>
-<b class="fc">&nbsp;            Baggage baggage = baggageOptional.get();</b>
+<b class="nc">&nbsp;        Optional&lt;Baggage&gt; baggageOptional = baggageRepository.findById(baggageId);</b>
+<b class="nc">&nbsp;        if (baggageOptional.isPresent()) {</b>
+<b class="nc">&nbsp;            Baggage baggage = baggageOptional.get();</b>
 &nbsp;
 &nbsp;            // Return baggage limit status
-<b class="fc">&nbsp;            return baggage.getBaggageLimit();</b>
+<b class="nc">&nbsp;            return baggage.getBaggageLimit();</b>
 &nbsp;        }
-<b class="fc">&nbsp;        return false;</b>
+<b class="nc">&nbsp;        return false;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
 &nbsp;    @Override
 &nbsp;    @Transactional
 &nbsp;    public boolean reportLostBaggage(Long baggageId, String feedback) {
-<b class="fc">&nbsp;        Optional&lt;Baggage&gt; baggageOptional = baggageRepository.findById(baggageId);</b>
-<b class="fc">&nbsp;        if (baggageOptional.isPresent()) {</b>
-<b class="fc">&nbsp;            Baggage baggage = baggageOptional.get();</b>
-<b class="fc">&nbsp;            baggage.setFeedback(feedback);</b>
-<b class="fc">&nbsp;            baggageRepository.save(baggage);</b>
-<b class="fc">&nbsp;            return true;</b>
+<b class="nc">&nbsp;        Optional&lt;Baggage&gt; baggageOptional = baggageRepository.findById(baggageId);</b>
+<b class="nc">&nbsp;        if (baggageOptional.isPresent()) {</b>
+<b class="nc">&nbsp;            Baggage baggage = baggageOptional.get();</b>
+<b class="nc">&nbsp;            baggage.setFeedback(feedback);</b>
+<b class="nc">&nbsp;            baggageRepository.save(baggage);</b>
+<b class="nc">&nbsp;            return true;</b>
 &nbsp;        }
-<b class="fc">&nbsp;        return false;</b>
+<b class="nc">&nbsp;        return false;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
@@ -146,17 +146,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @Override
 &nbsp;    @Transactional
 &nbsp;    public BaggageDTO getBaggageById(Long baggageId) {
-<b class="fc">&nbsp;        Optional&lt;Baggage&gt; baggageOptional = baggageRepository.findById(baggageId);</b>
-<b class="fc">&nbsp;        return baggageOptional.map(this::convertToDTO).orElse(null);</b>
+<b class="nc">&nbsp;        Optional&lt;Baggage&gt; baggageOptional = baggageRepository.findById(baggageId);</b>
+<b class="nc">&nbsp;        return baggageOptional.map(this::convertToDTO).orElse(null);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    @Transactional
 &nbsp;    public List&lt;BaggageDTO&gt; getBaggageByBookingId(Long bookingId) {
-<b class="fc">&nbsp;        List&lt;Baggage&gt; baggages = baggageRepository.findByBookingId(bookingId);</b>
-<b class="fc">&nbsp;        return baggages.stream()</b>
-<b class="fc">&nbsp;                .map(this::convertToDTO)</b>
-<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+<b class="nc">&nbsp;        List&lt;Baggage&gt; baggages = baggageRepository.findByBookingId(bookingId);</b>
+<b class="nc">&nbsp;        return baggages.stream()</b>
+<b class="nc">&nbsp;                .map(this::convertToDTO)</b>
+<b class="nc">&nbsp;                .collect(Collectors.toList());</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
@@ -164,24 +164,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @Transactional
 &nbsp;    @Override
 &nbsp;    public BaggageDTO createBaggageFromParams(Long bookingId, boolean baggageLimit, double weight, int luggageCount) {
-<b class="fc">&nbsp;        Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -&gt; new RuntimeException(&quot;Booking not found&quot;));</b>
-<b class="fc">&nbsp;        Baggage baggage = new Baggage();</b>
-<b class="fc">&nbsp;        baggage.setBaggageLimit(baggageLimit);</b>
-<b class="fc">&nbsp;        baggage.setWeight(weight);</b>
-<b class="fc">&nbsp;        baggage.setLuggageCount(luggageCount);</b>
-<b class="fc">&nbsp;        baggage.setBooking(booking);</b>
-<b class="fc">&nbsp;        Baggage savedBaggage = baggageRepository.save(baggage);</b>
-<b class="fc">&nbsp;        return convertToDTO(savedBaggage);</b>
+<b class="nc">&nbsp;        Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -&gt; new RuntimeException(&quot;Booking not found&quot;));</b>
+<b class="nc">&nbsp;        Baggage baggage = new Baggage();</b>
+<b class="nc">&nbsp;        baggage.setBaggageLimit(baggageLimit);</b>
+<b class="nc">&nbsp;        baggage.setWeight(weight);</b>
+<b class="nc">&nbsp;        baggage.setLuggageCount(luggageCount);</b>
+<b class="nc">&nbsp;        baggage.setBooking(booking);</b>
+<b class="nc">&nbsp;        Baggage savedBaggage = baggageRepository.save(baggage);</b>
+<b class="nc">&nbsp;        return convertToDTO(savedBaggage);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    private BaggageDTO convertToDTO(Baggage baggage) {
-<b class="fc">&nbsp;        return new BaggageDTO(</b>
-<b class="fc">&nbsp;                baggage.getBaggageId(),</b>
-<b class="fc">&nbsp;                baggage.getBooking().getId(),</b>
-<b class="fc">&nbsp;                baggage.getBaggageLimit(),</b>
-<b class="fc">&nbsp;                baggage.getWeight(),</b>
-<b class="fc">&nbsp;                baggage.getLuggageCount(),</b>
-<b class="fc">&nbsp;                baggage.getFeedback() // Add the feedback field here</b>
+<b class="nc">&nbsp;        return new BaggageDTO(</b>
+<b class="nc">&nbsp;                baggage.getBaggageId(),</b>
+<b class="nc">&nbsp;                baggage.getBooking().getId(),</b>
+<b class="nc">&nbsp;                baggage.getBaggageLimit(),</b>
+<b class="nc">&nbsp;                baggage.getWeight(),</b>
+<b class="nc">&nbsp;                baggage.getLuggageCount(),</b>
+<b class="nc">&nbsp;                baggage.getFeedback() // Add the feedback field here</b>
 &nbsp;        );
 &nbsp;    }
 &nbsp;
@@ -209,7 +209,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 11:34</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>
