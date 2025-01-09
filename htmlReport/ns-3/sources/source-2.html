@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BaggageController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.airTransport.atm_backend.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: BaggageController (com.airTransport.atm_backend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BaggageController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (5/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.controller;
+&nbsp;
+&nbsp;import com.airTransport.atm_backend.dto.BaggageDTO;
+&nbsp;import com.airTransport.atm_backend.service.BaggageService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/baggage&quot;)
+<b class="fc">&nbsp;public class BaggageController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private BaggageService baggageService;
+&nbsp;
+&nbsp;    // Existing endpoints...
+&nbsp;
+&nbsp;    @GetMapping(&quot;/{baggageId}&quot;)
+&nbsp;    public BaggageDTO getBaggageById(@PathVariable Long baggageId) {
+<b class="fc">&nbsp;        return baggageService.getBaggageById(baggageId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/byBooking/{bookingId}&quot;)
+&nbsp;    public List&lt;BaggageDTO&gt; getBaggageByBookingId(@PathVariable Long bookingId) {
+<b class="fc">&nbsp;        return baggageService.getBaggageByBookingId(bookingId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;/create&quot;)
+&nbsp;    public BaggageDTO createBaggage(@RequestBody BaggageDTO baggageDTO) {
+<b class="nc">&nbsp;        return baggageService.createBaggageFromParams(</b>
+<b class="nc">&nbsp;                baggageDTO.getBookingId(),</b>
+<b class="nc">&nbsp;                baggageDTO.isBaggageLimit(),</b>
+<b class="nc">&nbsp;                baggageDTO.getWeight(),</b>
+<b class="nc">&nbsp;                baggageDTO.getLuggageCount());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    // New endpoints for the methods
+&nbsp;    @GetMapping(&quot;/limit/{baggageId}&quot;)
+&nbsp;    public boolean getBaggageLimit(@PathVariable Long baggageId) {
+<b class="fc">&nbsp;        return baggageService.getBaggageLimit(baggageId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @PostMapping(&quot;/lost/{baggageId}&quot;)
+&nbsp;    public boolean reportLostBaggage(@PathVariable Long baggageId, @RequestBody String feedback) {
+<b class="fc">&nbsp;        return baggageService.reportLostBaggage(baggageId, feedback);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
+</div>
+</body>
+</html>

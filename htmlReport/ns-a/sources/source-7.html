@@ -1,0 +1,223 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > FlightServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.airTransport.atm_backend.service.Impl</a>
+</div>
+
+<h1>Coverage Summary for Class: FlightServiceImpl (com.airTransport.atm_backend.service.Impl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FlightServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (43/43)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service.Impl;
+&nbsp;
+&nbsp;import com.airTransport.atm_backend.dto.FlightCreateDTO;
+&nbsp;import com.airTransport.atm_backend.dto.FlightResponseDTO;
+&nbsp;import com.airTransport.atm_backend.model.Admin;
+&nbsp;import com.airTransport.atm_backend.model.Flight;
+&nbsp;import com.airTransport.atm_backend.repository.FlightRepository;
+&nbsp;import com.airTransport.atm_backend.service.AdminService;
+&nbsp;import com.airTransport.atm_backend.service.FlightManagementService;
+&nbsp;import com.airTransport.atm_backend.service.FlightSearchService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import java.util.List;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;public class FlightServiceImpl implements FlightManagementService, FlightSearchService {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private FlightRepository flightRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private AdminService adminService;
+&nbsp;
+&nbsp;    // FlightManagementService Implementation
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean trackFlightStatus(long flightId) {
+<b class="fc">&nbsp;        return flightRepository.existsById(flightId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean scheduleFlights(FlightCreateDTO flightCreateDTO) {
+<b class="fc">&nbsp;        Flight flight = convertToFlightEntity(flightCreateDTO);</b>
+<b class="fc">&nbsp;        flightRepository.save(flight);</b>
+<b class="fc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean cancelFlights(long flightId) {
+<b class="fc">&nbsp;        if (flightRepository.existsById(flightId)) {</b>
+<b class="fc">&nbsp;            flightRepository.deleteById(flightId);</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public FlightResponseDTO getFlightById(Long flightId) {
+<b class="fc">&nbsp;        Flight flight = flightRepository.findById(flightId).orElse(null);</b>
+<b class="fc">&nbsp;        return flight != null ? convertToFlightResponseDTO(flight) : null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // FlightSearchService Implementation
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;FlightResponseDTO&gt; sortByPrice() {
+<b class="fc">&nbsp;        return flightRepository.findAllByOrderByPriceAsc().stream()</b>
+<b class="fc">&nbsp;                .map(this::convertToFlightResponseDTO)</b>
+<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;FlightResponseDTO&gt; sortByAirline() {
+<b class="fc">&nbsp;        return flightRepository.findAllByOrderByAirlineAsc().stream()</b>
+<b class="fc">&nbsp;                .map(this::convertToFlightResponseDTO)</b>
+<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;FlightResponseDTO&gt; sortByClass() {
+<b class="fc">&nbsp;        return flightRepository.findAllByOrderByFlightClassAsc().stream()</b>
+<b class="fc">&nbsp;                .map(this::convertToFlightResponseDTO)</b>
+<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Helper Methods for Conversion
+&nbsp;
+&nbsp;    private Flight convertToFlightEntity(FlightCreateDTO dto) {
+<b class="fc">&nbsp;        Flight flight = new Flight();</b>
+<b class="fc">&nbsp;        flight.setFlightName(dto.getFlightName());</b>
+<b class="fc">&nbsp;        flight.setDeparture(dto.getDeparture());</b>
+<b class="fc">&nbsp;        flight.setArrival(dto.getArrival());</b>
+<b class="fc">&nbsp;        flight.setSource(dto.getSource());</b>
+<b class="fc">&nbsp;        flight.setDestination(dto.getDestination());</b>
+<b class="fc">&nbsp;        flight.setPrice(dto.getPrice());</b>
+<b class="fc">&nbsp;        flight.setAirline(dto.getAirline());</b>
+<b class="fc">&nbsp;        flight.setFlightClass(dto.getFlightClass());</b>
+<b class="fc">&nbsp;        flight.setAdmin(adminService.getAdminById(dto.getAdminId()));</b>
+<b class="fc">&nbsp;        return flight;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private FlightResponseDTO convertToFlightResponseDTO(Flight flight) {
+<b class="fc">&nbsp;        FlightResponseDTO dto = new FlightResponseDTO();</b>
+<b class="fc">&nbsp;        dto.setFlightId(flight.getFlightId());</b>
+<b class="fc">&nbsp;        dto.setFlightName(flight.getFlightName());</b>
+<b class="fc">&nbsp;        dto.setDeparture(flight.getDeparture());</b>
+<b class="fc">&nbsp;        dto.setArrival(flight.getArrival());</b>
+<b class="fc">&nbsp;        dto.setStatus(flight.getStatus());</b>
+<b class="fc">&nbsp;        dto.setSource(flight.getSource());</b>
+<b class="fc">&nbsp;        dto.setDestination(flight.getDestination());</b>
+<b class="fc">&nbsp;        dto.setPrice(flight.getPrice());</b>
+<b class="fc">&nbsp;        dto.setAirline(flight.getAirline());</b>
+<b class="fc">&nbsp;        dto.setFlightClass(flight.getFlightClass());</b>
+<b class="fc">&nbsp;        return dto;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
+</div>
+</body>
+</html>
