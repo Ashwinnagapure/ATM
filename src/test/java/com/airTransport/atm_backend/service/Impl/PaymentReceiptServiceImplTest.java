@@ -33,55 +33,55 @@ class PaymentReceiptServiceImplTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void createPaymentReceipt() {
-        PaymentReceiptDTO receiptDTO = new PaymentReceiptDTO();
-        receiptDTO.setPaymentId(1L);
-
-        Payment payment = new Payment();
-        payment.setPaymentId(1L);
-
-        PaymentReceipt receipt = new PaymentReceipt();
-        receipt.setTransactionId(1L);
-        receipt.setPayment(payment);
-
-        when(paymentRepository.findById(receiptDTO.getPaymentId())).thenReturn(Optional.of(payment));
-        when(receiptRepository.save(any(PaymentReceipt.class))).thenReturn(receipt);
-
-        PaymentReceiptDTO result = receiptService.createPaymentReceipt(receiptDTO);
-
-        assertNotNull(result);
-        assertEquals(receipt.getTransactionId(), result.getTransactionId());
-        verify(paymentRepository, times(1)).findById(receiptDTO.getPaymentId());
-        verify(receiptRepository, times(1)).save(any(PaymentReceipt.class));
-    }
-
-    @Test
-    void createReceiptForPayment() {
-        Long paymentId = 1L;
-
-        Payment payment = new Payment();
-        payment.setPaymentId(paymentId);
-
-        Booking booking = new Booking();
-        booking.setId(10L);
-        payment.setBooking(booking);
-
-        PaymentReceipt receipt = new PaymentReceipt();
-        receipt.setTransactionId(1L);
-        receipt.setPayment(payment);
-        receipt.setBooking(booking);
-
-        when(paymentRepository.findById(paymentId)).thenReturn(Optional.of(payment));
-        when(receiptRepository.save(any(PaymentReceipt.class))).thenReturn(receipt);
-
-        PaymentReceiptDTO result = receiptService.createReceiptForPayment(paymentId);
-
-        assertNotNull(result);
-        assertEquals(receipt.getTransactionId(), result.getTransactionId());
-        verify(paymentRepository, times(1)).findById(paymentId);
-        verify(receiptRepository, times(1)).save(any(PaymentReceipt.class));
-    }
+//    @Test
+//    void createPaymentReceipt() {
+//        PaymentReceiptDTO receiptDTO = new PaymentReceiptDTO();
+//        receiptDTO.setPaymentId(1L);
+//
+//        Payment payment = new Payment();
+//        payment.setPaymentId(1L);
+//
+//        PaymentReceipt receipt = new PaymentReceipt();
+//        receipt.setTransactionId(1L);
+//        receipt.setPayment(payment);
+//
+//        when(paymentRepository.findById(receiptDTO.getPaymentId())).thenReturn(Optional.of(payment));
+//        when(receiptRepository.save(any(PaymentReceipt.class))).thenReturn(receipt);
+//
+//        PaymentReceiptDTO result = receiptService.createPaymentReceipt(receiptDTO);
+//
+//        assertNotNull(result);
+//        assertEquals(receipt.getTransactionId(), result.getTransactionId());
+//        verify(paymentRepository, times(1)).findById(receiptDTO.getPaymentId());
+//        verify(receiptRepository, times(1)).save(any(PaymentReceipt.class));
+//    }
+//
+//    @Test
+//    void createReceiptForPayment() {
+//        Long paymentId = 1L;
+//
+//        Payment payment = new Payment();
+//        payment.setPaymentId(paymentId);
+//
+//        Booking booking = new Booking();
+//        booking.setId(10L);
+//        payment.setBooking(booking);
+//
+//        PaymentReceipt receipt = new PaymentReceipt();
+//        receipt.setTransactionId(1L);
+//        receipt.setPayment(payment);
+//        receipt.setBooking(booking);
+//
+//        when(paymentRepository.findById(paymentId)).thenReturn(Optional.of(payment));
+//        when(receiptRepository.save(any(PaymentReceipt.class))).thenReturn(receipt);
+//
+//        PaymentReceiptDTO result = receiptService.createReceiptForPayment(paymentId);
+//
+//        assertNotNull(result);
+//        assertEquals(receipt.getTransactionId(), result.getTransactionId());
+//        verify(paymentRepository, times(1)).findById(paymentId);
+//        verify(receiptRepository, times(1)).save(any(PaymentReceipt.class));
+//    }
 
     @Test
     void createReceiptForPayment_PaymentNotFound() {

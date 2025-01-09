@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > UserManagement</title>
+  <title>Coverage Report > UserService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,17 +19,17 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.repository</a>
+    <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: UserManagement (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: UserService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">UserManagement</td>
+  <td class="name">UserService</td>
 </tr>
 
 </table>
@@ -39,14 +39,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
+&nbsp;
+&nbsp;
+&nbsp;// importing UserDTO and LoginDTO
+&nbsp;import com.airTransport.atm_backend.dto.LoginDTO;
+&nbsp;import com.airTransport.atm_backend.dto.UserDTO;
+&nbsp;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface UserManagement {
-&nbsp;    public Boolean deleteUserAccount(String paramas);
-&nbsp;    public boolean createUserAccount(String params);
-&nbsp;    public boolean deactivateUserAccount(String params) ;
-&nbsp;    public List&lt;String&gt; getallUsers();
+&nbsp;
+&nbsp;public interface UserService{
+&nbsp;    List&lt;UserDTO&gt; getAllUsers();
+&nbsp;    String registerUser(UserDTO userDTO);
+&nbsp;    String loginUser(LoginDTO loginDTO);
+&nbsp;    void logout();
 &nbsp;}
 </code>
 </pre>
@@ -71,7 +78,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-07 17:50</div>
+    <div style="float:right;">generated on 2025-01-08 17:46</div>
 </div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > PaymentReceiptRepository</title>
+  <title>Coverage Report > PassengerService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,19 +19,28 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.repository</a>
+    <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: PaymentReceiptRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: PassengerService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">PassengerService$MockitoMock$Kz5yzTh1</td>
+  </tr>
+  <tr>
+    <td class="name">PassengerService$MockitoMock$Kz5yzTh1$auxiliary$scKXpYfs</td>
+  </tr>
+  <tr>
+    <td class="name">PassengerService$MockitoMock$Kz5yzTh1$auxiliary$urTXzhGO</td>
+  </tr>
 <tr>
-  <td class="name">PaymentReceiptRepository</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -39,12 +48,20 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.PaymentReceipt;
-&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import com.airTransport.atm_backend.model.Passenger;
+&nbsp;import org.springframework.stereotype.Service;
 &nbsp;
-&nbsp;public interface PaymentReceiptRepository extends JpaRepository&lt;PaymentReceipt, Long&gt; {
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;
+&nbsp;public interface PassengerService {
+&nbsp;    public  String addPassenger(Passenger passenger);
+&nbsp;    Passenger getPassengerById(Long PassengerId);
+&nbsp;    List&lt;Passenger&gt; getAllPassengers();
+&nbsp;    void deletePassenger(Long PassengerId);
+&nbsp;    Passenger updatePassenger(Passenger passenger);
 &nbsp;}
 </code>
 </pre>
@@ -69,7 +86,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-07 17:50</div>
+    <div style="float:right;">generated on 2025-01-08 17:46</div>
 </div>
 </body>
 </html>

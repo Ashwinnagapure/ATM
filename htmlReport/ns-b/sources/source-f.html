@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > TravelPreferencesRepository</title>
+  <title>Coverage Report > PaymentReceiptService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,19 +19,28 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.repository</a>
+    <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: TravelPreferencesRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: PaymentReceiptService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">PaymentReceiptService$MockitoMock$wXULWmti</td>
+  </tr>
+  <tr>
+    <td class="name">PaymentReceiptService$MockitoMock$wXULWmti$auxiliary$cVCghWpw</td>
+  </tr>
+  <tr>
+    <td class="name">PaymentReceiptService$MockitoMock$wXULWmti$auxiliary$pb1Cy4eu</td>
+  </tr>
 <tr>
-  <td class="name">TravelPreferencesRepository</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -39,17 +48,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.TravelPreferences;
-&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
-&nbsp;import org.springframework.stereotype.Repository;
+&nbsp;import com.airTransport.atm_backend.dto.PaymentReceiptDTO;
 &nbsp;
-&nbsp;import java.util.List;
+&nbsp;public interface PaymentReceiptService {
+&nbsp;    PaymentReceiptDTO createPaymentReceipt(PaymentReceiptDTO receiptDTO);
 &nbsp;
-&nbsp;@Repository
-&nbsp;public interface TravelPreferencesRepository extends JpaRepository&lt;TravelPreferences, Long&gt; {
-&nbsp;    List&lt;TravelPreferences&gt; findByPassengerId(Long passengerId);
+&nbsp;    PaymentReceiptDTO createReceiptForPayment(Long paymentId);
+&nbsp;
+&nbsp;    PaymentReceiptDTO getPaymentReceiptById(long id);
 &nbsp;}
 </code>
 </pre>
@@ -74,7 +82,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-07 17:50</div>
+    <div style="float:right;">generated on 2025-01-08 17:46</div>
 </div>
 </body>
 </html>

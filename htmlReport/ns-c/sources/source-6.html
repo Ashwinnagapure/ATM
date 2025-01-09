@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > BoardingPassService</title>
+  <title>Coverage Report > BookingRepository</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,19 +19,28 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.service</a>
+    <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: BoardingPassService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: BookingRepository (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">BookingRepository$MockitoMock$S61ZsjKS</td>
+  </tr>
+  <tr>
+    <td class="name">BookingRepository$MockitoMock$S61ZsjKS$auxiliary$bxJlJB41</td>
+  </tr>
+  <tr>
+    <td class="name">BookingRepository$MockitoMock$S61ZsjKS$auxiliary$RGv4efqJ</td>
+  </tr>
 <tr>
-  <td class="name">BoardingPassService</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -39,21 +48,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.BoardingPass;
+&nbsp;import com.airTransport.atm_backend.model.Booking;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
 &nbsp;
-&nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface BoardingPassService {
-&nbsp;    List&lt;BoardingPass&gt; getAllBoardingPasses();
 &nbsp;
-&nbsp;    BoardingPass createBoardingPassForPayment(Long paymentId, BoardingPass boardingPass);
+&nbsp;public interface BookingRepository extends JpaRepository&lt;Booking, Long&gt; {
 &nbsp;
-&nbsp;    BoardingPass getBoardingPassById(Long id);
-&nbsp;    BoardingPass createBoardingPass(BoardingPass boardingPass);
-&nbsp;    BoardingPass updateBoardingPass(Long id, BoardingPass boardingPass);
-&nbsp;    void deleteBoardingPass(Long id);
 &nbsp;}
 </code>
 </pre>
@@ -78,7 +81,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-07 17:50</div>
+    <div style="float:right;">generated on 2025-01-08 17:46</div>
 </div>
 </body>
 </html>

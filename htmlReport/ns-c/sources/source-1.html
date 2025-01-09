@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > PaymentReceiptService</title>
+  <title>Coverage Report > UserRepository</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,17 +19,17 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.service</a>
+    <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: PaymentReceiptService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: UserRepository (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">PaymentReceiptService</td>
+  <td class="name">UserRepository</td>
 </tr>
 
 </table>
@@ -39,16 +39,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.dto.PaymentReceiptDTO;
+&nbsp;import com.airTransport.atm_backend.model.User;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
 &nbsp;
-&nbsp;public interface PaymentReceiptService {
-&nbsp;    PaymentReceiptDTO createPaymentReceipt(PaymentReceiptDTO receiptDTO);
 &nbsp;
-&nbsp;    PaymentReceiptDTO createReceiptForPayment(Long paymentId);
+&nbsp;public interface UserRepository extends JpaRepository&lt;User, Long&gt; {
 &nbsp;
-&nbsp;    PaymentReceiptDTO getPaymentReceiptById(long id);
+&nbsp;    User findByEmail(String email);
+&nbsp;    User findByUsername(String username);
+&nbsp;    boolean existsByEmail(String email);
+&nbsp;    boolean existsByUsername(String username);
+&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -73,7 +76,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-07 17:50</div>
+    <div style="float:right;">generated on 2025-01-08 17:46</div>
 </div>
 </body>
 </html>
