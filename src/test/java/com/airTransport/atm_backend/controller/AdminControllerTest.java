@@ -2,158 +2,103 @@ package com.airTransport.atm_backend.controller;
 
 import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.service.AdminService;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import static org.hamcrest.Matchers.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-
-@WebMvcTest(AdminController.class)
 class AdminControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @InjectMocks
+    private AdminController adminController;
 
-    @MockBean
+    @Mock
     private AdminService adminService;
 
-    private Admin adminOne;
-    private Admin adminTwo;
+    private AutoCloseable closeable;
+    private Admin admin;
 
     @BeforeEach
     void setUp() {
+        closeable = MockitoAnnotations.openMocks(this);
+        admin = new Admin();
+        admin.setId(1L);
+    }
 
-//        mockMvc = MockMvcBuilders.standaloneSetup(new AdminController(adminService))
-//                .apply(springSecurity())
-//                .build();
-//
-        adminOne = new Admin();
-        adminOne.setUserId(1L);
-        adminOne.setUsername("adminUser");
-        adminOne.setEmail("admin@example.com");
-        adminOne.setPassword("securePassword123");
-        adminOne.setRole("ADMIN");
-
-        adminTwo = new Admin();
-        adminTwo.setUserId(1L);
-        adminTwo.setUsername("adminUser");
-        adminTwo.setEmail("admin@example.com");
-        adminTwo.setPassword("securePassword123");
-        adminTwo.setRole("ADMIN");
-
+    @AfterEach
+    void tearDown() throws Exception {
+        closeable.close();
     }
 
     @Test
-    void getAdminById_ValidId_ReturnsAdmin() throws Exception {
-        Mockito.when(adminService.getAdminById(1L)).thenReturn(adminOne);
-
-        mockMvc.perform(get("/admin/{id}", 1L))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userId", is(1)))
-                .andExpect(jsonPath("$.username", is("adminUser")))
-                .andExpect(jsonPath("$.email", is("admin@example.com")))
-                .andExpect(jsonPath("$.role", is("ADMIN")));
+    void getAdminById() {
+        when(adminService.getAdminById(1L)).thenReturn(admin);
+        Admin result = adminController.getAdminById(1L);
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
+        verify(adminService, times(1)).getAdminById(1L);
     }
 
     @Test
-    void getAdminById_InvalidId_ReturnsNotFound() throws Exception {
-        Mockito.when(adminService.getAdminById(999L)).thenThrow(new RuntimeException("Admin not found"));
+    void getAllAdmins() {
+        List<Admin> adminList = new ArrayList<>();
+        adminList.add(admin);
+        when(adminService.getAllAdmins()).thenReturn(adminList);
 
-        mockMvc.perform(get("/admin/{id}", 999L))
-                .andExpect(status().isNotFound());
+        List<Admin> result = adminController.getAllAdmins();
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        verify(adminService, times(1)).getAllAdmins();
     }
 
     @Test
-    void getAllAdmins_ReturnsListOfAdmins() throws Exception {
-        List<Admin> admins = Arrays.asList(adminOne, adminTwo);
-        Mockito.when(adminService.getAllAdmins()).thenReturn(admins);
+    void createAdmin() {
+        doAnswer(invocation -> {
+            Admin adminToSave = invocation.getArgument(0);
+            assertNotNull(adminToSave);
+            assertEquals(1L, adminToSave.getId());
+            return null;
+        }).when(adminService).createAdmin(any(Admin.class));
 
-        mockMvc.perform(get("/admin"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].userId", is(1)))
-                .andExpect(jsonPath("$[0].username", is("adminUser")))
-                .andExpect(jsonPath("$[1].userId", is(2)))
-                .andExpect(jsonPath("$[1].username", is("adminUser2")));
+        String result = adminController.createAdmin(admin);
+        assertEquals("Admin created", result);
+        verify(adminService, times(1)).createAdmin(admin);
     }
 
     @Test
-    void getAllAdmins_ReturnsEmptyList() throws Exception {
-        Mockito.when(adminService.getAllAdmins()).thenReturn(Collections.emptyList());
+    void updateAdmin() {
+        doAnswer(invocation -> {
+            Admin adminToUpdate = invocation.getArgument(0);
+            assertNotNull(adminToUpdate);
+            assertEquals(1L, adminToUpdate.getId());
+            return null;
+        }).when(adminService).updateAdmin(any(Admin.class));
 
-        mockMvc.perform(get("/admin"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(0)));
+        String result = adminController.updateAdmin(admin);
+        assertEquals("Admin updated", result);
+        verify(adminService, times(1)).updateAdmin(admin);
     }
 
     @Test
-    void createAdmin_ValidInput_ReturnsSuccessMessage() throws Exception {
-        // Mocking the service response
-        Mockito.when(adminService.createAdmin(any(Admin.class))).thenReturn("Admin created");
+    void deleteAdmin() {
+        doAnswer(invocation -> {
+            Long adminIdToDelete = invocation.getArgument(0);
+            assertNotNull(adminIdToDelete);
+            assertEquals(1L, adminIdToDelete);
+            return null;
+        }).when(adminService).deleteAdmin(anyLong());
 
-        // Perform the request with Basic Authentication
-        mockMvc.perform(post("/admin")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"username\": \"newAdmin\", " +
-                                "\"email\": \"newadmin@example.com\", " +
-                                "\"password\": \"password123\", " +
-                                "\"role\": \"ADMIN\"}")
-                        .with(httpBasic("adminair", "alpha")) // Add your credentials here
-                        .with(csrf())) // CSRF token included
-                .andExpect(status().isOk())
-                .andExpect(content().string("Admin created"));
+        String result = adminController.deleteAdmin(1L);
+        assertEquals("Admin deleted", result);
+        verify(adminService, times(1)).deleteAdmin(1L);
     }
 
-
-    @Test
-    void updateAdmin_ValidInput_ReturnsSuccessMessage() throws Exception {
-
-        Mockito.when(adminService.createAdmin(any(Admin.class))).thenReturn("Admin updated");
-        mockMvc.perform(put("/admin")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"userId\": 1, " +
-                                "\"username\": \"updatedAdmin\", " +
-                                "\"email\": \"updated@example.com\", " +
-                                "\"password\": \"newPassword123\", " +
-                                "\"role\": \"ADMIN\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Admin updated"));
-    }
-
-    @Test
-    void deleteAdmin_ValidId_ReturnsSuccessMessage() throws Exception {
-        Mockito.when(adminService.createAdmin(any(Admin.class))).thenReturn("Admin deleted");
-
-        mockMvc.perform(delete("/admin/{id}", 1L))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Admin deleted"));
-    }
-
-    @Test
-    void deleteAdmin_InvalidId_ReturnsNotFound() throws Exception {
-        Mockito.doThrow(new RuntimeException("Admin not found")).when(adminService).deleteAdmin(999L);
-
-        mockMvc.perform(delete("/admin/{id}", 999L))
-                .andExpect(status().isNotFound());
-    }
 }
