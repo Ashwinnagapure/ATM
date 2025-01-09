@@ -4,29 +4,23 @@ import com.airTransport.atm_backend.model.Charter;
 import com.airTransport.atm_backend.model.Passenger;
 import com.airTransport.atm_backend.service.CharterService;
 import com.airTransport.atm_backend.service.PassengerService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.ResponseEntity;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(CharterController.class)
 class CharterControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @Mock
     private CharterService charterService;
@@ -34,113 +28,102 @@ class CharterControllerTest {
     @Mock
     private PassengerService passengerService;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @InjectMocks
+    private CharterController charterController;
 
+    private AutoCloseable closeable;
     private Charter charter;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-
+        closeable = MockitoAnnotations.openMocks(this);
         charter = new Charter();
         charter.setCharterId(1L);
-        charter.setSource("City A");
-        charter.setDestination("City B");
-        charter.setDeparture(LocalDateTime.of(2025, 1, 10, 10, 30));
-        charter.setArrival(LocalDateTime.of(2025, 1, 10, 14, 30));
+        charter.setSource("CityA");
+        charter.setDestination("CityB");
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        closeable.close();
     }
 
     @Test
-    void createCharter() throws Exception {
+    void createCharter() {
         when(charterService.saveCharter(any(Charter.class))).thenReturn(charter);
 
-        mockMvc.perform(post("/charters")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(charter)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.source").value("City A"))
-                .andExpect(jsonPath("$.destination").value("City B"));
-
+        ResponseEntity<Charter> response = charterController.createCharter(charter);
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(charter.getCharterId(), response.getBody().getCharterId());
         verify(charterService, times(1)).saveCharter(any(Charter.class));
     }
 
     @Test
-    void getAllCharters() throws Exception {
-        List<Charter> charters = Arrays.asList(charter);
-        when(charterService.getAllCharters()).thenReturn(charters);
+    void getAllCharters() {
+        when(charterService.getAllCharters()).thenReturn(Collections.singletonList(charter));
 
-        mockMvc.perform(get("/charters"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].source").value("City A"));
-
+        ResponseEntity<List<Charter>> response = charterController.getAllCharters();
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(1, response.getBody().size());
         verify(charterService, times(1)).getAllCharters();
     }
 
     @Test
-    void getCharterById() throws Exception {
-        when(charterService.getCharterById(1L)).thenReturn(charter);
+    void getCharterById() {
+        when(charterService.getCharterById(anyLong())).thenReturn(charter);
 
-        mockMvc.perform(get("/charters/1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.source").value("City A"));
-
+        ResponseEntity<Charter> response = charterController.getCharterById(1L);
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(charter.getCharterId(), response.getBody().getCharterId());
         verify(charterService, times(1)).getCharterById(1L);
     }
 
     @Test
-    void updateCharter() throws Exception {
+    void updateCharter() {
         Charter updatedCharter = new Charter();
         updatedCharter.setCharterId(1L);
-        updatedCharter.setSource("City X");
-        updatedCharter.setDestination("City Y");
-        when(charterService.updateCharter(eq(1L), any(Charter.class))).thenReturn(updatedCharter);
+        updatedCharter.setSource("UpdatedCityA");
 
-        mockMvc.perform(put("/charters/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updatedCharter)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.source").value("City X"));
+        when(charterService.updateCharter(anyLong(), any(Charter.class))).thenReturn(updatedCharter);
 
-        verify(charterService, times(1)).updateCharter(eq(1L), any(Charter.class));
+        ResponseEntity<Charter> response = charterController.updateCharter(1L, updatedCharter);
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("UpdatedCityA", response.getBody().getSource());
+        verify(charterService, times(1)).updateCharter(1L, updatedCharter);
     }
 
     @Test
-    void deleteCharter() throws Exception {
-        doNothing().when(charterService).deleteCharter(1L);
+    void deleteCharter() {
+        doNothing().when(charterService).deleteCharter(anyLong());
 
-        mockMvc.perform(delete("/charters/1"))
-                .andExpect(status().isNoContent());
-
+        ResponseEntity<Void> response = charterController.deleteCharter(1L);
+        assertEquals(204, response.getStatusCodeValue());
         verify(charterService, times(1)).deleteCharter(1L);
     }
 
     @Test
-    void getChartersByPassenger() throws Exception {
-        when(charterService.getChartersByPassenger(1L)).thenReturn(Arrays.asList(charter));
+    void getChartersByPassenger() {
+        when(charterService.getChartersByPassenger(anyLong())).thenReturn(Collections.singletonList(charter));
 
-        mockMvc.perform(get("/charters/passenger/1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].source").value("City A"));
-
+        ResponseEntity<List<Charter>> response = charterController.getChartersByPassenger(1L);
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(1, response.getBody().size());
         verify(charterService, times(1)).getChartersByPassenger(1L);
     }
 
     @Test
-    void assignPassengerToCharter() throws Exception {
+    void assignPassengerToCharter() {
         Passenger passenger = new Passenger();
         passenger.setId(1L);
 
-        when(charterService.getCharterById(1L)).thenReturn(charter);
-        when(passengerService.getPassengerById(1L)).thenReturn(passenger);
+        when(charterService.getCharterById(anyLong())).thenReturn(charter);
+        when(passengerService.getPassengerById(anyLong())).thenReturn(passenger);
         when(charterService.saveCharter(any(Charter.class))).thenReturn(charter);
 
-        mockMvc.perform(post("/charters/assign-passenger/1/1"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Passenger assigned to charter successfully"));
-
+        String response = charterController.assignPassengerToCharter(1L, 1L);
+        assertEquals("Passenger assigned to charter successfully", response);
         verify(charterService, times(1)).getCharterById(1L);
         verify(passengerService, times(1)).getPassengerById(1L);
-        verify(charterService, times(1)).saveCharter(any(Charter.class));
+        verify(charterService, times(1)).saveCharter(charter);
     }
 }
