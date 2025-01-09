@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > PaymentReceiptService</title>
+  <title>Coverage Report > BaggageRepository</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.service</a>
+    <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: PaymentReceiptService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: BaggageRepository (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
 
@@ -30,13 +30,13 @@ Current scope:     <a href="../../index.html">all classes</a>
   <th class="name">Class</th>
 </tr>
   <tr>
-    <td class="name">PaymentReceiptService$MockitoMock$wXULWmti</td>
+    <td class="name">BaggageRepository$MockitoMock$jYlbQ46O</td>
   </tr>
   <tr>
-    <td class="name">PaymentReceiptService$MockitoMock$wXULWmti$auxiliary$cVCghWpw</td>
+    <td class="name">BaggageRepository$MockitoMock$jYlbQ46O$auxiliary$5GDm0ayk</td>
   </tr>
   <tr>
-    <td class="name">PaymentReceiptService$MockitoMock$wXULWmti$auxiliary$pb1Cy4eu</td>
+    <td class="name">BaggageRepository$MockitoMock$jYlbQ46O$auxiliary$Nha2MR6X</td>
   </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
@@ -48,16 +48,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.dto.PaymentReceiptDTO;
+&nbsp;import com.airTransport.atm_backend.model.Baggage;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
 &nbsp;
-&nbsp;public interface PaymentReceiptService {
-&nbsp;    PaymentReceiptDTO createPaymentReceipt(PaymentReceiptDTO receiptDTO);
+&nbsp;import java.util.List;
 &nbsp;
-&nbsp;    PaymentReceiptDTO createReceiptForPayment(Long paymentId);
+&nbsp;public interface BaggageRepository extends JpaRepository&lt;Baggage, Long&gt; {
+&nbsp;    // Custom query to find all baggage associated with a specific booking
 &nbsp;
-&nbsp;    PaymentReceiptDTO getPaymentReceiptById(long id);
+&nbsp;    List&lt;Baggage&gt; findByBookingId(Long bookingId);
+&nbsp;
+&nbsp;    // You can use the default findById method provided by JpaRepository
 &nbsp;}
 </code>
 </pre>
@@ -82,7 +85,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-08 17:46</div>
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
 </div>
 </body>
 </html>

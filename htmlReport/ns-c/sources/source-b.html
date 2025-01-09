@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > NotificationRepository</title>
+  <title>Coverage Report > LogService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,17 +19,17 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.repository</a>
+    <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: NotificationRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: LogService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">NotificationRepository</td>
+  <td class="name">LogService</td>
 </tr>
 
 </table>
@@ -39,13 +39,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.Notification;
-&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import com.airTransport.atm_backend.model.Log;
+&nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface NotificationRepository extends JpaRepository&lt;Notification, Long&gt; {
-&nbsp;
+&nbsp;public interface LogService {
+&nbsp;    Log saveLog(String message);
+&nbsp;    Log retrieveLog(Long id);
+&nbsp;    List&lt;Log&gt; retrieveAllLogs();
+&nbsp;    void deleteLog(Long id);
 &nbsp;}
 </code>
 </pre>
@@ -70,7 +73,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-08 17:46</div>
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
 </div>
 </body>
 </html>

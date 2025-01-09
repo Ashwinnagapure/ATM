@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > AdminService</title>
+  <title>Coverage Report > BookingRepository</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.service</a>
+    <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: AdminService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: BookingRepository (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
 
@@ -30,13 +30,13 @@ Current scope:     <a href="../../index.html">all classes</a>
   <th class="name">Class</th>
 </tr>
   <tr>
-    <td class="name">AdminService$MockitoMock$eTYMI87L</td>
+    <td class="name">BookingRepository$MockitoMock$kptU1KN0</td>
   </tr>
   <tr>
-    <td class="name">AdminService$MockitoMock$eTYMI87L$auxiliary$1CpPx4BA</td>
+    <td class="name">BookingRepository$MockitoMock$kptU1KN0$auxiliary$D5fTa7pz</td>
   </tr>
   <tr>
-    <td class="name">AdminService$MockitoMock$eTYMI87L$auxiliary$gDAWKnZ9</td>
+    <td class="name">BookingRepository$MockitoMock$kptU1KN0$auxiliary$gnveqU8m</td>
   </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
@@ -48,20 +48,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.Admin;
-&nbsp;import com.airTransport.atm_backend.model.Notification;
+&nbsp;import com.airTransport.atm_backend.model.Booking;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
 &nbsp;
-&nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface AdminService {
-&nbsp;    public Admin getAdminById(Long id);
-&nbsp;    List&lt;Admin&gt; getAllAdmins();
-&nbsp;    String createAdmin(Admin admin);
-&nbsp;    String updateAdmin(Admin admin);
-&nbsp;    String deleteAdmin(Long id);
 &nbsp;
+&nbsp;public interface BookingRepository extends JpaRepository&lt;Booking, Long&gt; {
 &nbsp;
 &nbsp;}
 </code>
@@ -87,7 +81,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-08 17:46</div>
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
 </div>
 </body>
 </html>

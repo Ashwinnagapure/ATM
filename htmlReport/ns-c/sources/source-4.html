@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > BaggageRepository</title>
+  <title>Coverage Report > BaggageService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.repository</a>
+    <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: BaggageRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: BaggageService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
 
@@ -30,13 +30,13 @@ Current scope:     <a href="../../index.html">all classes</a>
   <th class="name">Class</th>
 </tr>
   <tr>
-    <td class="name">BaggageRepository$MockitoMock$qwhwtmkF</td>
+    <td class="name">BaggageService$MockitoMock$IYJUQWbq</td>
   </tr>
   <tr>
-    <td class="name">BaggageRepository$MockitoMock$qwhwtmkF$auxiliary$jTXAwfzV</td>
+    <td class="name">BaggageService$MockitoMock$IYJUQWbq$auxiliary$O9f67kXk</td>
   </tr>
   <tr>
-    <td class="name">BaggageRepository$MockitoMock$qwhwtmkF$auxiliary$Yviev5Mm</td>
+    <td class="name">BaggageService$MockitoMock$IYJUQWbq$auxiliary$u4qtHGZI</td>
   </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
@@ -48,19 +48,25 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.Baggage;
-&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import com.airTransport.atm_backend.dto.BaggageDTO;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
 &nbsp;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface BaggageRepository extends JpaRepository&lt;Baggage, Long&gt; {
-&nbsp;    // Custom query to find all baggage associated with a specific booking
+&nbsp;public interface BaggageService {
+&nbsp;    // Existing methods
+&nbsp;    BaggageDTO getBaggageById(Long baggageId);
+&nbsp;    List&lt;BaggageDTO&gt; getBaggageByBookingId(Long bookingId);
 &nbsp;
-&nbsp;    List&lt;Baggage&gt; findByBookingId(Long bookingId);
 &nbsp;
-&nbsp;    // You can use the default findById method provided by JpaRepository
+&nbsp;    // New methods
+&nbsp;    boolean getBaggageLimit(Long baggageId);
+&nbsp;    boolean reportLostBaggage(Long baggageId, String feedback);
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    BaggageDTO createBaggageFromParams(Long bookingId, boolean baggageLimit, double weight, int luggageCount);
 &nbsp;}
 </code>
 </pre>
@@ -85,7 +91,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-08 17:46</div>
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
 </div>
 </body>
 </html>

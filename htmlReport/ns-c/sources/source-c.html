@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > CrewManagementRepository</title>
+  <title>Coverage Report > CrewManagementService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,19 +19,28 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.repository</a>
+    <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: CrewManagementRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: CrewManagementService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">CrewManagementService$MockitoMock$jgFKNNg0</td>
+  </tr>
+  <tr>
+    <td class="name">CrewManagementService$MockitoMock$jgFKNNg0$auxiliary$AwpTOgjo</td>
+  </tr>
+  <tr>
+    <td class="name">CrewManagementService$MockitoMock$jgFKNNg0$auxiliary$tqDKVX9L</td>
+  </tr>
 <tr>
-  <td class="name">CrewManagementRepository</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -39,19 +48,32 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
 &nbsp;import com.airTransport.atm_backend.model.Admin;
 &nbsp;import com.airTransport.atm_backend.model.CrewManagement;
 &nbsp;import com.airTransport.atm_backend.model.enums.Role;
-&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.stereotype.Service;
 &nbsp;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface CrewManagementRepository extends JpaRepository&lt;CrewManagement, Long&gt; {
-&nbsp;    List&lt;CrewManagement&gt; findByRole(Role role);
-&nbsp;    List&lt;CrewManagement&gt; findByAvailability(boolean availability);
-&nbsp;    List&lt;CrewManagement&gt; findByAdmin(Admin admin);
+&nbsp;@Service
+&nbsp;public interface CrewManagementService {
+&nbsp;
+&nbsp;    CrewManagement addCrewMember(CrewManagement crewMember);
+&nbsp;
+&nbsp;    CrewManagement updateCrewMember(Long id, CrewManagement crewMember);
+&nbsp;
+&nbsp;    void deleteCrewMember(Long id);
+&nbsp;
+&nbsp;    CrewManagement getCrewMemberById(Long id);
+&nbsp;
+&nbsp;    List&lt;CrewManagement&gt; getCrewMembersByRole(Role role);
+&nbsp;
+&nbsp;    List&lt;CrewManagement&gt; getAvailableCrewMembers();
+&nbsp;
+&nbsp;
+&nbsp;    List&lt;CrewManagement&gt; getCrewByAdmin(Long adminId);
 &nbsp;}
 </code>
 </pre>
@@ -76,7 +98,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-08 17:46</div>
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
 </div>
 </body>
 </html>

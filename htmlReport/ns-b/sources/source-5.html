@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > PassengerService</title>
+  <title>Coverage Report > LogRepository</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.service</a>
+    <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: PassengerService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: LogRepository (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
 
@@ -30,13 +30,13 @@ Current scope:     <a href="../../index.html">all classes</a>
   <th class="name">Class</th>
 </tr>
   <tr>
-    <td class="name">PassengerService$MockitoMock$Kz5yzTh1</td>
+    <td class="name">LogRepository$MockitoMock$UGxhvACX</td>
   </tr>
   <tr>
-    <td class="name">PassengerService$MockitoMock$Kz5yzTh1$auxiliary$scKXpYfs</td>
+    <td class="name">LogRepository$MockitoMock$UGxhvACX$auxiliary$GBPHbTvT</td>
   </tr>
   <tr>
-    <td class="name">PassengerService$MockitoMock$Kz5yzTh1$auxiliary$urTXzhGO</td>
+    <td class="name">LogRepository$MockitoMock$UGxhvACX$auxiliary$TKxUF0XT</td>
   </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
@@ -48,20 +48,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.Passenger;
-&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import com.airTransport.atm_backend.model.Log;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.stereotype.Repository;
 &nbsp;
-&nbsp;import java.util.List;
+&nbsp;@Repository
+&nbsp;public interface LogRepository extends JpaRepository&lt;Log, Long&gt; {
 &nbsp;
-&nbsp;
-&nbsp;public interface PassengerService {
-&nbsp;    public  String addPassenger(Passenger passenger);
-&nbsp;    Passenger getPassengerById(Long PassengerId);
-&nbsp;    List&lt;Passenger&gt; getAllPassengers();
-&nbsp;    void deletePassenger(Long PassengerId);
-&nbsp;    Passenger updatePassenger(Passenger passenger);
 &nbsp;}
 </code>
 </pre>
@@ -86,7 +81,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-08 17:46</div>
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
 </div>
 </body>
 </html>

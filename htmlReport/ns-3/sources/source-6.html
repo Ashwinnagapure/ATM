@@ -44,26 +44,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">CrewManagementController</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/8)
+    (8/8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/10)
+    (10/10)
   </span>
 </td>
 </tr>
@@ -94,46 +94,46 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private CrewManagementService crewManagementService;
 &nbsp;    private final AdminService adminService;
 &nbsp;
-<b class="nc">&nbsp;    public CrewManagementController(CrewManagementService crewManagementService, AdminService adminService) {</b>
-<b class="nc">&nbsp;        this.crewManagementService = crewManagementService;</b>
-<b class="nc">&nbsp;        this.adminService = adminService;</b>
+<b class="fc">&nbsp;    public CrewManagementController(CrewManagementService crewManagementService, AdminService adminService) {</b>
+<b class="fc">&nbsp;        this.crewManagementService = crewManagementService;</b>
+<b class="fc">&nbsp;        this.adminService = adminService;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
 &nbsp;    @PostMapping
 &nbsp;    public CrewManagement addCrewMember(@RequestBody CrewManagement crewMember) {
-<b class="nc">&nbsp;        return crewManagementService.addCrewMember(crewMember);</b>
+<b class="fc">&nbsp;        return crewManagementService.addCrewMember(crewMember);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @PutMapping(&quot;/{id}&quot;)
 &nbsp;    public CrewManagement updateCrewMember(@PathVariable Long id, @RequestBody CrewManagement crewMember) {
-<b class="nc">&nbsp;        return crewManagementService.updateCrewMember(id, crewMember);</b>
+<b class="fc">&nbsp;        return crewManagementService.updateCrewMember(id, crewMember);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @DeleteMapping(&quot;/{id}&quot;)
 &nbsp;    public void deleteCrewMember(@PathVariable Long id) {
-<b class="nc">&nbsp;        crewManagementService.deleteCrewMember(id);</b>
+<b class="fc">&nbsp;        crewManagementService.deleteCrewMember(id);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @GetMapping(&quot;/{id}&quot;)
 &nbsp;    public CrewManagement getCrewMemberById(@PathVariable Long id) {
-<b class="nc">&nbsp;        return crewManagementService.getCrewMemberById(id);</b>
+<b class="fc">&nbsp;        return crewManagementService.getCrewMemberById(id);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @GetMapping(&quot;/role/{role}&quot;)
 &nbsp;    public List&lt;CrewManagement&gt; getCrewMembersByRole(@PathVariable Role role) {
-<b class="nc">&nbsp;        return crewManagementService.getCrewMembersByRole(role);</b>
+<b class="fc">&nbsp;        return crewManagementService.getCrewMembersByRole(role);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @GetMapping(&quot;/available&quot;)
 &nbsp;    public List&lt;CrewManagement&gt; getAvailableCrewMembers() {
-<b class="nc">&nbsp;        return crewManagementService.getAvailableCrewMembers();</b>
+<b class="fc">&nbsp;        return crewManagementService.getAvailableCrewMembers();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @GetMapping(&quot;/admin/{adminId}&quot;)
 &nbsp;    public List&lt;CrewManagement&gt; getCrewByAdmin(@PathVariable Long adminId) {
 &nbsp;
-<b class="nc">&nbsp;        return crewManagementService.getCrewByAdmin(adminId);</b>
+<b class="fc">&nbsp;        return crewManagementService.getCrewByAdmin(adminId);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -159,7 +159,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-08 17:46</div>
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
 </div>
 </body>
 </html>

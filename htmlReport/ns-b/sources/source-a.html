@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > FlightSearchService</title>
+  <title>Coverage Report > UserManagement</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,28 +19,19 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.service</a>
+    <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: FlightSearchService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: UserManagement (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
 </tr>
-  <tr>
-    <td class="name">FlightSearchService$MockitoMock$v1KARWZg</td>
-  </tr>
-  <tr>
-    <td class="name">FlightSearchService$MockitoMock$v1KARWZg$auxiliary$HecG7hZw</td>
-  </tr>
-  <tr>
-    <td class="name">FlightSearchService$MockitoMock$v1KARWZg$auxiliary$SvCDwlnO</td>
-  </tr>
 <tr>
-  <td class="name"><strong>Total</strong></td>
+  <td class="name">UserManagement</td>
 </tr>
+
 </table>
 
 <br/>
@@ -48,16 +39,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
-&nbsp;
-&nbsp;import com.airTransport.atm_backend.dto.FlightResponseDTO;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface FlightSearchService {
-&nbsp;
-&nbsp;    List&lt;FlightResponseDTO&gt; sortByPrice();  // Return DTO
-&nbsp;    List&lt;FlightResponseDTO&gt; sortByAirline(); // Return DTO
-&nbsp;    List&lt;FlightResponseDTO&gt; sortByClass(); // Return DTO
+&nbsp;public interface UserManagement {
+&nbsp;    public Boolean deleteUserAccount(String paramas);
+&nbsp;    public boolean createUserAccount(String params);
+&nbsp;    public boolean deactivateUserAccount(String params) ;
+&nbsp;    public List&lt;String&gt; getallUsers();
 &nbsp;}
 </code>
 </pre>
@@ -82,7 +71,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-08 17:46</div>
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
 </div>
 </body>
 </html>

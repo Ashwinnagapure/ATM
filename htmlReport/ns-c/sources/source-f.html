@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > PaymentRepository</title>
+  <title>Coverage Report > CharterService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.repository</a>
+    <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: PaymentRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: CharterService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
 
@@ -30,13 +30,13 @@ Current scope:     <a href="../../index.html">all classes</a>
   <th class="name">Class</th>
 </tr>
   <tr>
-    <td class="name">PaymentRepository$MockitoMock$IgMNgxwo</td>
+    <td class="name">CharterService$MockitoMock$zsFdbGMJ</td>
   </tr>
   <tr>
-    <td class="name">PaymentRepository$MockitoMock$IgMNgxwo$auxiliary$54tV4cqM</td>
+    <td class="name">CharterService$MockitoMock$zsFdbGMJ$auxiliary$JOcE1L9C</td>
   </tr>
   <tr>
-    <td class="name">PaymentRepository$MockitoMock$IgMNgxwo$auxiliary$lI8W0zaX</td>
+    <td class="name">CharterService$MockitoMock$zsFdbGMJ$auxiliary$REcZt8HQ</td>
   </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
@@ -48,12 +48,27 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.Payment;
-&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import com.airTransport.atm_backend.model.Admin;
+&nbsp;import com.airTransport.atm_backend.model.Charter;
 &nbsp;
-&nbsp;public interface PaymentRepository extends JpaRepository&lt;Payment, Long&gt; {
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface CharterService {
+&nbsp;
+&nbsp;    Charter saveCharter(Charter charter);
+&nbsp;
+&nbsp;    List&lt;Charter&gt; getAllCharters();
+&nbsp;
+&nbsp;    Charter getCharterById(long id);
+&nbsp;
+&nbsp;    Charter updateCharter(long id, Charter charter);
+&nbsp;
+&nbsp;    void deleteCharter(long id);
+&nbsp;
+&nbsp;    List&lt;Charter&gt; getChartersByPassenger(Long passengerId);
+&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -78,7 +93,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-08 17:46</div>
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
 </div>
 </body>
 </html>
