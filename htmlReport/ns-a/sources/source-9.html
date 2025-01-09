@@ -1,0 +1,158 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > NotificationServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.airTransport.atm_backend.service.Impl</a>
+</div>
+
+<h1>Coverage Summary for Class: NotificationServiceImpl (com.airTransport.atm_backend.service.Impl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">NotificationServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service.Impl;
+&nbsp;
+&nbsp;import com.airTransport.atm_backend.model.Admin;
+&nbsp;import com.airTransport.atm_backend.model.Notification;
+&nbsp;import com.airTransport.atm_backend.model.Passenger;
+&nbsp;import com.airTransport.atm_backend.repository.NotificationRepository;
+&nbsp;import com.airTransport.atm_backend.service.AdminService;
+&nbsp;import com.airTransport.atm_backend.service.NotificationService;
+&nbsp;import com.airTransport.atm_backend.service.PassengerService;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+&nbsp;public class NotificationServiceImpl implements NotificationService {
+&nbsp;
+&nbsp;    private final NotificationRepository notificationRepository;
+&nbsp;    private final AdminService adminService;
+&nbsp;    private final PassengerService passengerService;
+&nbsp;
+<b class="fc">&nbsp;    public NotificationServiceImpl(NotificationRepository notificationRepository, AdminService adminService, PassengerService passengerService) {</b>
+<b class="fc">&nbsp;        this.notificationRepository = notificationRepository;</b>
+<b class="fc">&nbsp;        this.adminService = adminService;</b>
+<b class="fc">&nbsp;        this.passengerService = passengerService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Notification getNotificationById(Long id) {
+<b class="fc">&nbsp;        return notificationRepository.findById(id).orElseThrow(()-&gt; new RuntimeException(&quot;No notification found with id: &quot; + id));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Notification sendNotificationToPassenger(Long adminId, Long passengerId, Notification notification) {
+<b class="fc">&nbsp;        Admin admin = adminService.getAdminById(adminId);</b>
+<b class="fc">&nbsp;        Passenger passenger = passengerService.getPassengerById(passengerId);</b>
+&nbsp;
+<b class="fc">&nbsp;        notification.setAdmin(admin);</b>
+<b class="fc">&nbsp;        notification.setRecipient(passenger);</b>
+&nbsp;
+<b class="fc">&nbsp;        return notificationRepository.save(notification);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Notification&gt; getAllNotifications() {
+<b class="fc">&nbsp;        return notificationRepository.findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String deleteNotificationById(Long id) {
+<b class="fc">&nbsp;        notificationRepository.deleteById(id);</b>
+<b class="fc">&nbsp;        return &quot;Notification deleted with id: &quot;;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-09 11:34</div>
+</div>
+</body>
+</html>
