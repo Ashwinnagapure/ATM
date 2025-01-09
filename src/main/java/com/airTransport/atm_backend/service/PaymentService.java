@@ -1,12 +1,13 @@
 package com.airTransport.atm_backend.service;
 
-import com.airTransport.atm_backend.dto.PaymentDTO;
+import com.airTransport.atm_backend.model.Payment;
+
+import java.util.List;
 
 public interface PaymentService {
-
-
-
-    PaymentDTO createPayment(PaymentDTO paymentDTO, Long bookingId);
-
-    PaymentDTO getPaymentById(long id);
+    Payment processPayment(Payment payment);
+    Payment getPaymentById(Long id);
+    List<Payment> getAllPayments();
+    Payment updatePayment(Long id, Payment updatedPayment);
+    void deletePayment(Long id);
 }

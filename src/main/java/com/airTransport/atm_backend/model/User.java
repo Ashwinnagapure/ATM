@@ -1,17 +1,9 @@
 package com.airTransport.atm_backend.model;
 
-// sadh ghetl ahe pan
-// no enum
-// as all are of USER role
-
-// enum delete karun taku
-import com.airTransport.atm_backend.model.enums.UserType;
-
-
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users")
 public class User {
 
@@ -31,20 +23,28 @@ public class User {
     @Column(nullable = false)
     private String role = "USER";  // Default role for all users
 
-    // Getters, Setters, and Constructor
-    public User() {}
+    @ManyToMany
+    @JoinTable(
+            name = "user_flights",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "flight_id")
+    )
+    private List<Flight> flights;
 
-    public User(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "user_charters",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "charter_id")
+    )
+    private List<Charter> charters;
 
-    public Long getUserId() {
+    // Getters and Setters
+    public Long getId() {
         return id;
     }
 
-    public void setUserId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -59,8 +59,6 @@ public class User {
     public String getEmail() {
         return email;
     }
-
-
 
     public void setEmail(String email) {
         this.email = email;
@@ -81,13 +79,20 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-    // Getters and setters
-    public Long getId() {
-        return id;
+
+    public List<Flight> getFlights() {
+        return flights;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
     }
 
+    public List<Charter> getCharters() {
+        return charters;
+    }
+
+    public void setCharters(List<Charter> charters) {
+        this.charters = charters;
+    }
 }

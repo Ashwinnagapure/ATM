@@ -1,9 +1,11 @@
 package com.airTransport.atm_backend.service.Impl;
 
+import com.airTransport.atm_backend.exceptions.NotFoundException;
 import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.model.CrewManagement;
 import com.airTransport.atm_backend.model.enums.Role;
 import com.airTransport.atm_backend.repository.CrewManagementRepository;
+import com.airTransport.atm_backend.service.AdminService;
 import com.airTransport.atm_backend.service.CrewManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,51 +14,55 @@ import java.util.List;
 
 @Service
 public class CrewManagementServiceImpl implements CrewManagementService {
-    @Autowired
-    private CrewManagementRepository crewMemberRepository;
 
     @Autowired
-    private  AdminServiceImpl adminService;
+    private CrewManagementRepository crewRepository;
+
+    @Autowired
+    private AdminService adminService;
 
     @Override
     public CrewManagement addCrewMember(CrewManagement crewMember) {
-        return crewMemberRepository.save(crewMember);
+        return crewRepository.save(crewMember);
     }
 
     @Override
-    public CrewManagement updateCrewMember(Long id, CrewManagement crewMember) {
-        CrewManagement existingCrew = crewMemberRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Crew Member not found"));
-        existingCrew.setName(crewMember.getName());
-        existingCrew.setRole(crewMember.getRole());
-        existingCrew.setAvailability(crewMember.isAvailability());
-        return crewMemberRepository.save(existingCrew);
+    public CrewManagement updateCrewMember(Long id, CrewManagement updatedCrewMember) {
+        CrewManagement existingCrewMember = crewRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Crew member not found with ID: " + id));
+
+        existingCrewMember.setName(updatedCrewMember.getName());
+        existingCrewMember.setRole(updatedCrewMember.getRole());
+        existingCrewMember.setAvailability(updatedCrewMember.isAvailability());
+
+        return crewRepository.save(existingCrewMember);
     }
 
     @Override
     public void deleteCrewMember(Long id) {
-        crewMemberRepository.deleteById(id);
+        CrewManagement crewMember = crewRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Crew member not found with ID: " + id));
+        crewRepository.delete(crewMember);
     }
 
     @Override
     public CrewManagement getCrewMemberById(Long id) {
-        return crewMemberRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Crew Member not found"));
+        return crewRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Crew member not found with ID: " + id));
     }
 
     @Override
     public List<CrewManagement> getCrewMembersByRole(Role role) {
-        return crewMemberRepository.findByRole(role);
+        return crewRepository.findByRole(role);
     }
 
     @Override
     public List<CrewManagement> getAvailableCrewMembers() {
-        return crewMemberRepository.findByAvailability(true);
+        return crewRepository.findByAvailability(true);
     }
 
     @Override
-    public List<CrewManagement> getCrewByAdmin(Long adminId){
-        Admin admin = adminService.getAdminById(adminId);
-        return crewMemberRepository.findByAdmin(admin);
+    public List<CrewManagement> getCrewByAdmin(Long adminId) {
+        return crewRepository.findByAdmin_Id(adminId);
     }
 }

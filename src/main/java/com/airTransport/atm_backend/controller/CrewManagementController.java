@@ -1,11 +1,10 @@
 package com.airTransport.atm_backend.controller;
 
-import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.model.CrewManagement;
 import com.airTransport.atm_backend.model.enums.Role;
-import com.airTransport.atm_backend.service.AdminService;
 import com.airTransport.atm_backend.service.CrewManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,48 +13,45 @@ import java.util.List;
 @RequestMapping("/crew-management")
 public class CrewManagementController {
 
-    private CrewManagementService crewManagementService;
-    private final AdminService adminService;
-
-    public CrewManagementController(CrewManagementService crewManagementService, AdminService adminService) {
-        this.crewManagementService = crewManagementService;
-        this.adminService = adminService;
-    }
-
+    @Autowired
+    private CrewManagementService crewService;
 
     @PostMapping
-    public CrewManagement addCrewMember(@RequestBody CrewManagement crewMember) {
-        return crewManagementService.addCrewMember(crewMember);
+    public ResponseEntity<CrewManagement> addCrewMember(@RequestBody CrewManagement crewMember) {
+        CrewManagement createdCrewMember = crewService.addCrewMember(crewMember);
+        return ResponseEntity.ok(createdCrewMember);
     }
 
     @PutMapping("/{id}")
-    public CrewManagement updateCrewMember(@PathVariable Long id, @RequestBody CrewManagement crewMember) {
-        return crewManagementService.updateCrewMember(id, crewMember);
+    public ResponseEntity<CrewManagement> updateCrewMember(@PathVariable Long id, @RequestBody CrewManagement updatedCrewMember) {
+        CrewManagement crewMember = crewService.updateCrewMember(id, updatedCrewMember);
+        return ResponseEntity.ok(crewMember);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCrewMember(@PathVariable Long id) {
-        crewManagementService.deleteCrewMember(id);
+    public ResponseEntity<Void> deleteCrewMember(@PathVariable Long id) {
+        crewService.deleteCrewMember(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public CrewManagement getCrewMemberById(@PathVariable Long id) {
-        return crewManagementService.getCrewMemberById(id);
+    public ResponseEntity<CrewManagement> getCrewMemberById(@PathVariable Long id) {
+        CrewManagement crewMember = crewService.getCrewMemberById(id);
+        return ResponseEntity.ok(crewMember);
     }
 
     @GetMapping("/role/{role}")
-    public List<CrewManagement> getCrewMembersByRole(@PathVariable Role role) {
-        return crewManagementService.getCrewMembersByRole(role);
+    public ResponseEntity<List<CrewManagement>> getCrewMembersByRole(@PathVariable Role role) {
+        return ResponseEntity.ok(crewService.getCrewMembersByRole(role));
     }
 
     @GetMapping("/available")
-    public List<CrewManagement> getAvailableCrewMembers() {
-        return crewManagementService.getAvailableCrewMembers();
+    public ResponseEntity<List<CrewManagement>> getAvailableCrewMembers() {
+        return ResponseEntity.ok(crewService.getAvailableCrewMembers());
     }
 
     @GetMapping("/admin/{adminId}")
-    public List<CrewManagement> getCrewByAdmin(@PathVariable Long adminId) {
-
-        return crewManagementService.getCrewByAdmin(adminId);
+    public ResponseEntity<List<CrewManagement>> getCrewByAdmin(@PathVariable Long adminId) {
+        return ResponseEntity.ok(crewService.getCrewByAdmin(adminId));
     }
 }

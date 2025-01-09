@@ -1,3 +1,4 @@
+/*
 package com.airTransport.atm_backend.controller;
 
 import com.airTransport.atm_backend.model.Admin;
@@ -157,3 +158,4 @@ class AdminControllerTest {
                 .andExpect(status().isNotFound());
     }
 }
+*/

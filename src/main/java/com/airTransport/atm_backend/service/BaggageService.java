@@ -1,20 +1,15 @@
 package com.airTransport.atm_backend.service;
 
-import com.airTransport.atm_backend.dto.BaggageDTO;
-import org.springframework.transaction.annotation.Transactional;
+import com.airTransport.atm_backend.model.Baggage;
 
 import java.util.List;
 
 public interface BaggageService {
-    // Existing methods
-    BaggageDTO getBaggageById(Long baggageId);
-    List<BaggageDTO> getBaggageByBookingId(Long bookingId);
+    List<Baggage> getBaggageByBookingId(Long bookingId);
 
+    Baggage addBaggageToBooking(Long bookingId, Baggage baggage);
 
-    // New methods
-    boolean getBaggageLimit(Long baggageId);
-    boolean reportLostBaggage(Long baggageId, String feedback);
+    Baggage updateBaggage(Long baggageId, Baggage baggage);
 
-    @Transactional
-    BaggageDTO createBaggageFromParams(Long bookingId, boolean baggageLimit, double weight, int luggageCount);
+    void deleteBaggage(Long baggageId);
 }

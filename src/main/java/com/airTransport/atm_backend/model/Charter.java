@@ -1,11 +1,8 @@
 package com.airTransport.atm_backend.model;
 
-import com.airTransport.atm_backend.model.enums.VehicleType;
-import com.airTransport.atm_backend.model.enums.CharterStatus;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "charters")
@@ -13,97 +10,92 @@ public class Charter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long charterId;
+    private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private VehicleType vehicleType;
+    @Column(nullable = false)
+    private String vehicleType;
 
-    private String source;
-    private String destination;
-    private LocalDateTime departure;
-    private LocalDateTime arrival;
+    @Column(nullable = false)
+    private Double price;
 
-    @Enumerated(EnumType.STRING)
-    private CharterStatus status;
+    @Column(nullable = false)
+    private LocalDateTime departureTime;
 
-    @JsonManagedReference
+    @Column(nullable = false)
+    private LocalDateTime arrivalTime;
+
     @ManyToOne
-    @JoinColumn(name = "passengerId")
-    private Passenger passenger;
+    @JoinColumn(name = "admin_id", nullable = false)
+    private Admin admin;
 
+    @OneToMany(mappedBy = "charter", cascade = CascadeType.ALL)
+    private List<Booking> bookings;
 
-    @OneToOne(mappedBy = "charter", cascade = CascadeType.ALL)
-    private Booking booking;
+    @ManyToMany(mappedBy = "charters")
+    private List<User> users;
 
     // Getters and Setters
-    public long getCharterId() {
-        return charterId;
+    public Long getId() {
+        return id;
     }
 
-    public void setCharterId(long charterId) {
-        this.charterId = charterId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public VehicleType getVehicleType() {
+    public String getVehicleType() {
         return vehicleType;
     }
 
-    public void setVehicleType(VehicleType vehicleType) {
+    public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
     }
 
-    public String getSource() {
-        return source;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public String getDestination() {
-        return destination;
+    public LocalDateTime getDepartureTime() {
+        return departureTime;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setDepartureTime(LocalDateTime departureTime) {
+        this.departureTime = departureTime;
     }
 
-    public LocalDateTime getDeparture() {
-        return departure;
+    public LocalDateTime getArrivalTime() {
+        return arrivalTime;
     }
 
-    public void setDeparture(LocalDateTime departure) {
-        this.departure = departure;
+    public void setArrivalTime(LocalDateTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 
-    public LocalDateTime getArrival() {
-        return arrival;
+    public Admin getAdmin() {
+        return admin;
     }
 
-    public void setArrival(LocalDateTime arrival) {
-        this.arrival = arrival;
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 
-    public CharterStatus getStatus() {
-        return status;
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setStatus(CharterStatus status) {
-        this.status = status;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
-    public Passenger getPassenger() {
-        return passenger;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
-    public Booking getBooking() {
-        return booking;
-    }
-    public void setBooking(Booking booking) {
-        this.booking = booking;
-    }
-
 }

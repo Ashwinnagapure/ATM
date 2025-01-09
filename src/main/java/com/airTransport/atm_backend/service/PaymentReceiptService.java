@@ -1,11 +1,11 @@
 package com.airTransport.atm_backend.service;
 
-import com.airTransport.atm_backend.dto.PaymentReceiptDTO;
+import com.airTransport.atm_backend.model.PaymentReceipt;
+
+import java.util.List;
 
 public interface PaymentReceiptService {
-    PaymentReceiptDTO createPaymentReceipt(PaymentReceiptDTO receiptDTO);
-
-    PaymentReceiptDTO createReceiptForPayment(Long paymentId);
-
-    PaymentReceiptDTO getPaymentReceiptById(long id);
+    PaymentReceipt generateReceiptForPayment(Long paymentId, String receiptDetails);
+    PaymentReceipt getReceiptByTransactionId(Long transactionId);
+    List<PaymentReceipt> getAllReceipts();
 }
