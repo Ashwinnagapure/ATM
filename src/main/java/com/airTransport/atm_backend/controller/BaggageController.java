@@ -1,6 +1,6 @@
 package com.airTransport.atm_backend.controller;
 
-import com.airTransport.atm_backend.model.Baggage;
+import com.airTransport.atm_backend.dto.BaggageDTO;
 import com.airTransport.atm_backend.service.BaggageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,22 +17,22 @@ public class BaggageController {
 
     // Fetch all baggage for a specific booking
     @GetMapping("/booking/{bookingId}")
-    public ResponseEntity<List<Baggage>> getBaggageByBookingId(@PathVariable Long bookingId) {
-        List<Baggage> baggages = baggageService.getBaggageByBookingId(bookingId);
+    public ResponseEntity<List<BaggageDTO>> getBaggageByBookingId(@PathVariable Long bookingId) {
+        List<BaggageDTO> baggages = baggageService.getBaggageByBookingId(bookingId);
         return ResponseEntity.ok(baggages);
     }
 
     // Add a new baggage to a specific booking
     @PostMapping("/booking/{bookingId}")
-    public ResponseEntity<Baggage> addBaggageToBooking(@PathVariable Long bookingId, @RequestBody Baggage baggage) {
-        Baggage createdBaggage = baggageService.addBaggageToBooking(bookingId, baggage);
+    public ResponseEntity<BaggageDTO> addBaggageToBooking(@PathVariable Long bookingId, @RequestBody BaggageDTO baggageDTO) {
+        BaggageDTO createdBaggage = baggageService.addBaggageToBooking(bookingId, baggageDTO);
         return ResponseEntity.ok(createdBaggage);
     }
 
     // Update baggage details
     @PutMapping("/{baggageId}")
-    public ResponseEntity<Baggage> updateBaggage(@PathVariable Long baggageId, @RequestBody Baggage baggage) {
-        Baggage updatedBaggage = baggageService.updateBaggage(baggageId, baggage);
+    public ResponseEntity<BaggageDTO> updateBaggage(@PathVariable Long baggageId, @RequestBody BaggageDTO baggageDTO) {
+        BaggageDTO updatedBaggage = baggageService.updateBaggage(baggageId, baggageDTO);
         return ResponseEntity.ok(updatedBaggage);
     }
 

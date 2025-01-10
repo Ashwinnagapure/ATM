@@ -1,6 +1,6 @@
 package com.airTransport.atm_backend.controller;
 
-import com.airTransport.atm_backend.model.BoardingPass;
+import com.airTransport.atm_backend.dto.BoardingPassDTO;
 import com.airTransport.atm_backend.service.BoardingPassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,23 +16,23 @@ public class BoardingPassController {
     private BoardingPassService boardingPassService;
 
     @PostMapping
-    public ResponseEntity<BoardingPass> generateBoardingPass(@RequestBody BoardingPass boardingPass) {
-        return ResponseEntity.ok(boardingPassService.generateBoardingPass(boardingPass));
+    public ResponseEntity<BoardingPassDTO> generateBoardingPass(@RequestBody BoardingPassDTO boardingPassDTO) {
+        return ResponseEntity.ok(boardingPassService.generateBoardingPass(boardingPassDTO));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BoardingPass> getBoardingPassById(@PathVariable Long id) {
+    public ResponseEntity<BoardingPassDTO> getBoardingPassById(@PathVariable Long id) {
         return ResponseEntity.ok(boardingPassService.getBoardingPassById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<BoardingPass>> getAllBoardingPasses() {
+    public ResponseEntity<List<BoardingPassDTO>> getAllBoardingPasses() {
         return ResponseEntity.ok(boardingPassService.getAllBoardingPasses());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BoardingPass> updateBoardingPass(@PathVariable Long id, @RequestBody BoardingPass updatedBoardingPass) {
-        return ResponseEntity.ok(boardingPassService.updateBoardingPass(id, updatedBoardingPass));
+    public ResponseEntity<BoardingPassDTO> updateBoardingPass(@PathVariable Long id, @RequestBody BoardingPassDTO updatedBoardingPassDTO) {
+        return ResponseEntity.ok(boardingPassService.updateBoardingPass(id, updatedBoardingPassDTO));
     }
 
     @DeleteMapping("/{id}")

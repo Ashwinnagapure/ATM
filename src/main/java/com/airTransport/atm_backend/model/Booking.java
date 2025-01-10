@@ -1,5 +1,7 @@
 package com.airTransport.atm_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,20 +25,25 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "flight_id")
+    @JsonBackReference
     private Flight flight;
 
     @ManyToOne
     @JoinColumn(name = "charter_id")
+    @JsonBackReference
     private Charter charter;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Passenger> passengers;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     private List<Baggage> baggages;
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
+    @JsonManagedReference("payment-booking")
     private Payment payment;
+
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     private BoardingPass boardingPass;

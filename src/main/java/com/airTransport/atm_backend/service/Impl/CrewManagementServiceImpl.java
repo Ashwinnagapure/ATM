@@ -1,8 +1,9 @@
 package com.airTransport.atm_backend.service.Impl;
 
+import com.airTransport.atm_backend.dto.CrewManagementDTO;
 import com.airTransport.atm_backend.exceptions.NotFoundException;
-import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.model.CrewManagement;
+import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.model.enums.Role;
 import com.airTransport.atm_backend.repository.CrewManagementRepository;
 import com.airTransport.atm_backend.service.AdminService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CrewManagementServiceImpl implements CrewManagementService {
@@ -22,20 +24,33 @@ public class CrewManagementServiceImpl implements CrewManagementService {
     private AdminService adminService;
 
     @Override
-    public CrewManagement addCrewMember(CrewManagement crewMember) {
-        return crewRepository.save(crewMember);
+    public CrewManagementDTO addCrewMember(CrewManagementDTO crewMemberDTO) {
+        CrewManagement crewMember = new CrewManagement();
+        crewMember.setName(crewMemberDTO.getName());
+        crewMember.setRole(crewMemberDTO.getRole());
+        crewMember.setAvailability(crewMemberDTO.isAvailability());
+
+        Admin admin = adminService.getAdminById(crewMemberDTO.getAdminId()); // Assuming this method exists
+        crewMember.setAdmin(admin);
+
+        crewMember = crewRepository.save(crewMember);
+        return convertToDTO(crewMember);
     }
 
     @Override
-    public CrewManagement updateCrewMember(Long id, CrewManagement updatedCrewMember) {
+    public CrewManagementDTO updateCrewMember(Long id, CrewManagementDTO updatedCrewMemberDTO) {
         CrewManagement existingCrewMember = crewRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Crew member not found with ID: " + id));
 
-        existingCrewMember.setName(updatedCrewMember.getName());
-        existingCrewMember.setRole(updatedCrewMember.getRole());
-        existingCrewMember.setAvailability(updatedCrewMember.isAvailability());
+        existingCrewMember.setName(updatedCrewMemberDTO.getName());
+        existingCrewMember.setRole(updatedCrewMemberDTO.getRole());
+        existingCrewMember.setAvailability(updatedCrewMemberDTO.isAvailability());
 
-        return crewRepository.save(existingCrewMember);
+        Admin admin = adminService.getAdminById(updatedCrewMemberDTO.getAdminId());
+        existingCrewMember.setAdmin(admin);
+
+        existingCrewMember = crewRepository.save(existingCrewMember);
+        return convertToDTO(existingCrewMember);
     }
 
     @Override
@@ -46,23 +61,39 @@ public class CrewManagementServiceImpl implements CrewManagementService {
     }
 
     @Override
-    public CrewManagement getCrewMemberById(Long id) {
-        return crewRepository.findById(id)
+    public CrewManagementDTO getCrewMemberById(Long id) {
+        CrewManagement crewMember = crewRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Crew member not found with ID: " + id));
+        return convertToDTO(crewMember);
     }
 
     @Override
-    public List<CrewManagement> getCrewMembersByRole(Role role) {
-        return crewRepository.findByRole(role);
+    public List<CrewManagementDTO> getCrewMembersByRole(String role) {
+        Role enumRole = Role.valueOf(role.toUpperCase());
+        List<CrewManagement> crewMembers = crewRepository.findByRole(enumRole);
+        return crewMembers.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public List<CrewManagement> getAvailableCrewMembers() {
-        return crewRepository.findByAvailability(true);
+    public List<CrewManagementDTO> getAvailableCrewMembers() {
+        List<CrewManagement> crewMembers = crewRepository.findByAvailability(true);
+        return crewMembers.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public List<CrewManagement> getCrewByAdmin(Long adminId) {
-        return crewRepository.findByAdmin_Id(adminId);
+    public List<CrewManagementDTO> getCrewByAdmin(Long adminId) {
+        List<CrewManagement> crewMembers = crewRepository.findByAdmin_Id(adminId);
+        return crewMembers.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    // Utility method to convert CrewManagement entity to CrewManagementDTO
+    private CrewManagementDTO convertToDTO(CrewManagement crewMember) {
+        CrewManagementDTO dto = new CrewManagementDTO();
+        dto.setId(crewMember.getId());
+        dto.setName(crewMember.getName());
+        dto.setRole(crewMember.getRole());
+        dto.setAvailability(crewMember.isAvailability());
+        dto.setAdminId(crewMember.getAdmin().getId());
+        return dto;
     }
 }

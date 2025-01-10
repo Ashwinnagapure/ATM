@@ -1,29 +1,14 @@
-package com.airTransport.atm_backend.model;
+package com.airTransport.atm_backend.dto;
 
 import com.airTransport.atm_backend.model.enums.Role;
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "crew_management")
-public class CrewManagement {
+public class CrewManagementDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String name;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Role role;
-
-    @Column(nullable = false)
     private boolean availability;
-
-    @ManyToOne
-    @JoinColumn(name = "admin_id", nullable = false)
-    private Admin admin;
+    private Long adminId;  // To represent the associated Admin's ID
 
     // Getters and Setters
     public Long getId() {
@@ -58,11 +43,11 @@ public class CrewManagement {
         this.availability = availability;
     }
 
-    public Admin getAdmin() {
-        return admin;
+    public Long getAdminId() {
+        return adminId;
     }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
+    public void setAdminId(Long adminId) {
+        this.adminId = adminId;
     }
 }
