@@ -2,12 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.2</version>
-		<relativePath/> <!-- Spring Boot parent -->
+		<version>3.1.2</version> <!-- Updated version to match friend's version -->
+		<relativePath/>
 	</parent>
+
 	<groupId>com.localatm</groupId>
 	<artifactId>atmproject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -15,14 +17,16 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<!-- Use Java 17 since Java 21 might not be supported in some tools -->
 		<java.version>17</java.version>
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths> <!-- Corrected path -->
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<sonar.projectName>ATM</sonar.projectName>
+		<sonar.projectKey>ATM</sonar.projectKey>
+		<sonar.projectVersion>1.0</sonar.projectVersion>
+		<sonar.token>squ_7bdd2512b476708c2945196b5a13fdc72ebb4cc8</sonar.token>
 	</properties>
 
 	<dependencies>
-		<!-- Spring Boot dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -30,10 +34,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -46,17 +46,19 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- Testing dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -71,41 +73,32 @@
 		<dependency>
 			<groupId>net.bytebuddy</groupId>
 			<artifactId>byte-buddy-agent</artifactId>
-			<version>1.14.6</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<version>1.14.6</version> <!-- or the latest version -->
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-			<!-- Compiler Plugin -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
-				<configuration>
-					<release>${java.version}</release>
-				</configuration>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.10</version> <!-- Use the latest version -->
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
-			<!-- Surefire Plugin for Tests -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<argLine>-XX:+EnableDynamicAgentLoading</argLine>
-				</configuration>
-			</plugin>
-
-			<!-- SonarQube Plugin -->
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>3.9.1.2184</version>
-			</plugin>
 		</plugins>
 	</build>
 </project>
