@@ -25,11 +25,13 @@ public class PaymentReceiptServiceImpl implements PaymentReceiptService {
     @Override
     public PaymentReceiptDTO createPaymentReceipt(PaymentReceiptDTO receiptDTO) {
         PaymentReceipt receipt = PaymentReceiptMapper.toEntity(receiptDTO);
-        Optional<Payment> payment = paymentRepository.findById(receiptDTO.getPaymentId());
-        payment.ifPresent(receipt::setPayment);
+        Payment payment = paymentRepository.findById(receiptDTO.getPaymentId())
+                .orElseThrow(() -> new RuntimeException("Payment not found with ID: " + receiptDTO.getPaymentId()));
+        receipt.setPayment(payment);
         receiptRepository.save(receipt);
         return PaymentReceiptMapper.toDTO(receipt);
     }
+
 
     @Override
     public PaymentReceiptDTO createReceiptForPayment(Long paymentId) {
@@ -43,6 +45,8 @@ public class PaymentReceiptServiceImpl implements PaymentReceiptService {
 
         return PaymentReceiptMapper.toDTO(receipt);
     }
+
+
     @Override
     public PaymentReceiptDTO getPaymentReceiptById(long id) {
         Optional<PaymentReceipt> receipt = receiptRepository.findById(id);

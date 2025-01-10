@@ -31,6 +31,11 @@ public class FlightServiceImpl implements FlightManagementService, FlightSearchS
 
     @Override
     public boolean scheduleFlights(FlightCreateDTO flightCreateDTO) {
+
+        if (flightCreateDTO.getFlightName() == null || flightCreateDTO.getDeparture() == null) {
+            return false; // Invalid data
+        }
+
         Flight flight = convertToFlightEntity(flightCreateDTO);
         flightRepository.save(flight);
         return true;

@@ -17,6 +17,10 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public Log saveLog(String message) {
+        if (message == null || message.trim().isEmpty()) {
+            throw new IllegalArgumentException("Log message cannot be null or empty");
+        }
+
         Log log = new Log(LocalDateTime.now(), message);
         return logRepository.save(log);
     }
