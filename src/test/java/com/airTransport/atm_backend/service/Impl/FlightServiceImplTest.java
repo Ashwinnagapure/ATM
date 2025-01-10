@@ -110,7 +110,7 @@ class FlightServiceImplTest {
         verify(flightRepository).save(any(Flight.class));
     }
 
-//    //Failure
+    //Failure
 //    @Test
 //    void scheduleFlights_InvalidData() {
 //        FlightCreateDTO invalidDTO = new FlightCreateDTO();

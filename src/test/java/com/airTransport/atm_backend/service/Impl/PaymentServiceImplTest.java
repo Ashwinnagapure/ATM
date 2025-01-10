@@ -86,7 +86,7 @@ class PaymentServiceImplTest {
         verify(bookingRepository, times(1)).findById(bookingId);
         verify(paymentRepository, never()).save(any(Payment.class));
     }
-//
+
 //    @Test
 //    void getPaymentById() {
 //        Long paymentId = 1L;

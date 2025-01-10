@@ -113,8 +113,8 @@ class LogServiceImplTest {
 //    void saveLog_nullMessage_throwsException() {
 //        assertThrows(IllegalArgumentException.class, () -> logService.saveLog(null));
 //    }
-
-    // 8. Test for saving an empty message (edge case)
+//
+//    // 8. Test for saving an empty message (edge case)
 //    @Test
 //    void saveLog_emptyMessage_throwsException() {
 //        assertThrows(IllegalArgumentException.class, () -> logService.saveLog(""));

@@ -55,7 +55,7 @@ class PaymentReceiptServiceImplTest {
 //        verify(paymentRepository, times(1)).findById(receiptDTO.getPaymentId());
 //        verify(receiptRepository, times(1)).save(any(PaymentReceipt.class));
 //    }
-
+//
 //    @Test
 //    void createReceiptForPayment() {
 //        Long paymentId = 1L;
