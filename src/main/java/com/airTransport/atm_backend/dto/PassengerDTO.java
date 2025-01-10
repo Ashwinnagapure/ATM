@@ -1,30 +1,12 @@
-package com.airTransport.atm_backend.model;
+package com.airTransport.atm_backend.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
-import java.util.List;
+public class PassengerDTO {
 
-@Entity
-@Table(name = "passengers")
-public class Passenger {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(nullable = false)
     private String phone;
-
-    @ManyToOne
-    @JoinColumn(name = "booking_id", nullable = false)
-    @JsonBackReference
-    private Booking booking;
+    private Long bookingId; // To represent the associated booking
 
     // Getters and Setters
     public Long getId() {
@@ -59,11 +41,11 @@ public class Passenger {
         this.phone = phone;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public Long getBookingId() {
+        return bookingId;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public void setBookingId(Long bookingId) {
+        this.bookingId = bookingId;
     }
 }

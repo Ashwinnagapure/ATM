@@ -1,5 +1,6 @@
 package com.airTransport.atm_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,10 +19,8 @@ public class Payment {
 
     @OneToOne
     @JoinColumn(name = "booking_id", nullable = false)
+    @JsonBackReference
     private Booking booking;
-
-    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
-    private PaymentReceipt paymentReceipt;
 
     // Getters and Setters
     public Long getId() {
@@ -54,13 +53,5 @@ public class Payment {
 
     public void setBooking(Booking booking) {
         this.booking = booking;
-    }
-
-    public PaymentReceipt getPaymentReceipt() {
-        return paymentReceipt;
-    }
-
-    public void setPaymentReceipt(PaymentReceipt paymentReceipt) {
-        this.paymentReceipt = paymentReceipt;
     }
 }
