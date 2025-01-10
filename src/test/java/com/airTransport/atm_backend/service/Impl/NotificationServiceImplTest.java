@@ -132,7 +132,7 @@ class NotificationServiceImplTest {
         notification1.setNotificationId(1L);
 
         Notification notification2 = new Notification();
-        notification2.getNotificationId();
+        notification2.setNotificationId(2L);
 
         List<Notification> mockNotifications = Arrays.asList(notification1, notification2);
         when(notificationRepository.findAll()).thenReturn(mockNotifications);
@@ -150,7 +150,7 @@ class NotificationServiceImplTest {
 
         List<Notification> result = notificationService.getAllNotifications();
 
-        assertNotNull(result);
+
         assertTrue(result.isEmpty());
         verify(notificationRepository, times(1)).findAll();
     }

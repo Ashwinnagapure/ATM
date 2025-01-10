@@ -97,7 +97,7 @@ class NotificationControllerTest {
         notification1.setMessage("Test notification 1");
 
         Notification notification2 = new Notification();
-        notification2.getNotificationId();
+        notification2.setNotificationId(2L);
         notification2.setMessage("Test notification 2");
 
         List<Notification> mockNotifications = Arrays.asList(notification1, notification2);
@@ -117,7 +117,6 @@ class NotificationControllerTest {
 
         List<Notification> result = notificationController.getAllNotifications();
 
-        assertNotNull(result);
         assertTrue(result.isEmpty());
         verify(notificationService, times(1)).getAllNotifications();
     }
