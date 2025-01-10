@@ -23,7 +23,8 @@
 		<sonar.projectName>ATM</sonar.projectName>
 		<sonar.projectKey>ATM</sonar.projectKey>
 		<sonar.projectVersion>1.0</sonar.projectVersion>
-		<sonar.token>squ_17866a06a4a55ac6112c04ca791a1daee00cd069</sonar.token>
+
+		<sonar.token>squ_3a4ab1de4b71eedc30c2ac9f59cb1011eca7b056</sonar.token>
 	</properties>
 
 	<dependencies>
