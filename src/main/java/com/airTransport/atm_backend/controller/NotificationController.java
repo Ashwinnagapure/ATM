@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/notification")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class NotificationController {
 
     private final NotificationService notificationService;
