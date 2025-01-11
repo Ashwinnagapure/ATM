@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Baggage</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.airTransport.atm_backend.model</a>
+</div>
+
+<h1>Coverage Summary for Class: Baggage (com.airTransport.atm_backend.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Baggage</td>
+<td class="coverageStat">
+  <span class="percent">
+    6.7%
+  </span>
+  <span class="absValue">
+    (1/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6.2%
+  </span>
+  <span class="absValue">
+    (1/16)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Baggage$HibernateInstantiator$AJU85ONZ</td>
+  </tr>
+  <tr>
+    <td class="name">Baggage$HibernateProxy$yMuWngmr</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    6.7%
+  </span>
+  <span class="absValue">
+    (1/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6.2%
+  </span>
+  <span class="absValue">
+    (1/16)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.model;
+&nbsp;
+&nbsp;import jakarta.persistence.*;
+&nbsp;
+&nbsp;@Entity
+<b class="fc">&nbsp;public class Baggage {</b>
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    private long baggageId;
+&nbsp;
+&nbsp;    @ManyToOne
+&nbsp;    @JoinColumn(name = &quot;booking_id&quot;, nullable = false)
+&nbsp;    private Booking booking;
+&nbsp;
+&nbsp;    private boolean baggageLimit;
+&nbsp;    private double weight;
+&nbsp;    private int luggageCount;
+&nbsp;
+&nbsp;    @Column(name = &quot;feedback&quot;, length = 1000)
+&nbsp;    private String feedback; // Field to store user feedback or story
+&nbsp;
+&nbsp;    // Getters and setters
+&nbsp;    public long getBaggageId() {
+<b class="nc">&nbsp;        return baggageId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBaggageId(long baggageId) {
+<b class="nc">&nbsp;        this.baggageId = baggageId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Booking getBooking() {
+<b class="nc">&nbsp;        return booking;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBooking(Booking booking) {
+<b class="nc">&nbsp;        this.booking = booking;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean getBaggageLimit() {
+<b class="nc">&nbsp;        return baggageLimit;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBaggageLimit(boolean baggageLimit) {
+<b class="nc">&nbsp;        this.baggageLimit = baggageLimit;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Double getWeight() {
+<b class="nc">&nbsp;        return weight;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setWeight(Double weight) {
+<b class="nc">&nbsp;        this.weight = weight;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getLuggageCount() {
+<b class="nc">&nbsp;        return luggageCount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setLuggageCount(int luggageCount) {
+<b class="nc">&nbsp;        this.luggageCount = luggageCount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getFeedback() {
+<b class="nc">&nbsp;        return feedback;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setFeedback(String feedback) {
+<b class="nc">&nbsp;        this.feedback = feedback;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Business methods
+&nbsp;    public boolean checkBaggageLimit(String params) {
+&nbsp;        // Logic for checking baggage limit
+<b class="nc">&nbsp;        return baggageLimit;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean reportLostBaggage(String feedback) {
+&nbsp;        // Logic for reporting lost baggage by saving feedback
+<b class="nc">&nbsp;        this.feedback = feedback;</b>
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
+</div>
+</body>
+</html>

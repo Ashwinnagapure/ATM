@@ -10,37 +10,34 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/charters")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class CharterController {
 
     @Autowired
     private CharterService charterService;
 
     @PostMapping
-    public ResponseEntity<Charter> createCharter(@RequestBody Charter charter) {
-        Charter createdCharter = charterService.saveCharter(charter);
-        return ResponseEntity.ok(createdCharter);
+    public ResponseEntity<Charter> addCharter(@RequestBody Charter charter) {
+        return ResponseEntity.ok(charterService.addCharter(charter));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Charter> getCharterById(@PathVariable Long id) {
+        return ResponseEntity.ok(charterService.getCharterById(id));
     }
 
     @GetMapping
     public ResponseEntity<List<Charter>> getAllCharters() {
-        List<Charter> charters = charterService.getAllCharters();
-        return ResponseEntity.ok(charters);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Charter> getCharterById(@PathVariable long id) {
-        Charter charter = charterService.getCharterById(id);
-        return ResponseEntity.ok(charter);
+        return ResponseEntity.ok(charterService.getAllCharters());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Charter> updateCharter(@PathVariable long id, @RequestBody Charter updatedCharter) {
-        Charter charter = charterService.updateCharter(id, updatedCharter);
-        return ResponseEntity.ok(charter);
+    public ResponseEntity<Charter> updateCharter(@PathVariable Long id, @RequestBody Charter updatedCharter) {
+        return ResponseEntity.ok(charterService.updateCharter(id, updatedCharter));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCharter(@PathVariable long id) {
+    public ResponseEntity<Void> deleteCharter(@PathVariable Long id) {
         charterService.deleteCharter(id);
         return ResponseEntity.noContent().build();
     }

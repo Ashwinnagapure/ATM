@@ -1,39 +1,45 @@
 package com.airTransport.atm_backend.service.Impl;
 
-import com.airTransport.atm_backend.dto.PaymentReceiptDTO;
-import com.airTransport.atm_backend.mapper.PaymentReceiptMapper;
+import com.airTransport.atm_backend.exceptions.NotFoundException;
 import com.airTransport.atm_backend.model.Payment;
 import com.airTransport.atm_backend.model.PaymentReceipt;
 import com.airTransport.atm_backend.repository.PaymentReceiptRepository;
 import com.airTransport.atm_backend.repository.PaymentRepository;
 import com.airTransport.atm_backend.service.PaymentReceiptService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class PaymentReceiptServiceImpl implements PaymentReceiptService {
 
-    private final PaymentReceiptRepository receiptRepository;
-    private final PaymentRepository paymentRepository;
+    @Autowired
+    private PaymentReceiptRepository receiptRepository;
 
-    public PaymentReceiptServiceImpl(PaymentReceiptRepository receiptRepository, PaymentRepository paymentRepository) {
-        this.receiptRepository = receiptRepository;
-        this.paymentRepository = paymentRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
+
+    @Override
+    public PaymentReceipt generateReceiptForPayment(Long paymentId, String receiptDetails) {
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new NotFoundException("Payment not found with ID: " + paymentId));
+
+        PaymentReceipt receipt = new PaymentReceipt();
+        receipt.setPayment(payment);
+        receipt.setReceiptDetails(receiptDetails);
+
+        return receiptRepository.save(receipt);
     }
 
     @Override
-    public PaymentReceiptDTO createPaymentReceipt(PaymentReceiptDTO receiptDTO) {
-        PaymentReceipt receipt = PaymentReceiptMapper.toEntity(receiptDTO);
-        Optional<Payment> payment = paymentRepository.findById(receiptDTO.getPaymentId());
-        payment.ifPresent(receipt::setPayment);
-        receiptRepository.save(receipt);
-        return PaymentReceiptMapper.toDTO(receipt);
+    public PaymentReceipt getReceiptByTransactionId(Long transactionId) {
+        return receiptRepository.findById(transactionId)
+                .orElseThrow(() -> new NotFoundException("Payment Receipt not found with Transaction ID: " + transactionId));
     }
 
     @Override
-    public PaymentReceiptDTO getPaymentReceiptById(long id) {
-        Optional<PaymentReceipt> receipt = receiptRepository.findById(id);
-        return receipt.map(PaymentReceiptMapper::toDTO).orElseThrow(() -> new RuntimeException("Payment not found"));
+    public List<PaymentReceipt> getAllReceipts() {
+        return receiptRepository.findAll();
     }
 }

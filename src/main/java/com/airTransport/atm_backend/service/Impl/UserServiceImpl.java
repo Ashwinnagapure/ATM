@@ -1,51 +1,75 @@
 package com.airTransport.atm_backend.service.Impl;
 
+import com.airTransport.atm_backend.dto.LoginDTO;
+import com.airTransport.atm_backend.dto.UserDTO;
+import com.airTransport.atm_backend.exceptions.NotFoundException;
 import com.airTransport.atm_backend.model.User;
-import com.airTransport.atm_backend.model.enums.UserType;
 import com.airTransport.atm_backend.repository.UserRepository;
 import com.airTransport.atm_backend.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    @Override
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (User user : users) {
+            userDTOList.add(convertToDTO(user));
+        }
+        return userDTOList;
     }
 
     @Override
-    public User searchUser(Long userId) {
-        return userRepository.searchUser(userId);
+    public String registerUser(UserDTO userDTO) {
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new RuntimeException("Email is already taken!");
+        }
+        if (userRepository.existsByUsername(userDTO.getUsername())) {
+            throw new RuntimeException("Username is already taken!");
+        }
+        User newUser = new User();
+        newUser.setUsername(userDTO.getUsername());
+        newUser.setEmail(userDTO.getEmail());
+        newUser.setPassword(userDTO.getPassword());
+        userRepository.save(newUser);
+        return "User registered successfully!";
     }
 
     @Override
-    public String removeUser(Long userId) {
-        userRepository.deleteById(userId);
-        return "User Removed Successfully!";
-    }
-    @Override
-    public String updateUser(User user) {
-        userRepository.save(user);
-        return "User updated Successfully!";
+    public String loginUser(LoginDTO loginDTO) {
+        User user = userRepository.findByEmail(loginDTO.getEmail());
+        if (user == null || !user.getPassword().equals(loginDTO.getPassword())) {
+            throw new RuntimeException("Invalid email or password!");
+        }
+        return "Login successful!";
     }
 
     @Override
-    public String addUser(User user) {
-        userRepository.save(user);
-        return "User Added Successfully!";
+    public void logout() {
+        // Logic for logging out the user
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public UserDTO getUserById(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found with ID: " + userId));
+        return convertToDTO(user);
     }
 
-    @Override
-    public List<User> getUsersByType(UserType userType) {
-        return userRepository.findByUserType(userType);
+    private UserDTO convertToDTO(User user) {
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        return dto;
     }
 }

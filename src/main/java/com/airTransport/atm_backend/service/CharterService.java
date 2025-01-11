@@ -5,14 +5,9 @@ import com.airTransport.atm_backend.model.Charter;
 import java.util.List;
 
 public interface CharterService {
-
-    Charter saveCharter(Charter charter);
-
+    Charter addCharter(Charter charter);
+    Charter getCharterById(Long id);
     List<Charter> getAllCharters();
-
-    Charter getCharterById(long id);
-
-    Charter updateCharter(long id, Charter charter);
-
-    void deleteCharter(long id);
+    Charter updateCharter(Long id, Charter updatedCharter);
+    void deleteCharter(Long id);
 }

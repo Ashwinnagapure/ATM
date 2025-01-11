@@ -1,13 +1,13 @@
 package com.airTransport.atm_backend.service;
 
-import com.airTransport.atm_backend.dto.BookingDTO;
+import com.airTransport.atm_backend.model.Booking;
 
 import java.util.List;
 
 public interface BookingService {
-    List<BookingDTO> getAllBookings();
-    BookingDTO getBookingById(Long id);
-    boolean deleteBooking(Long id);
-    BookingDTO createBooking(BookingDTO bookingDTO);
-    boolean confirmBooking(Long id);
+    Booking createBooking(Booking booking);
+    Booking getBookingById(Long id);
+    List<Booking> getAllBookings();
+
+    void deleteBooking(Long id);
 }

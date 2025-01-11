@@ -6,29 +6,26 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "crew_management")
 public class CrewManagement {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String name;
 
-    @Enumerated(EnumType.STRING) // Maps Enum values as Strings in the database
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
     @Column(nullable = false)
     private boolean availability;
 
-    // Constructors, Getters, and Setters
-    public CrewManagement() {}
+    @ManyToOne
+    @JoinColumn(name = "admin_id", nullable = false)
+    private Admin admin;
 
-    public CrewManagement(String name, Role role, boolean availability) {
-        this.name = name;
-        this.role = role;
-        this.availability = availability;
-    }
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -59,5 +56,13 @@ public class CrewManagement {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 }

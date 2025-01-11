@@ -1,46 +1,41 @@
 package com.airTransport.atm_backend.dto;
 
-import com.airTransport.atm_backend.model.enums.PaymentMethod;
-import com.airTransport.atm_backend.model.enums.PaymentStatus;
-
-import java.time.LocalDate;
-
 public class PaymentDTO {
-    private double amount;
-    private PaymentMethod paymentMethod;
-    private PaymentStatus paymentStatus;
-    private LocalDate paymentDate;
+    private Long id;
+    private Double amount;
+    private String status; // COMPLETED, PENDING, etc.
+    private Long bookingId;
 
-    public double getAmount() {
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
+    public Long getBookingId() {
+        return bookingId;
     }
 
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setBookingId(Long bookingId) {
+        this.bookingId = bookingId;
     }
-
-    public LocalDate getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-// Getters and Setters
 }

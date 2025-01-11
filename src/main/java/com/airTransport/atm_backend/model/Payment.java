@@ -1,100 +1,57 @@
 package com.airTransport.atm_backend.model;
 
-import com.airTransport.atm_backend.model.enums.PaymentMethod;
-import com.airTransport.atm_backend.model.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Data;
-
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "payments")
-@Data
 public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long paymentId;
+    private Long id;
 
-    private double amount;
+    @Column(nullable = false)
+    private Double amount;
 
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
+    @Column(nullable = false)
+    private String status; // e.g., COMPLETED, PENDING
 
-    @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus;
-
-    private LocalDate paymentDate;
-
-    // Default constructor
-    public Payment() {
-    }
-
-    // Constructor with parameters
-    public Payment(double amount, PaymentMethod paymentMethod, PaymentStatus paymentStatus, LocalDate paymentDate) {
-        this.amount = amount;
-        this.paymentMethod = paymentMethod;
-        this.paymentStatus = paymentStatus;
-        this.paymentDate = paymentDate;
-    }
+    @OneToOne
+    @JoinColumn(name = "booking_id", nullable = false)
+    @JsonBackReference
+    private Booking booking;
 
     // Getters and Setters
-    public long getPaymentId() {
-        return paymentId;
+    public Long getId() {
+        return id;
     }
 
-    public void setPaymentId(long paymentId) {
-        this.paymentId = paymentId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
+    public Booking getBooking() {
+        return booking;
     }
 
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-    public LocalDate getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    // Other methods for processing payment and refunds
-    public boolean processPayment() {
-        // Payment processing logic (simplified here)
-        if (this.paymentStatus == PaymentStatus.PENDING) {
-            this.paymentStatus = PaymentStatus.SUCCESS;  // Example logic
-            return true;
-        }
-        return false;
-    }
-
-    public boolean processRefund() {
-        // Refund processing logic (simplified here)
-        if (this.paymentStatus == PaymentStatus.SUCCESS) {
-            this.paymentStatus = PaymentStatus.REFUNDED;
-            return true;
-        }
-        return false;
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 }
