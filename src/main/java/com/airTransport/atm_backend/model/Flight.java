@@ -25,7 +25,7 @@ public class Flight {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "admin_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("admin-flight")
     private Admin admin;
 
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)

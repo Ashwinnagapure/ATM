@@ -1,5 +1,6 @@
 package com.airTransport.atm_backend.controller;
 
+import com.airTransport.atm_backend.dto.AdminDTO;
 import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,13 @@ public class AdminController {
     }
 
     @PostMapping
-    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
-        return ResponseEntity.ok(adminService.createAdmin(admin));
+    public ResponseEntity<Admin> createAdmin(@RequestBody AdminDTO adminDTO) {
+        return ResponseEntity.ok(adminService.createAdmin(adminDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Admin> updateAdmin(@PathVariable Long id, @RequestBody Admin updatedAdmin) {
-        return ResponseEntity.ok(adminService.updateAdmin(id, updatedAdmin));
+    public ResponseEntity<Admin> updateAdmin(@PathVariable Long id, @RequestBody AdminDTO updatedAdminDTO) {
+        return ResponseEntity.ok(adminService.updateAdmin(id, updatedAdminDTO));
     }
 
     @DeleteMapping("/{id}")

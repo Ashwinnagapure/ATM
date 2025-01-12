@@ -28,7 +28,7 @@ public class Charter {
 
     @ManyToOne
     @JoinColumn(name = "admin_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("admin-charter")
     private Admin admin;
 
     @OneToMany(mappedBy = "charter", cascade = CascadeType.ALL)
