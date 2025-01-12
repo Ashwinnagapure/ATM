@@ -1,29 +1,17 @@
 package com.airTransport.atm_backend.dto;
 
-import java.util.List;
-
 public class AdminDTO {
-    private Long id;
-    private String username;
+    private String name;
     private String email;
-    private String role;
-    private List<FlightDTO> flights;
-    private List<CrewManagementDTO> crewManagements;
+    private String password;
 
-    public Long getId() {
-        return id;
+    // Getters and Setters
+    public String getName() {
+        return name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -34,27 +22,11 @@ public class AdminDTO {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
+    public String getPassword() {
+        return password;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public List<FlightDTO> getFlights() {
-        return flights;
-    }
-
-    public void setFlights(List<FlightDTO> flights) {
-        this.flights = flights;
-    }
-
-    public List<CrewManagementDTO> getCrewManagements() {
-        return crewManagements;
-    }
-
-    public void setCrewManagements(List<CrewManagementDTO> crewManagements) {
-        this.crewManagements = crewManagements;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

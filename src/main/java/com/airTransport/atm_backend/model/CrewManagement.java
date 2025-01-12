@@ -1,39 +1,33 @@
 package com.airTransport.atm_backend.model;
 
 import com.airTransport.atm_backend.model.enums.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "crew_management")
 public class CrewManagement {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String name;
 
-    @Enumerated(EnumType.STRING) // Maps Enum values as Strings in the database
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
     @Column(nullable = false)
     private boolean availability;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "adminId", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "admin_id", nullable = false)
+    @JsonBackReference("admin-crew")
     private Admin admin;
 
-    // Constructors, Getters, and Setters
-    public CrewManagement() {
-    }
-
-    public CrewManagement(String name, Role role, boolean availability) {
-        this.name = name;
-        this.role = role;
-        this.availability = availability;
-    }
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -69,6 +63,7 @@ public class CrewManagement {
     public Admin getAdmin() {
         return admin;
     }
+
     public void setAdmin(Admin admin) {
         this.admin = admin;
     }

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > PaymentReceiptRepository</title>
+  <title>Coverage Report > AdminService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.repository</a>
+    <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: PaymentReceiptRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: AdminService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
 
@@ -30,13 +30,13 @@ Current scope:     <a href="../../index.html">all classes</a>
   <th class="name">Class</th>
 </tr>
   <tr>
-    <td class="name">PaymentReceiptRepository$MockitoMock$Y7cHGGug</td>
+    <td class="name">AdminService$MockitoMock$5uTMdICw</td>
   </tr>
   <tr>
-    <td class="name">PaymentReceiptRepository$MockitoMock$Y7cHGGug$auxiliary$3ydaSrlN</td>
+    <td class="name">AdminService$MockitoMock$5uTMdICw$auxiliary$sdaLrg5K</td>
   </tr>
   <tr>
-    <td class="name">PaymentReceiptRepository$MockitoMock$Y7cHGGug$auxiliary$V3OwI63I</td>
+    <td class="name">AdminService$MockitoMock$5uTMdICw$auxiliary$sKfyL02R</td>
   </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
@@ -48,12 +48,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.PaymentReceipt;
-&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import com.airTransport.atm_backend.model.Admin;
+&nbsp;import com.airTransport.atm_backend.model.Notification;
 &nbsp;
-&nbsp;public interface PaymentReceiptRepository extends JpaRepository&lt;PaymentReceipt, Long&gt; {
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface AdminService {
+&nbsp;    public Admin getAdminById(Long id);
+&nbsp;    List&lt;Admin&gt; getAllAdmins();
+&nbsp;    String createAdmin(Admin admin);
+&nbsp;    String updateAdmin(Admin admin);
+&nbsp;    String deleteAdmin(Long id);
+&nbsp;
+&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -78,7 +87,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 11:34</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

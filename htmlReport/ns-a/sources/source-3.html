@@ -44,26 +44,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">BoardingPassServiceImpl</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (7/7)
+    (0/7)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (16/16)
+    (0/16)
   </span>
 </td>
 </tr>
@@ -88,7 +88,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.util.List;
 &nbsp;
 &nbsp;@Service
-<b class="fc">&nbsp;public class BoardingPassServiceImpl implements BoardingPassService {</b>
+<b class="nc">&nbsp;public class BoardingPassServiceImpl implements BoardingPassService {</b>
 &nbsp;
 &nbsp;    @Autowired
 &nbsp;    private BoardingPassRepository boardingPassRepository;
@@ -99,41 +99,41 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public List&lt;BoardingPass&gt; getAllBoardingPasses() {
-<b class="fc">&nbsp;        return boardingPassRepository.findAll();</b>
+<b class="nc">&nbsp;        return boardingPassRepository.findAll();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public BoardingPass createBoardingPassForPayment(Long paymentId, BoardingPass boardingPass) {
-<b class="fc">&nbsp;        Payment payment = paymentRepository.findById(paymentId)</b>
-<b class="fc">&nbsp;                .orElseThrow(() -&gt; new RuntimeException(&quot;Payment not found with ID: &quot; + paymentId));</b>
-<b class="fc">&nbsp;        boardingPass.setPayment(payment);</b>
-<b class="fc">&nbsp;        return boardingPassRepository.save(boardingPass);</b>
+<b class="nc">&nbsp;        Payment payment = paymentRepository.findById(paymentId)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new RuntimeException(&quot;Payment not found with ID: &quot; + paymentId));</b>
+<b class="nc">&nbsp;        boardingPass.setPayment(payment);</b>
+<b class="nc">&nbsp;        return boardingPassRepository.save(boardingPass);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public BoardingPass getBoardingPassById(Long id) {
-<b class="fc">&nbsp;        return boardingPassRepository.findById(id)</b>
-<b class="fc">&nbsp;                .orElseThrow(() -&gt; new RuntimeException(&quot;BoardingPass not found with id: &quot; + id));</b>
+<b class="nc">&nbsp;        return boardingPassRepository.findById(id)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new RuntimeException(&quot;BoardingPass not found with id: &quot; + id));</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public BoardingPass createBoardingPass(BoardingPass boardingPass) {
-<b class="fc">&nbsp;        return boardingPassRepository.save(boardingPass);</b>
+<b class="nc">&nbsp;        return boardingPassRepository.save(boardingPass);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public BoardingPass updateBoardingPass(Long id, BoardingPass boardingPass) {
-<b class="fc">&nbsp;        BoardingPass existingBoardingPass = getBoardingPassById(id);</b>
-<b class="fc">&nbsp;        existingBoardingPass.setBoardingTime(boardingPass.getBoardingTime());</b>
-<b class="fc">&nbsp;        existingBoardingPass.setBoardingDate(boardingPass.getBoardingDate());</b>
-<b class="fc">&nbsp;        existingBoardingPass.setBoardingGate(boardingPass.getBoardingGate());</b>
-<b class="fc">&nbsp;        existingBoardingPass.setSeat(boardingPass.getSeat());</b>
-<b class="fc">&nbsp;        return boardingPassRepository.save(existingBoardingPass);</b>
+<b class="nc">&nbsp;        BoardingPass existingBoardingPass = getBoardingPassById(id);</b>
+<b class="nc">&nbsp;        existingBoardingPass.setBoardingTime(boardingPass.getBoardingTime());</b>
+<b class="nc">&nbsp;        existingBoardingPass.setBoardingDate(boardingPass.getBoardingDate());</b>
+<b class="nc">&nbsp;        existingBoardingPass.setBoardingGate(boardingPass.getBoardingGate());</b>
+<b class="nc">&nbsp;        existingBoardingPass.setSeat(boardingPass.getSeat());</b>
+<b class="nc">&nbsp;        return boardingPassRepository.save(existingBoardingPass);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public void deleteBoardingPass(Long id) {
-<b class="fc">&nbsp;        boardingPassRepository.deleteById(id);</b>
+<b class="nc">&nbsp;        boardingPassRepository.deleteById(id);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -159,7 +159,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 11:34</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

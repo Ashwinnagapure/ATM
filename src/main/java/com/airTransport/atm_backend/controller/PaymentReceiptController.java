@@ -1,37 +1,35 @@
 package com.airTransport.atm_backend.controller;
 
-import com.airTransport.atm_backend.dto.PaymentReceiptDTO;
-import com.airTransport.atm_backend.mapper.PaymentReceiptMapper;
-import com.airTransport.atm_backend.model.Payment;
 import com.airTransport.atm_backend.model.PaymentReceipt;
-import com.airTransport.atm_backend.repository.PaymentReceiptRepository;
-import com.airTransport.atm_backend.repository.PaymentRepository;
 import com.airTransport.atm_backend.service.PaymentReceiptService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/payment-receipts")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class PaymentReceiptController {
 
-    private final PaymentReceiptService receiptService;
+    @Autowired
+    private PaymentReceiptService receiptService;
 
-
-    public PaymentReceiptController(PaymentReceiptService receiptService, PaymentRepository paymentRepository, PaymentReceiptRepository paymentReceiptRepository) {
-        this.receiptService = receiptService;
-
+    @PostMapping("/{paymentId}")
+    public ResponseEntity<PaymentReceipt> generateReceiptForPayment(@PathVariable Long paymentId, @RequestBody String receiptDetails) {
+        PaymentReceipt receipt = receiptService.generateReceiptForPayment(paymentId, receiptDetails);
+        return ResponseEntity.ok(receipt);
     }
 
-    @PostMapping
-    public ResponseEntity<PaymentReceiptDTO> createPaymentReceipt(@RequestBody PaymentReceiptDTO receiptDTO) {
-        PaymentReceiptDTO createdReceipt = receiptService.createPaymentReceipt(receiptDTO);
-        return ResponseEntity.ok(createdReceipt);
+    @GetMapping("/{transactionId}")
+    public ResponseEntity<PaymentReceipt> getReceiptByTransactionId(@PathVariable Long transactionId) {
+        PaymentReceipt receipt = receiptService.getReceiptByTransactionId(transactionId);
+        return ResponseEntity.ok(receipt);
     }
 
-
-    @GetMapping("/{id}")
-    public ResponseEntity<PaymentReceiptDTO> getPaymentReceipt(@PathVariable long id) {
-        PaymentReceiptDTO receipt = receiptService.getPaymentReceiptById(id);
-        return receipt != null ? ResponseEntity.ok(receipt) : ResponseEntity.notFound().build();
+    @GetMapping
+    public ResponseEntity<List<PaymentReceipt>> getAllReceipts() {
+        return ResponseEntity.ok(receiptService.getAllReceipts());
     }
 }

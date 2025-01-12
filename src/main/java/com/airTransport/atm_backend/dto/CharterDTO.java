@@ -1,29 +1,25 @@
 package com.airTransport.atm_backend.dto;
 
-public class CharterDTO {
+import java.time.LocalDateTime;
+import java.util.List;
 
-    private Long charterId;
+public class CharterDTO {
+    private Long id;
     private String vehicleType;
     private Double price;
-    private String passengerName;
-    private String flightNumber;
-
-    // Constructor
-    public CharterDTO(Long charterId, String vehicleType, Double price, String passengerName, String flightNumber) {
-        this.charterId = charterId;
-        this.vehicleType = vehicleType;
-        this.price = price;
-        this.passengerName = passengerName;
-        this.flightNumber = flightNumber;
-    }
+    private LocalDateTime departureTime;
+    private LocalDateTime arrivalTime;
+    private Long adminId;
+    private List<Long> bookingIds; // List of booking IDs associated with the charter
+    private List<Long> userIds; // List of user IDs associated with the charter
 
     // Getters and Setters
-    public Long getCharterId() {
-        return charterId;
+    public Long getId() {
+        return id;
     }
 
-    public void setCharterId(Long charterId) {
-        this.charterId = charterId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getVehicleType() {
@@ -42,19 +38,43 @@ public class CharterDTO {
         this.price = price;
     }
 
-    public String getPassengerName() {
-        return passengerName;
+    public LocalDateTime getDepartureTime() {
+        return departureTime;
     }
 
-    public void setPassengerName(String passengerName) {
-        this.passengerName = passengerName;
+    public void setDepartureTime(LocalDateTime departureTime) {
+        this.departureTime = departureTime;
     }
 
-    public String getFlightNumber() {
-        return flightNumber;
+    public LocalDateTime getArrivalTime() {
+        return arrivalTime;
     }
 
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
+    public void setArrivalTime(LocalDateTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public Long getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Long adminId) {
+        this.adminId = adminId;
+    }
+
+    public List<Long> getBookingIds() {
+        return bookingIds;
+    }
+
+    public void setBookingIds(List<Long> bookingIds) {
+        this.bookingIds = bookingIds;
+    }
+
+    public List<Long> getUserIds() {
+        return userIds;
+    }
+
+    public void setUserIds(List<Long> userIds) {
+        this.userIds = userIds;
     }
 }

@@ -1,6 +1,9 @@
 package com.airTransport.atm_backend.service.Impl;
 
+import com.airTransport.atm_backend.exceptions.NotFoundException;
+import com.airTransport.atm_backend.model.Booking;
 import com.airTransport.atm_backend.model.Passenger;
+import com.airTransport.atm_backend.repository.BookingRepository;
 import com.airTransport.atm_backend.repository.PassengerRepository;
 import com.airTransport.atm_backend.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,38 +14,48 @@ import java.util.List;
 @Service
 public class PassengerServiceImpl implements PassengerService {
 
+    @Autowired
+    private PassengerRepository passengerRepository;
 
-    private final PassengerRepository passengerRepository;
-
-    public PassengerServiceImpl(PassengerRepository passengerRepository) {
-        this.passengerRepository = passengerRepository;
-    }
-
-    @Override
-    public String addPassenger(Passenger passenger) {
-        passengerRepository.save(passenger);
-        return "Passenger added successfully";
-    }
+    @Autowired
+    private BookingRepository bookingRepository;
 
     @Override
-    public Passenger getPassengerById(Long PassengerId) {
-        return passengerRepository.findById(PassengerId).orElse(null);
-    }
-
-    @Override
-    public List<Passenger> getAllPassengers() {
-        return passengerRepository.findAll();
-    }
-
-    @Override
-    public void deletePassenger(Long PassengerId) {
-        passengerRepository.deleteById(PassengerId);
-        //return"Passenger deleted successfully";
-    }
-
-    @Override
-    public Passenger updatePassenger(Passenger passenger) {
+    public Passenger addPassenger(Passenger passenger, Long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new NotFoundException("Booking not found with ID: " + bookingId));
+        passenger.setBooking(booking);
         return passengerRepository.save(passenger);
     }
 
+    @Override
+    public List<Passenger> getPassengersByBookingId(Long bookingId) {
+        if (!bookingRepository.existsById(bookingId)) {
+            throw new NotFoundException("Booking not found with ID: " + bookingId);
+        }
+        return passengerRepository.findByBookingId(bookingId);
+    }
+
+    @Override
+    public Passenger getPassengerById(Long passengerId) {
+        return passengerRepository.findById(passengerId)
+                .orElseThrow(() -> new NotFoundException("Passenger not found with ID: " + passengerId));
+    }
+
+    @Override
+    public Passenger updatePassenger(Long passengerId, Passenger passengerDetails) {
+        Passenger passenger = getPassengerById(passengerId);
+        passenger.setName(passengerDetails.getName());
+        passenger.setEmail(passengerDetails.getEmail());
+        passenger.setPhone(passengerDetails.getPhone());
+        return passengerRepository.save(passenger);
+    }
+
+    @Override
+    public void deletePassenger(Long passengerId) {
+        if (!passengerRepository.existsById(passengerId)) {
+            throw new NotFoundException("Passenger not found with ID: " + passengerId);
+        }
+        passengerRepository.deleteById(passengerId);
+    }
 }

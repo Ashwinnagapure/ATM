@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > FlightSearchService</title>
+  <title>Coverage Report > TravelPreferences</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,28 +19,19 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.service</a>
+    <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: FlightSearchService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: TravelPreferences (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
 </tr>
-  <tr>
-    <td class="name">FlightSearchService$MockitoMock$292BdoGo</td>
-  </tr>
-  <tr>
-    <td class="name">FlightSearchService$MockitoMock$292BdoGo$auxiliary$gAzfOD4Y</td>
-  </tr>
-  <tr>
-    <td class="name">FlightSearchService$MockitoMock$292BdoGo$auxiliary$y567Sj9j</td>
-  </tr>
 <tr>
-  <td class="name"><strong>Total</strong></td>
+  <td class="name">TravelPreferences</td>
 </tr>
+
 </table>
 
 <br/>
@@ -48,16 +39,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.dto.FlightResponseDTO;
-&nbsp;import java.util.List;
-&nbsp;
-&nbsp;public interface FlightSearchService {
-&nbsp;
-&nbsp;    List&lt;FlightResponseDTO&gt; sortByPrice();  // Return DTO
-&nbsp;    List&lt;FlightResponseDTO&gt; sortByAirline(); // Return DTO
-&nbsp;    List&lt;FlightResponseDTO&gt; sortByClass(); // Return DTO
+&nbsp;public interface TravelPreferences {
+&nbsp;    public void saveTravelPreferences(String params, TravelPreferences tp);
+&nbsp;    public TravelPreferences getTravelPreferences(String params);
 &nbsp;}
 </code>
 </pre>
@@ -82,7 +68,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 11:34</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

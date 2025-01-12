@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > PaymentService</title>
+  <title>Coverage Report > BaggageRepository</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,28 +19,19 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.airTransport.atm_backend.service</a>
+    <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: PaymentService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: BaggageRepository (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
 </tr>
-  <tr>
-    <td class="name">PaymentService$MockitoMock$94eelSFZ</td>
-  </tr>
-  <tr>
-    <td class="name">PaymentService$MockitoMock$94eelSFZ$auxiliary$9qRoj4yY</td>
-  </tr>
-  <tr>
-    <td class="name">PaymentService$MockitoMock$94eelSFZ$auxiliary$nYImvuGR</td>
-  </tr>
 <tr>
-  <td class="name"><strong>Total</strong></td>
+  <td class="name">BaggageRepository</td>
 </tr>
+
 </table>
 
 <br/>
@@ -48,17 +39,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.dto.PaymentDTO;
+&nbsp;import com.airTransport.atm_backend.model.Baggage;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
 &nbsp;
-&nbsp;public interface PaymentService {
+&nbsp;import java.util.List;
 &nbsp;
+&nbsp;public interface BaggageRepository extends JpaRepository&lt;Baggage, Long&gt; {
+&nbsp;    // Custom query to find all baggage associated with a specific booking
 &nbsp;
+&nbsp;    List&lt;Baggage&gt; findByBookingId(Long bookingId);
 &nbsp;
-&nbsp;    PaymentDTO createPayment(PaymentDTO paymentDTO, Long bookingId);
-&nbsp;
-&nbsp;    PaymentDTO getPaymentById(long id);
+&nbsp;    // You can use the default findById method provided by JpaRepository
 &nbsp;}
 </code>
 </pre>
@@ -83,7 +76,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 11:34</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

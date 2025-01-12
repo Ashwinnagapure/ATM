@@ -1,3 +1,4 @@
+/*
 package com.airTransport.atm_backend.repository;
 
 import org.junit.jupiter.api.AfterEach;
@@ -16,4 +17,4 @@ class BookingRepositoryTest {
     @AfterEach
     void tearDown() {
     }
-}
+}*/

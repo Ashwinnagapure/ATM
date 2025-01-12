@@ -2,46 +2,18 @@ package com.airTransport.atm_backend.dto;
 
 public class BaggageDTO {
 
-    private Long baggageId;
-    private Long bookingId;  // To represent the related Booking
-    private boolean baggageLimit;
+    private Long id;
     private Double weight;
-    private int luggageCount;
-    private String feedback; // New field for feedback
+    private Boolean isOverweight;
+    private Long bookingId; // Reference to the Booking ID, not the Booking object
 
-    // Constructor
-    public BaggageDTO(Long baggageId, Long bookingId, boolean baggageLimit, Double weight, int luggageCount, String feedback) {
-        this.baggageId = baggageId;
-        this.bookingId = bookingId;
-        this.baggageLimit = baggageLimit;
-        this.weight = weight;
-        this.luggageCount = luggageCount;
-        this.feedback = feedback;
+    // Getters and Setters
+    public Long getId() {
+        return id;
     }
 
-    // Getters and setters
-    public Long getBaggageId() {
-        return baggageId;
-    }
-
-    public void setBaggageId(Long baggageId) {
-        this.baggageId = baggageId;
-    }
-
-    public Long getBookingId() {
-        return bookingId;
-    }
-
-    public void setBookingId(Long bookingId) {
-        this.bookingId = bookingId;
-    }
-
-    public boolean isBaggageLimit() {
-        return baggageLimit;
-    }
-
-    public void setBaggageLimit(boolean baggageLimit) {
-        this.baggageLimit = baggageLimit;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Double getWeight() {
@@ -52,19 +24,19 @@ public class BaggageDTO {
         this.weight = weight;
     }
 
-    public int getLuggageCount() {
-        return luggageCount;
+    public Boolean getIsOverweight() {
+        return isOverweight;
     }
 
-    public void setLuggageCount(int luggageCount) {
-        this.luggageCount = luggageCount;
+    public void setIsOverweight(Boolean isOverweight) {
+        this.isOverweight = isOverweight;
     }
 
-    public String getFeedback() {
-        return feedback;
+    public Long getBookingId() {
+        return bookingId;
     }
 
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
+    public void setBookingId(Long bookingId) {
+        this.bookingId = bookingId;
     }
 }

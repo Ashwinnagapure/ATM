@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">PaymentController</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (3/3)
+    (0/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (2/2)
+    (0/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (6/6)
+    (0/6)
   </span>
 </td>
 </tr>
@@ -100,20 +100,20 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    private final PaymentService paymentService;
 &nbsp;
-<b class="fc">&nbsp;    public PaymentController(PaymentService paymentService) {</b>
-<b class="fc">&nbsp;        this.paymentService = paymentService;</b>
+<b class="nc">&nbsp;    public PaymentController(PaymentService paymentService) {</b>
+<b class="nc">&nbsp;        this.paymentService = paymentService;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @PostMapping(&quot;/{bookingId}&quot;)
 &nbsp;    public ResponseEntity&lt;PaymentDTO&gt; createPayment(@RequestBody PaymentDTO paymentDTO,@PathVariable  Long bookingId) {
-<b class="fc">&nbsp;        PaymentDTO createdPayment = paymentService.createPayment(paymentDTO,bookingId);</b>
-<b class="fc">&nbsp;        return ResponseEntity.ok(createdPayment);</b>
+<b class="nc">&nbsp;        PaymentDTO createdPayment = paymentService.createPayment(paymentDTO,bookingId);</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(createdPayment);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @GetMapping(&quot;/{id}&quot;)
 &nbsp;    public ResponseEntity&lt;PaymentDTO&gt; getPayment(@PathVariable long id) {
-<b class="fc">&nbsp;        PaymentDTO payment = paymentService.getPaymentById(id);</b>
-<b class="fc">&nbsp;        return payment != null ? ResponseEntity.ok(payment) : ResponseEntity.notFound().build();</b>
+<b class="nc">&nbsp;        PaymentDTO payment = paymentService.getPaymentById(id);</b>
+<b class="nc">&nbsp;        return payment != null ? ResponseEntity.ok(payment) : ResponseEntity.notFound().build();</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -139,7 +139,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 11:34</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>
