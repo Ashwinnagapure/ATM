@@ -81,7 +81,11 @@
 			<artifactId>byte-buddy-agent</artifactId>
 			<version>1.14.6</version> <!-- or the latest version -->
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
