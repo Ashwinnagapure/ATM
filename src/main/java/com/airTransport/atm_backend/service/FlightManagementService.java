@@ -10,5 +10,7 @@ public interface FlightManagementService {
     boolean scheduleFlights(FlightCreateDTO flightCreateDTO); // Accept DTO
     boolean cancelFlights(long flightId);
 
+
+    List<FlightResponseDTO> getAllFlights();
     FlightResponseDTO getFlightById(Long flightId); // Return DTO
 }

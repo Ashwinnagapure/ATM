@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > PaymentReceiptRepository</title>
+  <title>Coverage Report > BaggageRepository</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: PaymentReceiptRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: BaggageRepository (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">PaymentReceiptRepository</td>
+  <td class="name">BaggageRepository</td>
 </tr>
 
 </table>
@@ -41,10 +41,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.PaymentReceipt;
+&nbsp;import com.airTransport.atm_backend.model.Baggage;
 &nbsp;import org.springframework.data.jpa.repository.JpaRepository;
 &nbsp;
-&nbsp;public interface PaymentReceiptRepository extends JpaRepository&lt;PaymentReceipt, Long&gt; {
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface BaggageRepository extends JpaRepository&lt;Baggage, Long&gt; {
+&nbsp;    // Custom query to find all baggage associated with a specific booking
+&nbsp;
+&nbsp;    List&lt;Baggage&gt; findByBookingId(Long bookingId);
+&nbsp;
+&nbsp;    // You can use the default findById method provided by JpaRepository
 &nbsp;}
 </code>
 </pre>
@@ -69,7 +76,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 10:47</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

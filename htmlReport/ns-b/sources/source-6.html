@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > BoardingPassService</title>
+  <title>Coverage Report > NotificationService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: BoardingPassService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: NotificationService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">BoardingPassService</td>
+  <td class="name">NotificationService</td>
 </tr>
 
 </table>
@@ -41,19 +41,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.BoardingPass;
+&nbsp;import com.airTransport.atm_backend.model.Notification;
 &nbsp;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface BoardingPassService {
-&nbsp;    List&lt;BoardingPass&gt; getAllBoardingPasses();
+&nbsp;public interface NotificationService {
+&nbsp;    Notification getNotificationById(Long id);
 &nbsp;
-&nbsp;    BoardingPass createBoardingPassForPayment(Long paymentId, BoardingPass boardingPass);
+&nbsp;    Notification sendNotificationToPassenger(Long adminId, Long passengerId, Notification notification);
 &nbsp;
-&nbsp;    BoardingPass getBoardingPassById(Long id);
-&nbsp;    BoardingPass createBoardingPass(BoardingPass boardingPass);
-&nbsp;    BoardingPass updateBoardingPass(Long id, BoardingPass boardingPass);
-&nbsp;    void deleteBoardingPass(Long id);
+&nbsp;    List&lt;Notification&gt; getAllNotifications();
+&nbsp;
+&nbsp;    String deleteNotificationById(Long id);
 &nbsp;}
 </code>
 </pre>
@@ -78,7 +77,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 10:47</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

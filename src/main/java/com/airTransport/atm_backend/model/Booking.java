@@ -1,45 +1,52 @@
 package com.airTransport.atm_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Table(name = "bookings")
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "passenger_id", nullable = false)
-    private Passenger passenger;
+    @Column(nullable = false)
+    private LocalDateTime bookingDate;
 
-    @OneToOne
-    @JoinColumn(name = "flight_id", nullable = false)
+    @Column(nullable = false)
+    private LocalDateTime travelDate;
+
+    @Column(nullable = false)
+    private String status; // e.g., PENDING, CONFIRMED
+
+    @ManyToOne
+    @JoinColumn(name = "flight_id")
+    @JsonBackReference
     private Flight flight;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "charter_id")
+    @JsonBackReference
     private Charter charter;
 
-    private LocalDateTime bookingDate;
-    private LocalDateTime travelDate;
-    private String status;
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Passenger> passengers;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     private List<Baggage> baggages;
 
-    public Booking() {}
-    public Booking(Passenger passenger, Flight flight, LocalDateTime bookingDate, LocalDateTime travelDate, String status) {
-        this.passenger = passenger;
-        this.flight = flight;
-        this.bookingDate = bookingDate;
-        this.travelDate = travelDate;
-        this.status = status;
-    }
+    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
+    @JsonManagedReference("payment-booking")
+    private Payment payment;
 
 
+    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
+    private BoardingPass boardingPass;
 
     // Getters and Setters
     public Long getId() {
@@ -48,22 +55,6 @@ public class Booking {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Passenger getPassenger() {
-        return passenger;
-    }
-
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
-    }
-
-    public Flight getFlight() {
-        return flight;
-    }
-
-    public void setFlight(Flight flight) {
-        this.flight = flight;
     }
 
     public LocalDateTime getBookingDate() {
@@ -90,6 +81,30 @@ public class Booking {
         this.status = status;
     }
 
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
+
+    public Charter getCharter() {
+        return charter;
+    }
+
+    public void setCharter(Charter charter) {
+        this.charter = charter;
+    }
+
+    public List<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(List<Passenger> passengers) {
+        this.passengers = passengers;
+    }
+
     public List<Baggage> getBaggages() {
         return baggages;
     }
@@ -97,14 +112,20 @@ public class Booking {
     public void setBaggages(List<Baggage> baggages) {
         this.baggages = baggages;
     }
-    public Charter getCharter() {
-        return charter;
+
+    public Payment getPayment() {
+        return payment;
     }
-    public void setCharter(Charter charter) {
-        this.charter = charter;
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
-    public void addBaggage(Baggage baggage) {
-        baggages.add(baggage);
-        baggage.setBooking(this);
+
+    public BoardingPass getBoardingPass() {
+        return boardingPass;
+    }
+
+    public void setBoardingPass(BoardingPass boardingPass) {
+        this.boardingPass = boardingPass;
     }
 }

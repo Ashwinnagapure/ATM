@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > FlightSearchService</title>
+  <title>Coverage Report > FlightManagementService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,7 +22,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: FlightSearchService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: FlightManagementService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
 
@@ -30,13 +30,13 @@ Current scope:     <a href="../../index.html">all classes</a>
   <th class="name">Class</th>
 </tr>
   <tr>
-    <td class="name">FlightSearchService$MockitoMock$YPrUEEb1</td>
+    <td class="name">FlightManagementService$MockitoMock$cvYItBa7</td>
   </tr>
   <tr>
-    <td class="name">FlightSearchService$MockitoMock$YPrUEEb1$auxiliary$rMeMVsFr</td>
+    <td class="name">FlightManagementService$MockitoMock$cvYItBa7$auxiliary$TKchIrOP</td>
   </tr>
   <tr>
-    <td class="name">FlightSearchService$MockitoMock$YPrUEEb1$auxiliary$Svf4WBqa</td>
+    <td class="name">FlightManagementService$MockitoMock$cvYItBa7$auxiliary$VKBkoaH0</td>
   </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
@@ -50,14 +50,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
+&nbsp;import com.airTransport.atm_backend.dto.FlightCreateDTO;
 &nbsp;import com.airTransport.atm_backend.dto.FlightResponseDTO;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface FlightSearchService {
+&nbsp;public interface FlightManagementService {
 &nbsp;
-&nbsp;    List&lt;FlightResponseDTO&gt; sortByPrice();  // Return DTO
-&nbsp;    List&lt;FlightResponseDTO&gt; sortByAirline(); // Return DTO
-&nbsp;    List&lt;FlightResponseDTO&gt; sortByClass(); // Return DTO
+&nbsp;    boolean trackFlightStatus(long flightId);
+&nbsp;    boolean scheduleFlights(FlightCreateDTO flightCreateDTO); // Accept DTO
+&nbsp;    boolean cancelFlights(long flightId);
+&nbsp;
+&nbsp;    FlightResponseDTO getFlightById(Long flightId); // Return DTO
 &nbsp;}
 </code>
 </pre>
@@ -82,7 +85,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 10:47</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

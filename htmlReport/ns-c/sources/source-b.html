@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > LogRepository</title>
+  <title>Coverage Report > UserManagement</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: LogRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: UserManagement (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">LogRepository</td>
+  <td class="name">UserManagement</td>
 </tr>
 
 </table>
@@ -40,14 +40,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
+&nbsp;import java.util.List;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.Log;
-&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
-&nbsp;import org.springframework.stereotype.Repository;
-&nbsp;
-&nbsp;@Repository
-&nbsp;public interface LogRepository extends JpaRepository&lt;Log, Long&gt; {
-&nbsp;
+&nbsp;public interface UserManagement {
+&nbsp;    public Boolean deleteUserAccount(String paramas);
+&nbsp;    public boolean createUserAccount(String params);
+&nbsp;    public boolean deactivateUserAccount(String params) ;
+&nbsp;    public List&lt;String&gt; getallUsers();
 &nbsp;}
 </code>
 </pre>
@@ -72,7 +71,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 10:47</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

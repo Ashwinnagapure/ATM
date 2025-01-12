@@ -2,27 +2,27 @@ package com.airTransport.atm_backend.service.Impl;
 
 import com.airTransport.atm_backend.dto.FlightCreateDTO;
 import com.airTransport.atm_backend.dto.FlightResponseDTO;
-import com.airTransport.atm_backend.model.Admin;
+import com.airTransport.atm_backend.exceptions.NotFoundException;
 import com.airTransport.atm_backend.model.Flight;
 import com.airTransport.atm_backend.repository.FlightRepository;
 import com.airTransport.atm_backend.service.AdminService;
 import com.airTransport.atm_backend.service.FlightManagementService;
 import com.airTransport.atm_backend.service.FlightSearchService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class FlightServiceImpl implements FlightManagementService, FlightSearchService {
+public class FlightServiceImpl implements FlightSearchService, FlightManagementService {
 
     @Autowired
     private FlightRepository flightRepository;
 
     @Autowired
     private AdminService adminService;
-
-    // FlightManagementService Implementation
 
     @Override
     public boolean trackFlightStatus(long flightId) {
@@ -46,12 +46,19 @@ public class FlightServiceImpl implements FlightManagementService, FlightSearchS
     }
 
     @Override
-    public FlightResponseDTO getFlightById(Long flightId) {
-        Flight flight = flightRepository.findById(flightId).orElse(null);
-        return flight != null ? convertToFlightResponseDTO(flight) : null;
+    public List<FlightResponseDTO> getAllFlights() {
+        List<Flight> flights = flightRepository.findAll(); // Fetch all flights from the database
+        return flights.stream()
+                .map(this::convertToFlightResponseDTO) // Convert each flight entity to DTO
+                .collect(Collectors.toList());
     }
 
-    // FlightSearchService Implementation
+    @Override
+    public FlightResponseDTO getFlightById(Long flightId) {
+        Flight flight = flightRepository.findById(flightId)
+                .orElseThrow(() -> new NotFoundException("Flight not found with ID: " + flightId));
+        return convertToFlightResponseDTO(flight);
+    }
 
     @Override
     public List<FlightResponseDTO> sortByPrice() {
@@ -74,7 +81,14 @@ public class FlightServiceImpl implements FlightManagementService, FlightSearchS
                 .collect(Collectors.toList());
     }
 
-    // Helper Methods for Conversion
+    @Override
+    public List<FlightResponseDTO> searchFlights(String source, String destination) {
+        // Fetch flights based on the provided source and destination
+        List<Flight> flights = flightRepository.findBySourceAndDestination(source, destination);
+        return flights.stream()
+                .map(this::convertToFlightResponseDTO)
+                .collect(Collectors.toList());
+    }
 
     private Flight convertToFlightEntity(FlightCreateDTO dto) {
         Flight flight = new Flight();
@@ -96,7 +110,6 @@ public class FlightServiceImpl implements FlightManagementService, FlightSearchS
         dto.setFlightName(flight.getFlightName());
         dto.setDeparture(flight.getDeparture());
         dto.setArrival(flight.getArrival());
-        dto.setStatus(flight.getStatus());
         dto.setSource(flight.getSource());
         dto.setDestination(flight.getDestination());
         dto.setPrice(flight.getPrice());

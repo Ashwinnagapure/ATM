@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > AdminRepository</title>
+  <title>Coverage Report > TravelPreferences</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,25 +22,16 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: AdminRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: TravelPreferences (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
 </tr>
-  <tr>
-    <td class="name">AdminRepository$MockitoMock$5dnxG0mz</td>
-  </tr>
-  <tr>
-    <td class="name">AdminRepository$MockitoMock$5dnxG0mz$auxiliary$MoGGSYAk</td>
-  </tr>
-  <tr>
-    <td class="name">AdminRepository$MockitoMock$5dnxG0mz$auxiliary$Z41fJ26X</td>
-  </tr>
 <tr>
-  <td class="name"><strong>Total</strong></td>
+  <td class="name">TravelPreferences</td>
 </tr>
+
 </table>
 
 <br/>
@@ -50,11 +41,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.Admin;
-&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
-&nbsp;
-&nbsp;public interface AdminRepository extends JpaRepository&lt;Admin,Long&gt; {
-&nbsp;
+&nbsp;public interface TravelPreferences {
+&nbsp;    public void saveTravelPreferences(String params, TravelPreferences tp);
+&nbsp;    public TravelPreferences getTravelPreferences(String params);
 &nbsp;}
 </code>
 </pre>
@@ -79,7 +68,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 10:47</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

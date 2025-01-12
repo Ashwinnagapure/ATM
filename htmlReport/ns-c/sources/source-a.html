@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > BaggageRepository</title>
+  <title>Coverage Report > AdminRepository</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,16 +22,25 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: BaggageRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: AdminRepository (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">AdminRepository$MockitoMock$NXHrl3Ag</td>
+  </tr>
+  <tr>
+    <td class="name">AdminRepository$MockitoMock$NXHrl3Ag$auxiliary$1riXq3M5</td>
+  </tr>
+  <tr>
+    <td class="name">AdminRepository$MockitoMock$NXHrl3Ag$auxiliary$mAd4cA7X</td>
+  </tr>
 <tr>
-  <td class="name">BaggageRepository</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -41,17 +50,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.Baggage;
+&nbsp;import com.airTransport.atm_backend.model.Admin;
 &nbsp;import org.springframework.data.jpa.repository.JpaRepository;
 &nbsp;
-&nbsp;import java.util.List;
+&nbsp;public interface AdminRepository extends JpaRepository&lt;Admin,Long&gt; {
 &nbsp;
-&nbsp;public interface BaggageRepository extends JpaRepository&lt;Baggage, Long&gt; {
-&nbsp;    // Custom query to find all baggage associated with a specific booking
-&nbsp;
-&nbsp;    List&lt;Baggage&gt; findByBookingId(Long bookingId);
-&nbsp;
-&nbsp;    // You can use the default findById method provided by JpaRepository
 &nbsp;}
 </code>
 </pre>
@@ -76,7 +79,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 10:47</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

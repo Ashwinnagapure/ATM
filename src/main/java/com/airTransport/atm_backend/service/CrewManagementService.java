@@ -1,27 +1,23 @@
 package com.airTransport.atm_backend.service;
 
-import com.airTransport.atm_backend.model.Admin;
-import com.airTransport.atm_backend.model.CrewManagement;
+import com.airTransport.atm_backend.dto.CrewManagementDTO;
 import com.airTransport.atm_backend.model.enums.Role;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface CrewManagementService {
 
-    CrewManagement addCrewMember(CrewManagement crewMember);
+    CrewManagementDTO addCrewMember(CrewManagementDTO crewMemberDTO);
 
-    CrewManagement updateCrewMember(Long id, CrewManagement crewMember);
+    CrewManagementDTO updateCrewMember(Long id, CrewManagementDTO updatedCrewMemberDTO);
 
     void deleteCrewMember(Long id);
 
-    CrewManagement getCrewMemberById(Long id);
+    CrewManagementDTO getCrewMemberById(Long id);
 
-    List<CrewManagement> getCrewMembersByRole(Role role);
+    List<CrewManagementDTO> getCrewMembersByRole(String role);
 
-    List<CrewManagement> getAvailableCrewMembers();
+    List<CrewManagementDTO> getAvailableCrewMembers();
 
-
-    List<CrewManagement> getCrewByAdmin(Long adminId);
+    List<CrewManagementDTO> getCrewByAdmin(Long adminId);
 }

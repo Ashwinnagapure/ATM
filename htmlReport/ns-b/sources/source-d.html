@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > UserService</title>
+  <title>Coverage Report > BookingService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,16 +22,25 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: UserService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: BookingService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">BookingService$MockitoMock$S0KJqoqw</td>
+  </tr>
+  <tr>
+    <td class="name">BookingService$MockitoMock$S0KJqoqw$auxiliary$D9jaU4GZ</td>
+  </tr>
+  <tr>
+    <td class="name">BookingService$MockitoMock$S0KJqoqw$auxiliary$yDufsFba</td>
+  </tr>
 <tr>
-  <td class="name">UserService</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -41,19 +50,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
-&nbsp;
-&nbsp;// importing UserDTO and LoginDTO
-&nbsp;import com.airTransport.atm_backend.dto.LoginDTO;
-&nbsp;import com.airTransport.atm_backend.dto.UserDTO;
+&nbsp;import com.airTransport.atm_backend.dto.BookingDTO;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
 &nbsp;
 &nbsp;import java.util.List;
 &nbsp;
+&nbsp;public interface BookingService {
+&nbsp;    List&lt;BookingDTO&gt; getAllBookings();
+&nbsp;    BookingDTO getBookingById(Long id);
+&nbsp;    boolean deleteBooking(Long id);
+&nbsp;    BookingDTO createBooking(BookingDTO bookingDTO);
 &nbsp;
-&nbsp;public interface UserService{
-&nbsp;    List&lt;UserDTO&gt; getAllUsers();
-&nbsp;    String registerUser(UserDTO userDTO);
-&nbsp;    String loginUser(LoginDTO loginDTO);
-&nbsp;    void logout();
+&nbsp;    @Transactional
+&nbsp;    BookingDTO createBooking(BookingDTO bookingDTO, Long passengerId, Long flightId);
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    BookingDTO createCharterBooking(BookingDTO bookingDTO, Long passengerId, Long charterId);
+&nbsp;
+&nbsp;    boolean confirmBooking(Long id);
 &nbsp;}
 </code>
 </pre>
@@ -78,7 +92,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 10:47</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

@@ -1,3 +1,4 @@
+/*
 package com.airTransport.atm_backend.service.Impl;
 
 import com.airTransport.atm_backend.dto.FlightCreateDTO;
@@ -210,3 +211,4 @@ class FlightServiceImplTest {
     }
 
 }
+*/

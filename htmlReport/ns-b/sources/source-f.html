@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > TravelPreferencesService</title>
+  <title>Coverage Report > LogService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: TravelPreferencesService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: LogService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">TravelPreferencesService</td>
+  <td class="name">LogService</td>
 </tr>
 
 </table>
@@ -40,19 +40,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
-&nbsp;import com.airTransport.atm_backend.model.TravelPreferences;
 &nbsp;
+&nbsp;import com.airTransport.atm_backend.model.Log;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface TravelPreferencesService {
-&nbsp;
-&nbsp;    TravelPreferences createTravelPreferences(TravelPreferences travelPreferences);
-&nbsp;    TravelPreferences saveTravelPreferencesByPassengerId(Long passengerId, TravelPreferences travelPreferences);
-&nbsp;    TravelPreferences updateTravelPreferences(Long travelPreferencesId, TravelPreferences travelPreferences);
-&nbsp;    List&lt;TravelPreferences&gt; getTravelPreferencesByPassengerId(Long passengerId);
-&nbsp;    TravelPreferences getTravelPreferencesById(Long travelPreferencesId);
-&nbsp;    List&lt;TravelPreferences&gt; getAllTravelPreferences();
-&nbsp;    void deleteTravelPreferences(Long travelPreferencesId);
+&nbsp;public interface LogService {
+&nbsp;    Log saveLog(String message);
+&nbsp;    Log retrieveLog(Long id);
+&nbsp;    List&lt;Log&gt; retrieveAllLogs();
+&nbsp;    void deleteLog(Long id);
 &nbsp;}
 </code>
 </pre>
@@ -77,7 +73,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 10:47</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

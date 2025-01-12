@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > CrewManagementRepository</title>
+  <title>Coverage Report > PassengerRepository</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,16 +22,25 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.airTransport.atm_backend.repository</a>
 </div>
 
-<h1>Coverage Summary for Class: CrewManagementRepository (com.airTransport.atm_backend.repository)</h1>
+<h1>Coverage Summary for Class: PassengerRepository (com.airTransport.atm_backend.repository)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">PassengerRepository$MockitoMock$PSAv7yv1</td>
+  </tr>
+  <tr>
+    <td class="name">PassengerRepository$MockitoMock$PSAv7yv1$auxiliary$ysrMBg7s</td>
+  </tr>
+  <tr>
+    <td class="name">PassengerRepository$MockitoMock$PSAv7yv1$auxiliary$yWFUwwQy</td>
+  </tr>
 <tr>
-  <td class="name">CrewManagementRepository</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -41,17 +50,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.repository;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.Admin;
-&nbsp;import com.airTransport.atm_backend.model.CrewManagement;
-&nbsp;import com.airTransport.atm_backend.model.enums.Role;
+&nbsp;import com.airTransport.atm_backend.model.Passenger;
 &nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.data.jpa.repository.Query;
+&nbsp;import org.springframework.stereotype.Repository;
 &nbsp;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface CrewManagementRepository extends JpaRepository&lt;CrewManagement, Long&gt; {
-&nbsp;    List&lt;CrewManagement&gt; findByRole(Role role);
-&nbsp;    List&lt;CrewManagement&gt; findByAvailability(boolean availability);
-&nbsp;    List&lt;CrewManagement&gt; findByAdmin(Admin admin);
+&nbsp;@Repository
+&nbsp;public interface PassengerRepository extends JpaRepository&lt;Passenger, Long&gt; {
+&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -76,7 +84,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 10:47</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>

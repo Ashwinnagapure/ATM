@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > CharterService</title>
+  <title>Coverage Report > PaymentService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.airTransport.atm_backend.service</a>
 </div>
 
-<h1>Coverage Summary for Class: CharterService (com.airTransport.atm_backend.service)</h1>
+<h1>Coverage Summary for Class: PaymentService (com.airTransport.atm_backend.service)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">CharterService</td>
+  <td class="name">PaymentService</td>
 </tr>
 
 </table>
@@ -41,25 +41,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service;
 &nbsp;
-&nbsp;import com.airTransport.atm_backend.model.Admin;
-&nbsp;import com.airTransport.atm_backend.model.Charter;
+&nbsp;import com.airTransport.atm_backend.dto.PaymentDTO;
 &nbsp;
-&nbsp;import java.util.List;
+&nbsp;public interface PaymentService {
 &nbsp;
-&nbsp;public interface CharterService {
 &nbsp;
-&nbsp;    Charter saveCharter(Charter charter);
 &nbsp;
-&nbsp;    List&lt;Charter&gt; getAllCharters();
+&nbsp;    PaymentDTO createPayment(PaymentDTO paymentDTO, Long bookingId);
 &nbsp;
-&nbsp;    Charter getCharterById(long id);
-&nbsp;
-&nbsp;    Charter updateCharter(long id, Charter charter);
-&nbsp;
-&nbsp;    void deleteCharter(long id);
-&nbsp;
-&nbsp;    List&lt;Charter&gt; getChartersByPassenger(Long passengerId);
-&nbsp;
+&nbsp;    PaymentDTO getPaymentById(long id);
 &nbsp;}
 </code>
 </pre>
@@ -84,7 +74,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 10:47</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>
