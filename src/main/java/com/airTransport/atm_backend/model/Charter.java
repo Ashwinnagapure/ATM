@@ -28,14 +28,19 @@ public class Charter {
 
     @ManyToOne
     @JoinColumn(name = "admin_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("admin-charter")
     private Admin admin;
 
     @OneToMany(mappedBy = "charter", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Booking> bookings;
 
-    @ManyToMany(mappedBy = "charters")
+    @ManyToMany
+    @JoinTable(
+            name = "user_charters",
+            joinColumns = @JoinColumn(name = "charter_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> users;
 
     // Getters and Setters

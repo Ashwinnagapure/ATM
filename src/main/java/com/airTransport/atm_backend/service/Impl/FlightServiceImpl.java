@@ -46,6 +46,14 @@ public class FlightServiceImpl implements FlightSearchService, FlightManagementS
     }
 
     @Override
+    public List<FlightResponseDTO> getAllFlights() {
+        List<Flight> flights = flightRepository.findAll(); // Fetch all flights from the database
+        return flights.stream()
+                .map(this::convertToFlightResponseDTO) // Convert each flight entity to DTO
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public FlightResponseDTO getFlightById(Long flightId) {
         Flight flight = flightRepository.findById(flightId)
                 .orElseThrow(() -> new NotFoundException("Flight not found with ID: " + flightId));
@@ -69,6 +77,15 @@ public class FlightServiceImpl implements FlightSearchService, FlightManagementS
     @Override
     public List<FlightResponseDTO> sortByClass() {
         return flightRepository.findAllByOrderByFlightClassAsc().stream()
+                .map(this::convertToFlightResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FlightResponseDTO> searchFlights(String source, String destination) {
+        // Fetch flights based on the provided source and destination
+        List<Flight> flights = flightRepository.findBySourceAndDestination(source, destination);
+        return flights.stream()
                 .map(this::convertToFlightResponseDTO)
                 .collect(Collectors.toList());
     }

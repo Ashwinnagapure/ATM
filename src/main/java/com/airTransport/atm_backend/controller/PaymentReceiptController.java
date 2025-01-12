@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/payment-receipts")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class PaymentReceiptController {
 
     @Autowired

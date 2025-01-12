@@ -1,5 +1,6 @@
 package com.airTransport.atm_backend.service.Impl;
 
+import com.airTransport.atm_backend.dto.AdminDTO;
 import com.airTransport.atm_backend.exceptions.NotFoundException;
 import com.airTransport.atm_backend.model.Admin;
 import com.airTransport.atm_backend.repository.AdminRepository;
@@ -27,16 +28,20 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin createAdmin(Admin admin) {
+    public Admin createAdmin(AdminDTO adminDTO) {
+        Admin admin = new Admin();
+        admin.setName(adminDTO.getName());
+        admin.setEmail(adminDTO.getEmail());
+        admin.setPassword(adminDTO.getPassword());
         return adminRepository.save(admin);
     }
 
     @Override
-    public Admin updateAdmin(Long id, Admin updatedAdmin) {
+    public Admin updateAdmin(Long id, AdminDTO updatedAdminDTO) {
         Admin existingAdmin = getAdminById(id);
-        existingAdmin.setName(updatedAdmin.getName());
-        existingAdmin.setEmail(updatedAdmin.getEmail());
-        existingAdmin.setPassword(updatedAdmin.getPassword());
+        existingAdmin.setName(updatedAdminDTO.getName());
+        existingAdmin.setEmail(updatedAdminDTO.getEmail());
+        existingAdmin.setPassword(updatedAdminDTO.getPassword());
         return adminRepository.save(existingAdmin);
     }
 
