@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/flights")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class FlightController {
 
     @Autowired
@@ -53,5 +54,21 @@ public class FlightController {
     @GetMapping("/sort/class")
     public ResponseEntity<List<FlightResponseDTO>> sortByClass() {
         return ResponseEntity.ok(flightSearchService.sortByClass());
+    }
+
+    // New endpoint for searching flights based on source and destination
+    @GetMapping("/search")
+    public ResponseEntity<List<FlightResponseDTO>> searchFlights(
+            @RequestParam String source,
+            @RequestParam String destination) {
+        List<FlightResponseDTO> flights = flightSearchService.searchFlights(source, destination);
+        return ResponseEntity.ok(flights); // Return the list of flights based on source and destination
+    }
+
+    // New endpoint to get all flights
+    @GetMapping("/all")
+    public ResponseEntity<List<FlightResponseDTO>> getAllFlights() {
+        List<FlightResponseDTO> flights = flightManagementService.getAllFlights();
+        return ResponseEntity.ok(flights);
     }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/baggages")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class BaggageController {
 
     @Autowired
