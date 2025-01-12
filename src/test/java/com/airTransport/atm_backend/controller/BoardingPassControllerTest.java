@@ -118,7 +118,7 @@ class BoardingPassControllerTest {
 //
 //        verify(boardingPassService, times(1)).createBoardingPass(boardingPass);
 //    }
-
+//
 //    @Test
 //    void testCreateBoardingPassForPayment() throws Exception {
 //        Long paymentId = 1L;
@@ -150,7 +150,7 @@ class BoardingPassControllerTest {
 //
 //        verify(boardingPassService, times(1)).createBoardingPassForPayment(paymentId, boardingPass);
 //    }
-
+//
 //    @Test
 //    void updateBoardingPass() throws Exception {
 //        BoardingPass boardingPass = new BoardingPass();

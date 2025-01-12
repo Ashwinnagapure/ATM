@@ -1,4 +1,7 @@
+
+
 package com.airTransport.atm_backend.controller;
+
 
 import com.airTransport.atm_backend.dto.LoginDTO;
 import com.airTransport.atm_backend.dto.UserDTO;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:5173")
@@ -17,33 +21,35 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @CrossOrigin(origins = "/*")
     @GetMapping("/all")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        List<UserDTO> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+
+    public List<UserDTO> getAllUsers() {
+        return userService.getAllUsers();
     }
 
+    @CrossOrigin(origins = "/*")
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
         String response = userService.registerUser(userDTO);
+//        System.out.println("Registration successful");
         return ResponseEntity.ok(response);
     }
 
+    @CrossOrigin(origins = "/*")
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
         String response = userService.loginUser(loginDTO);
+//        System.out.println("Login successful");
         return ResponseEntity.ok(response);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/logout")
     public ResponseEntity<String> logoutUser() {
         userService.logout();
+//        System.out.println("Logout successful");
         return ResponseEntity.ok("Logout successful!");
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) {
-        UserDTO user = userService.getUserById(userId);
-        return ResponseEntity.ok(user);
-    }
 }

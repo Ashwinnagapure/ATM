@@ -1,14 +1,11 @@
 package com.airTransport.atm_backend.dto;
 
-import com.airTransport.atm_backend.model.enums.Role;
-
 public class CrewManagementDTO {
-
     private Long id;
     private String name;
-    private Role role;
+    private String role;
     private boolean availability;
-    private Long adminId;  // To represent the associated Admin's ID
+    private Long adminId;
 
     // Getters and Setters
     public Long getId() {
@@ -27,11 +24,11 @@ public class CrewManagementDTO {
         this.name = name;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

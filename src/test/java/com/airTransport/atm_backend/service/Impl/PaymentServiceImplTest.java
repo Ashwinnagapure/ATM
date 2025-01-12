@@ -1,7 +1,7 @@
 package com.airTransport.atm_backend.service.Impl;
 
 import com.airTransport.atm_backend.dto.PaymentDTO;
-//import com.airTransport.atm_backend.mapper.PaymentMapper;
+import com.airTransport.atm_backend.mapper.PaymentMapper;
 import com.airTransport.atm_backend.model.Booking;
 import com.airTransport.atm_backend.model.Payment;
 import com.airTransport.atm_backend.model.enums.PaymentMethod;
@@ -71,21 +71,21 @@ class PaymentServiceImplTest {
 //        verify(paymentRepository, times(1)).save(any(Payment.class));
 //    }
 
-//    @Test
-//    void createPayment_BookingNotFound() {
-//        Long bookingId = 1L;
-//        PaymentDTO paymentDTO = new PaymentDTO();
-//
-//        when(bookingRepository.findById(bookingId)).thenReturn(Optional.empty());
-//
-//        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-//            paymentService.createPayment(paymentDTO, bookingId);
-//        });
-//
-//        assertEquals("Booking not found", exception.getMessage());
-//        verify(bookingRepository, times(1)).findById(bookingId);
-//        verify(paymentRepository, never()).save(any(Payment.class));
-//    }
+    @Test
+    void createPayment_BookingNotFound() {
+        Long bookingId = 1L;
+        PaymentDTO paymentDTO = new PaymentDTO();
+
+        when(bookingRepository.findById(bookingId)).thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            paymentService.createPayment(paymentDTO, bookingId);
+        });
+
+        assertEquals("Booking not found", exception.getMessage());
+        verify(bookingRepository, times(1)).findById(bookingId);
+        verify(paymentRepository, never()).save(any(Payment.class));
+    }
 
 //    @Test
 //    void getPaymentById() {
@@ -110,15 +110,15 @@ class PaymentServiceImplTest {
 //        verify(paymentRepository, times(1)).findById(paymentId);
 //    }
 
-//    @Test
-//    void getPaymentById_NotFound() {
-//        Long paymentId = 1L;
-//
-//        when(paymentRepository.findById(paymentId)).thenReturn(Optional.empty());
-//
-//        PaymentDTO result = paymentService.getPaymentById(paymentId);
-//
-//        assertNull(result);
-//        verify(paymentRepository, times(1)).findById(paymentId);
-//    }
+    @Test
+    void getPaymentById_NotFound() {
+        Long paymentId = 1L;
+
+        when(paymentRepository.findById(paymentId)).thenReturn(Optional.empty());
+
+        PaymentDTO result = paymentService.getPaymentById(paymentId);
+
+        assertNull(result);
+        verify(paymentRepository, times(1)).findById(paymentId);
+    }
 }

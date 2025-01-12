@@ -1,4 +1,3 @@
-/*
 package com.airTransport.atm_backend.service.Impl;
 
 import com.airTransport.atm_backend.dto.FlightCreateDTO;
@@ -111,7 +110,7 @@ class FlightServiceImplTest {
         verify(flightRepository).save(any(Flight.class));
     }
 
-//    //Failure
+    //Failure
 //    @Test
 //    void scheduleFlights_InvalidData() {
 //        FlightCreateDTO invalidDTO = new FlightCreateDTO();
@@ -220,4 +219,3 @@ class FlightServiceImplTest {
     }
 
 }
-*/

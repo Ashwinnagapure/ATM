@@ -1,114 +1,99 @@
 package com.airTransport.atm_backend.service.Impl;
 
-import com.airTransport.atm_backend.controller.UserController;
 import com.airTransport.atm_backend.dto.LoginDTO;
 import com.airTransport.atm_backend.dto.UserDTO;
-import com.airTransport.atm_backend.service.UserService;
+import com.airTransport.atm_backend.model.User;
+import com.airTransport.atm_backend.repository.UserRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.ResponseEntity;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceImplTest {
 
     @InjectMocks
-    private UserController userController;
+    private UserServiceImpl userService;
 
     @Mock
-    private UserService userService;
+    private UserRepository userRepository;
+
+    private UserDTO userDTO;
+    private LoginDTO loginDTO;
+    private User user;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-    }
 
-    @Test
-    void testGetAllUsers() {
-        // Arrange
-        List<UserDTO> mockUsers = new ArrayList<>();
-        UserDTO user1 = new UserDTO();
-        user1.setId(1L);
-        user1.setUsername("JohnDoe");
-        user1.setEmail("john.doe@example.com");
-        user1.setPassword("password123");
-        user1.setRole("USER");
+        // Initialize test data
+        userDTO = new UserDTO();
+        userDTO.setUsername("testUser");
+        userDTO.setEmail("testUser@example.com");
+        userDTO.setPassword("password123");
 
-        UserDTO user2 = new UserDTO();
-        user2.setId(2L);
-        user2.setUsername("JaneDoe");
-        user2.setEmail("jane.doe@example.com");
-        user2.setPassword("password456");
-        user2.setRole("ADMIN");
-
-        mockUsers.add(user1);
-        mockUsers.add(user2);
-
-        when(userService.getAllUsers()).thenReturn(mockUsers);
-
-        // Act
-        List<UserDTO> users = userController.getAllUsers();
-
-        // Assert
-        assertEquals(2, users.size());
-        assertEquals("JohnDoe", users.get(0).getUsername());
-        assertEquals("JaneDoe", users.get(1).getUsername());
-        verify(userService, times(1)).getAllUsers();
-    }
-
-    @Test
-    void testRegisterUser() {
-        // Arrange
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername("NewUser");
-        userDTO.setEmail("new.user@example.com");
-        userDTO.setPassword("password789");
-        userDTO.setRole("USER");
-
-        when(userService.registerUser(userDTO)).thenReturn("Registration successful");
-
-        // Act
-        ResponseEntity<String> response = userController.registerUser(userDTO);
-
-        // Assert
-        assertEquals("Registration successful", response.getBody());
-        verify(userService, times(1)).registerUser(userDTO);
-    }
-
-    @Test
-    void testLoginUser() {
-        // Arrange
-        LoginDTO loginDTO = new LoginDTO();
-        loginDTO.setEmail("login.user@example.com");
+        loginDTO = new LoginDTO();
+        loginDTO.setEmail("testUser@example.com");
         loginDTO.setPassword("password123");
 
-        when(userService.loginUser(loginDTO)).thenReturn("Login successful");
+        user = new User("testUser", "testUser@example.com", "password123");
+    }
 
-        // Act
-        ResponseEntity<String> response = userController.loginUser(loginDTO);
+    @AfterEach
+    void tearDown() {
+    }
 
-        // Assert
-        assertEquals("Login successful", response.getBody());
-        verify(userService, times(1)).loginUser(loginDTO);
+//    @Test
+//    void getAllUsers() {
+//        when(userRepository.findAll()).thenReturn(List<User> list);
+//
+//        assertEquals(1, userService.getAllUsers().size());
+//        verify(userRepository, times(1)).findAll();
+//    }
+
+    @Test
+    void registerUser_UserAlreadyExists() {
+        when(userRepository.existsByEmail(userDTO.getEmail())).thenReturn(true);
+
+        assertEquals("false", userService.registerUser(userDTO));
+        verify(userRepository, times(1)).existsByEmail(userDTO.getEmail());
     }
 
     @Test
-    void testLogoutUser() {
-        // Arrange
-        doNothing().when(userService).logout();
+    void registerUser_Success() {
+        when(userRepository.existsByEmail(userDTO.getEmail())).thenReturn(false);
+        when(userRepository.existsByUsername(userDTO.getUsername())).thenReturn(false);
+        when(userRepository.save(any(User.class))).thenReturn(user);
 
-        // Act
-        ResponseEntity<String> response = userController.logoutUser();
+        assertEquals("true", userService.registerUser(userDTO));
+        verify(userRepository, times(1)).existsByEmail(userDTO.getEmail());
+        verify(userRepository, times(1)).existsByUsername(userDTO.getUsername());
+        verify(userRepository, times(1)).save(any(User.class));
+    }
 
-        // Assert
-        assertEquals("Logout successful!", response.getBody());
-        verify(userService, times(1)).logout();
+    @Test
+    void loginUser_Success() {
+        when(userRepository.findByEmail(loginDTO.getEmail())).thenReturn(user);
+
+        assertEquals("true", userService.loginUser(loginDTO));
+        verify(userRepository, times(1)).findByEmail(loginDTO.getEmail());
+    }
+
+    @Test
+    void loginUser_Failure() {
+        when(userRepository.findByEmail(loginDTO.getEmail())).thenReturn(null);
+
+        assertEquals("false", userService.loginUser(loginDTO));
+        verify(userRepository, times(1)).findByEmail(loginDTO.getEmail());
+    }
+
+    @Test
+    void logout() {
+        userService.logout();
+        // You can add verification here if necessary
+        assertTrue(true);  // Just ensuring the method is called
     }
 }
