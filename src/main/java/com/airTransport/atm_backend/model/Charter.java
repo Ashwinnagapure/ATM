@@ -35,7 +35,12 @@ public class Charter {
     @JsonManagedReference
     private List<Booking> bookings;
 
-    @ManyToMany(mappedBy = "charters")
+    @ManyToMany
+    @JoinTable(
+            name = "user_charters",
+            joinColumns = @JoinColumn(name = "charter_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> users;
 
     // Getters and Setters

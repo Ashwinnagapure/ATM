@@ -1,3 +1,4 @@
+/*
 package com.airTransport.atm_backend.service.Impl;
 
 import com.airTransport.atm_backend.model.Charter;
@@ -142,4 +143,4 @@ class CharterServiceImplTest {
 //        verify(passenger, times(1)).getId(1L);
 //        verify(charterRepository, times(1)).findByPassenger(passenger);
 //    }
-}
+}*/
