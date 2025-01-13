@@ -1,119 +1,112 @@
-/*
 package com.airTransport.atm_backend.service.Impl;
 
+import com.airTransport.atm_backend.exceptions.NotFoundException;
+import com.airTransport.atm_backend.model.Booking;
 import com.airTransport.atm_backend.model.Passenger;
+import com.airTransport.atm_backend.repository.BookingRepository;
 import com.airTransport.atm_backend.repository.PassengerRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class PassengerServiceImplTest {
-
-    @Mock
-    private PassengerRepository passengerRepository; // Mocked repository
+public class PassengerServiceImplTest {
 
     @InjectMocks
     private PassengerServiceImpl passengerService;
-    private AutoCloseable autoCloseable;
 
-    private Passenger passenger; // Sample passenger object
+    @Mock
+    private PassengerRepository passengerRepository;
+
+    @Mock
+    private BookingRepository bookingRepository;
 
     @BeforeEach
     void setUp() {
-        autoCloseable = MockitoAnnotations.openMocks(this);
-        // Initialize the passenger object
-        passenger = new Passenger();
-        passenger.setUserId(1L);
-        passenger.setUsername("testUser");
-        passenger.setEmail("test@example.com");
-        passenger.setPassword("password123");
-        passenger.setRole("USER");
-    }
-
-    @AfterEach
-    void tearDown() throws Exception {
-        if (autoCloseable != null) {
-            autoCloseable.close();
-        }
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void testAddPassenger() {
-        // Given
-        when(passengerRepository.save(passenger)).thenReturn(passenger);
+        Booking booking = new Booking();
+        booking.setId(1L);
 
-        // When
-        String result = passengerService.addPassenger(passenger);
+        Passenger passenger = new Passenger();
+        passenger.setName("John Doe");
+        passenger.setEmail("john@example.com");
+        passenger.setPhone("1234567890");
 
-        // Then
+        when(bookingRepository.findById(1L)).thenReturn(Optional.of(booking));
+        when(passengerRepository.save(any(Passenger.class))).thenAnswer(i -> i.getArguments()[0]);
+
+        Passenger savedPassenger = passengerService.addPassenger(passenger, 1L);
+
+        assertNotNull(savedPassenger);
+        assertEquals("John Doe", savedPassenger.getName());
         verify(passengerRepository, times(1)).save(passenger);
-        assertEquals("Passenger added successfully", result);
+    }
+
+    @Test
+    void testAddPassenger_BookingNotFound() {
+        when(bookingRepository.findById(1L)).thenReturn(Optional.empty());
+
+        Passenger passenger = new Passenger();
+        assertThrows(NotFoundException.class, () -> passengerService.addPassenger(passenger, 1L));
+    }
+
+    @Test
+    void testGetPassengersByBookingId() {
+        Booking booking = new Booking();
+        booking.setId(1L);
+
+        Passenger passenger = new Passenger();
+        passenger.setBooking(booking);
+        passenger.setName("John Doe");
+
+        when(bookingRepository.existsById(1L)).thenReturn(true);
+        when(passengerRepository.findByBookingId(1L)).thenReturn(Collections.singletonList(passenger));
+
+        List<Passenger> passengers = passengerService.getPassengersByBookingId(1L);
+
+        assertEquals(1, passengers.size());
+        assertEquals("John Doe", passengers.get(0).getName());
     }
 
     @Test
     void testGetPassengerById() {
-        // Given
+        Passenger passenger = new Passenger();
+        passenger.setId(1L);
+        passenger.setName("John Doe");
+
         when(passengerRepository.findById(1L)).thenReturn(Optional.of(passenger));
 
-        // When
-        Passenger result = passengerService.getPassengerById(1L);
+        Passenger foundPassenger = passengerService.getPassengerById(1L);
 
-        // Then
-        verify(passengerRepository, times(1)).findById(1L);
-        assertEquals(passenger, result);
-    }
-
-    @Test
-    void testGetAllPassengers() {
-        // Given
-        List<Passenger> passengers = Arrays.asList(
-                passenger,
-                new Passenger()
-        );
-        when(passengerRepository.findAll()).thenReturn(passengers);
-
-        // When
-        List<Passenger> result = passengerService.getAllPassengers();
-
-        // Then
-        verify(passengerRepository, times(1)).findAll();
-        assertEquals(passengers, result);
+        assertNotNull(foundPassenger);
+        assertEquals("John Doe", foundPassenger.getName());
     }
 
     @Test
     void testDeletePassenger() {
-        // Given
-        doNothing().when(passengerRepository).deleteById(1L);
+        when(passengerRepository.existsById(1L)).thenReturn(true);
 
-        // When
         passengerService.deletePassenger(1L);
 
-        // Then
         verify(passengerRepository, times(1)).deleteById(1L);
     }
 
     @Test
-    void testUpdatePassenger() {
-        // Given
-        when(passengerRepository.save(passenger)).thenReturn(passenger);
+    void testDeletePassenger_NotFound() {
+        when(passengerRepository.existsById(1L)).thenReturn(false);
 
-        // When
-        Passenger result = passengerService.updatePassenger(passenger);
-
-        // Then
-        verify(passengerRepository, times(1)).save(passenger);
-        assertEquals(passenger, result);
+        assertThrows(NotFoundException.class, () -> passengerService.deletePassenger(1L));
     }
 }
-
-*/
