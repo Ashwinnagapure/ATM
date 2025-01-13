@@ -14,28 +14,17 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private LocalDateTime bookingDate;
-
-    @Column(nullable = false)
-    private LocalDateTime travelDate;
-
-    @Column(nullable = false)
-    private String status; // e.g., PENDING, CONFIRMED
+    @Column
+    private int travellerCount;
 
     @ManyToOne
     @JoinColumn(name = "flight_id")
     @JsonBackReference
     private Flight flight;
 
-    @ManyToOne
-    @JoinColumn(name = "charter_id")
-    @JsonBackReference
-    private Charter charter;
 
-    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Passenger> passengers;
+
+
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     private List<Baggage> baggages;
@@ -57,28 +46,12 @@ public class Booking {
         this.id = id;
     }
 
-    public LocalDateTime getBookingDate() {
-        return bookingDate;
+    public int getTravellerCount() {
+        return travellerCount;
     }
 
-    public void setBookingDate(LocalDateTime bookingDate) {
-        this.bookingDate = bookingDate;
-    }
-
-    public LocalDateTime getTravelDate() {
-        return travelDate;
-    }
-
-    public void setTravelDate(LocalDateTime travelDate) {
-        this.travelDate = travelDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTravellerCount(int travellerCount) {
+        this.travellerCount = travellerCount;
     }
 
     public Flight getFlight() {
@@ -89,21 +62,9 @@ public class Booking {
         this.flight = flight;
     }
 
-    public Charter getCharter() {
-        return charter;
-    }
 
-    public void setCharter(Charter charter) {
-        this.charter = charter;
-    }
 
-    public List<Passenger> getPassengers() {
-        return passengers;
-    }
 
-    public void setPassengers(List<Passenger> passengers) {
-        this.passengers = passengers;
-    }
 
     public List<Baggage> getBaggages() {
         return baggages;

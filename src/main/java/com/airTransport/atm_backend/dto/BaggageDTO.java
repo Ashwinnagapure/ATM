@@ -4,7 +4,7 @@ public class BaggageDTO {
 
     private Long id;
     private Double weight;
-    private Boolean isOverweight;
+    private int bagCount;
     private Long bookingId; // Reference to the Booking ID, not the Booking object
 
     // Getters and Setters
@@ -24,13 +24,12 @@ public class BaggageDTO {
         this.weight = weight;
     }
 
-    public Boolean getIsOverweight() {
-        return isOverweight;
-    }
-
-    public void setIsOverweight(Boolean isOverweight) {
-        this.isOverweight = isOverweight;
-    }
+   public int getBagCount() {
+        return bagCount;
+   }
+   public void setBagCount(int bagCount) {
+        this.bagCount = bagCount;
+   }
 
     public Long getBookingId() {
         return bookingId;
