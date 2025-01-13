@@ -1,5 +1,6 @@
 package com.airTransport.atm_backend.controller;
 
+import com.airTransport.atm_backend.dto.CharterDTO;
 import com.airTransport.atm_backend.model.Charter;
 import com.airTransport.atm_backend.service.CharterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class CharterController {
     private CharterService charterService;
 
     @PostMapping
-    public ResponseEntity<Charter> addCharter(@RequestBody Charter charter) {
-        return ResponseEntity.ok(charterService.addCharter(charter));
+    public ResponseEntity<Charter> addCharter(@RequestBody CharterDTO charterDTO) {
+        return ResponseEntity.ok(charterService.addCharter(charterDTO));
     }
 
     @GetMapping("/{id}")
@@ -32,8 +33,8 @@ public class CharterController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Charter> updateCharter(@PathVariable Long id, @RequestBody Charter updatedCharter) {
-        return ResponseEntity.ok(charterService.updateCharter(id, updatedCharter));
+    public ResponseEntity<Charter> updateCharter(@PathVariable Long id, @RequestBody CharterDTO updatedCharterDTO) {
+        return ResponseEntity.ok(charterService.updateCharter(id, updatedCharterDTO));
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,5 @@
 package com.airTransport.atm_backend.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -22,15 +21,12 @@ public class Admin {
     private String password;
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Flight> flights;
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Charter> charters;
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "admin-crew")
     private List<CrewManagement> crewManagements;
 
     // Getters and Setters
