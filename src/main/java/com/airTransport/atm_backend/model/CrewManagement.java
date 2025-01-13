@@ -1,6 +1,7 @@
 package com.airTransport.atm_backend.model;
 
 import com.airTransport.atm_backend.model.enums.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -23,6 +24,7 @@ public class CrewManagement {
 
     @ManyToOne
     @JoinColumn(name = "admin_id", nullable = false)
+    @JsonBackReference("admin-crew")
     private Admin admin;
 
     // Getters and Setters
