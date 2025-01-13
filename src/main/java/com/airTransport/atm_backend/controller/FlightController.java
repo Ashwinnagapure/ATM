@@ -56,7 +56,14 @@ public class FlightController {
         return ResponseEntity.ok(flightSearchService.sortByClass());
     }
 
+    @GetMapping("/airline/{airlineName}")
+    public ResponseEntity<List<FlightResponseDTO>> getFlightsByAirline(@PathVariable String airlineName) {
+        List<FlightResponseDTO> flights = flightSearchService.getFlightsByAirline(airlineName);
+        return ResponseEntity.ok(flights);
+    }
+
     // New endpoint for searching flights based on source and destination
+    @CrossOrigin(origins = "http://198.168.1.21:5173", allowCredentials = "true")
     @GetMapping("/search")
     public ResponseEntity<List<FlightResponseDTO>> searchFlights(
             @RequestParam String source,
