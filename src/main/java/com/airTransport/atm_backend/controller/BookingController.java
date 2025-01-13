@@ -1,6 +1,7 @@
 package com.airTransport.atm_backend.controller;
 
 import com.airTransport.atm_backend.dto.BookingDTO;
+import com.airTransport.atm_backend.model.Booking;
 import com.airTransport.atm_backend.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,53 +11,46 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bookings")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class BookingController {
 
     @Autowired
     private BookingService bookingService;
 
-    @GetMapping
-    public ResponseEntity<List<BookingDTO>> getAllBookings() {
-        List<BookingDTO> bookings = bookingService.getAllBookings();
-        return ResponseEntity.ok(bookings);
+    @PostMapping
+    public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO bookingDTO) {
+        Booking booking = bookingService.createBooking(bookingDTO);
+        return ResponseEntity.ok(convertToDTO(booking));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BookingDTO> getBookingById(@PathVariable Long id) {
-        BookingDTO booking = bookingService.getBookingById(id);
-        return booking != null ? ResponseEntity.ok(booking) : ResponseEntity.notFound().build();
+        Booking booking = bookingService.getBookingById(id);
+        return ResponseEntity.ok(convertToDTO(booking));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BookingDTO>> getAllBookings() {
+        List<Booking> bookings = bookingService.getAllBookings();
+        return ResponseEntity.ok(bookings.stream().map(this::convertToDTO).toList());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
-        if (bookingService.deleteBooking(id)) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        bookingService.deleteBooking(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{passengerId}/flight/{flightId}")
-    public ResponseEntity<BookingDTO> createFlightBooking(@RequestBody BookingDTO bookingDTO,
-                                                          @PathVariable Long passengerId,
-                                                          @PathVariable Long flightId) {
-        BookingDTO createdBooking = bookingService.createBooking(bookingDTO, passengerId, flightId);
-        return ResponseEntity.ok(createdBooking);
-    }
-
-    @PostMapping("/{passengerId}/charter/{charterId}")
-    public ResponseEntity<BookingDTO> createCharterBooking(@RequestBody BookingDTO bookingDTO,
-                                                           @PathVariable Long passengerId,
-                                                           @PathVariable Long charterId) {
-        BookingDTO createdBooking = bookingService.createCharterBooking(bookingDTO, passengerId, charterId);
-        return ResponseEntity.ok(createdBooking);
-    }
-    @PutMapping("/{id}/confirm")
-    public ResponseEntity<Void> confirmBooking(@PathVariable Long id) {
-        if (bookingService.confirmBooking(id)) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    private BookingDTO convertToDTO(Booking booking) {
+        BookingDTO bookingDTO = new BookingDTO();
+        bookingDTO.setId(booking.getId());
+        bookingDTO.setBookingDate(booking.getBookingDate());
+        bookingDTO.setTravelDate(booking.getTravelDate());
+        bookingDTO.setStatus(booking.getStatus());
+        bookingDTO.setFlightId(booking.getFlight() != null ? booking.getFlight().getFlightId() : null);
+        bookingDTO.setCharterId(booking.getCharter() != null ? booking.getCharter().getId() : null);
+        bookingDTO.setPassengerIds(booking.getPassengers() != null ?
+                booking.getPassengers().stream().map(p -> p.getId()).toList() : null);
+        return bookingDTO;
     }
 }

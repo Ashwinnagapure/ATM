@@ -1,7 +1,8 @@
 package com.airTransport.atm_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,29 +16,27 @@ public class Flight {
     private String flightName;
     private LocalDateTime departure;
     private LocalDateTime arrival;
-    private FlightStatus status;
     private String source;
     private String destination;
-    private double price; // Added price field
-    private String airline; // Added airline field
-    private String flightClass; // Added flightClass field
+    private double price;
+    private String airline;
+    private String flightClass;
+    private FlightStatus status;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "adminId",nullable = false)
+    @JoinColumn(name = "admin_id", nullable = false)
+    @JsonBackReference("admin-flight")
     private Admin admin;
 
-    @ManyToMany(mappedBy = "flights")
-    private List<Passenger> passengers;
-
-    @OneToOne(mappedBy = "flight", cascade = CascadeType.ALL)
-    private Booking booking;
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Booking> bookings;
 
     public enum FlightStatus {
         ON_TIME, DELAYED, CANCELLED
     }
 
     // Getters and Setters
-
     public long getFlightId() {
         return flightId;
     }
@@ -68,14 +67,6 @@ public class Flight {
 
     public void setArrival(LocalDateTime arrival) {
         this.arrival = arrival;
-    }
-
-    public FlightStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(FlightStatus status) {
-        this.status = status;
     }
 
     public String getSource() {
@@ -117,23 +108,28 @@ public class Flight {
     public void setFlightClass(String flightClass) {
         this.flightClass = flightClass;
     }
+
+    public FlightStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(FlightStatus status) {
+        this.status = status;
+    }
+
     public Admin getAdmin() {
         return admin;
     }
+
     public void setAdmin(Admin admin) {
         this.admin = admin;
     }
-    public List<Passenger> getPassengers() {
-        return passengers;
-    }
-    public void setPassengers(List<Passenger> passengers) {
-        this.passengers = passengers;
-    }
-    public Booking getBooking() {
-        return booking;
-    }
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
 }

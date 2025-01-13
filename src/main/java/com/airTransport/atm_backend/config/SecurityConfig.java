@@ -13,19 +13,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable() // Disable CSRF protection for testing
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/**"
-
-                        ).permitAll() // Allow public access to these endpoints
-                        .anyRequest().authenticated() // All other requests require authentication
+                        .requestMatchers("/**").permitAll() // Allow public access to all endpoints
+                        .anyRequest().authenticated()
                 )
-                // Configure form-based authentication
                 .formLogin(form -> form
-                        .loginPage("/login") // Define your custom login page
+                        .loginPage("/login")
                         .permitAll()
                 )
-                // Optionally configure logout functionality
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
@@ -34,4 +30,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }

@@ -44,26 +44,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">PaymentServiceImpl</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (3/3)
+    (0/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (11/11)
+    (0/11)
   </span>
 </td>
 </tr>
@@ -78,7 +78,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service.Impl;
 &nbsp;
 &nbsp;import com.airTransport.atm_backend.dto.PaymentDTO;
-&nbsp;import com.airTransport.atm_backend.mapper.PaymentMapper;
+
 &nbsp;import com.airTransport.atm_backend.model.Booking;
 &nbsp;import com.airTransport.atm_backend.model.Payment;
 &nbsp;import com.airTransport.atm_backend.repository.BookingRepository;
@@ -94,28 +94,28 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private final PaymentRepository paymentRepository;
 &nbsp;    private final BookingRepository bookingRepository;
 &nbsp;
-<b class="fc">&nbsp;    public PaymentServiceImpl(PaymentRepository paymentRepository, BookingRepository bookingRepository) {</b>
-<b class="fc">&nbsp;        this.paymentRepository = paymentRepository;</b>
-<b class="fc">&nbsp;        this.bookingRepository = bookingRepository;</b>
+<b class="nc">&nbsp;    public PaymentServiceImpl(PaymentRepository paymentRepository, BookingRepository bookingRepository) {</b>
+<b class="nc">&nbsp;        this.paymentRepository = paymentRepository;</b>
+<b class="nc">&nbsp;        this.bookingRepository = bookingRepository;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public PaymentDTO createPayment(PaymentDTO paymentDTO, Long bookingId) {
-<b class="fc">&nbsp;        Booking booking = bookingRepository.findById(bookingId)</b>
-<b class="fc">&nbsp;                .orElseThrow(() -&gt; new RuntimeException(&quot;Booking not found&quot;));</b>
+<b class="nc">&nbsp;        Booking booking = bookingRepository.findById(bookingId)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new RuntimeException(&quot;Booking not found&quot;));</b>
 &nbsp;
-<b class="fc">&nbsp;        Payment payment = PaymentMapper.toEntity(paymentDTO);</b>
-<b class="fc">&nbsp;        payment.setBooking(booking);</b>
-<b class="fc">&nbsp;        paymentRepository.save(payment);</b>
+<b class="nc">&nbsp;        Payment payment = PaymentMapper.toEntity(paymentDTO);</b>
+<b class="nc">&nbsp;        payment.setBooking(booking);</b>
+<b class="nc">&nbsp;        paymentRepository.save(payment);</b>
 &nbsp;
-<b class="fc">&nbsp;        return PaymentMapper.toDTO(payment);</b>
+<b class="nc">&nbsp;        return PaymentMapper.toDTO(payment);</b>
 &nbsp;    }
 &nbsp;    @Override
 &nbsp;    public PaymentDTO getPaymentById(long id) {
-<b class="fc">&nbsp;        Optional&lt;Payment&gt; payment = paymentRepository.findById(id);</b>
-<b class="fc">&nbsp;        return payment.map(PaymentMapper::toDTO).orElse(null);</b>
+<b class="nc">&nbsp;        Optional&lt;Payment&gt; payment = paymentRepository.findById(id);</b>
+<b class="nc">&nbsp;        return payment.map(PaymentMapper::toDTO).orElse(null);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -141,7 +141,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-09 11:34</div>
+    <div style="float:right;">generated on 2025-01-07 18:19</div>
 </div>
 </body>
 </html>
