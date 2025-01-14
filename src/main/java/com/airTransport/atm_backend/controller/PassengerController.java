@@ -18,35 +18,26 @@ public class PassengerController {
     @Autowired
     private PassengerService passengerService;
 
-    @PostMapping("/{bookingId}")
-    public ResponseEntity<PassengerDTO> addPassenger(@RequestBody PassengerDTO passengerDTO, @PathVariable Long bookingId) {
-        Passenger passenger = passengerService.addPassenger(mapToEntity(passengerDTO), bookingId);
-        return ResponseEntity.ok(mapToDTO(passenger));
+    @PostMapping("/add/{bookingId}")
+    public ResponseEntity<List<PassengerDTO>> addPassengersToBooking(
+            @RequestBody List<PassengerDTO> passengerDTOs,
+            @PathVariable Long bookingId) {
+        List<Passenger> passengers = passengerService.addPassengersToBooking(
+                passengerDTOs.stream().map(this::mapToEntity).collect(Collectors.toList()), bookingId);
+        List<PassengerDTO> result = passengers.stream().map(this::mapToDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/booking/{bookingId}")
     public ResponseEntity<List<PassengerDTO>> getPassengersByBookingId(@PathVariable Long bookingId) {
         List<Passenger> passengers = passengerService.getPassengersByBookingId(bookingId);
-        List<PassengerDTO> passengerDTOs = passengers.stream().map(this::mapToDTO).collect(Collectors.toList());
-        return ResponseEntity.ok(passengerDTOs);
+        return ResponseEntity.ok(passengers.stream().map(this::mapToDTO).collect(Collectors.toList()));
     }
 
     @GetMapping("/{passengerId}")
     public ResponseEntity<PassengerDTO> getPassengerById(@PathVariable Long passengerId) {
         Passenger passenger = passengerService.getPassengerById(passengerId);
         return ResponseEntity.ok(mapToDTO(passenger));
-    }
-
-    @PutMapping("/{passengerId}")
-    public ResponseEntity<PassengerDTO> updatePassenger(@PathVariable Long passengerId, @RequestBody PassengerDTO passengerDTO) {
-        Passenger updatedPassenger = passengerService.updatePassenger(passengerId, mapToEntity(passengerDTO));
-        return ResponseEntity.ok(mapToDTO(updatedPassenger));
-    }
-
-    @DeleteMapping("/{passengerId}")
-    public ResponseEntity<String> deletePassenger(@PathVariable Long passengerId) {
-        passengerService.deletePassenger(passengerId);
-        return ResponseEntity.ok("Passenger deleted successfully");
     }
 
     private Passenger mapToEntity(PassengerDTO dto) {

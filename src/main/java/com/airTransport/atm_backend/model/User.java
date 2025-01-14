@@ -37,7 +37,6 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "charter_id")
     )
-    private List<Charter> charters;
 
     // Getters and Setters
     public Long getId() {
@@ -88,11 +87,4 @@ public class User {
         this.flights = flights;
     }
 
-    public List<Charter> getCharters() {
-        return charters;
-    }
-
-    public void setCharters(List<Charter> charters) {
-        this.charters = charters;
-    }
 }

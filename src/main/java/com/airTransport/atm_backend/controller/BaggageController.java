@@ -23,7 +23,10 @@ public class BaggageController {
         return ResponseEntity.ok(baggages);
     }
 
+
+
     // Add a new baggage to a specific booking
+//    @CrossOrigin(origins = "*")
     @PostMapping("/booking/{bookingId}")
     public ResponseEntity<BaggageDTO> addBaggageToBooking(@PathVariable Long bookingId, @RequestBody BaggageDTO baggageDTO) {
         BaggageDTO createdBaggage = baggageService.addBaggageToBooking(bookingId, baggageDTO);

@@ -14,8 +14,9 @@ public class Baggage {
     private Double weight;
 
     @Column(nullable = false)
-    private Boolean isOverweight;
+    private int bagCount;
 
+    // user id
     @ManyToOne
     @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
@@ -37,12 +38,13 @@ public class Baggage {
         this.weight = weight;
     }
 
-    public Boolean getIsOverweight() {
-        return isOverweight;
+
+    public int getBagCount() {
+        return bagCount;
     }
 
-    public void setIsOverweight(Boolean isOverweight) {
-        this.isOverweight = isOverweight;
+    public void setBagCount(int bagCount) {
+        this.bagCount = bagCount;
     }
 
     public Booking getBooking() {

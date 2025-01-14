@@ -86,6 +86,12 @@ public class CrewManagementServiceImpl implements CrewManagementService {
         return crewMembers.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    @Override
+    public List<CrewManagementDTO> getAllCrewMembers() {
+        List<CrewManagement> crewMembers = crewRepository.findAll();
+        return crewMembers.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
     // Utility method to convert CrewManagement entity to CrewManagementDTO
     private CrewManagementDTO convertToDTO(CrewManagement crewMember) {
         CrewManagementDTO dto = new CrewManagementDTO();

@@ -31,6 +31,11 @@ public class FlightServiceImpl implements FlightSearchService, FlightManagementS
 
     @Override
     public boolean scheduleFlights(FlightCreateDTO flightCreateDTO) {
+
+        if (flightCreateDTO.getFlightName() == null || flightCreateDTO.getDeparture() == null) {
+            return false; // Invalid data
+        }
+
         Flight flight = convertToFlightEntity(flightCreateDTO);
         flightRepository.save(flight);
         return true;
@@ -117,4 +122,15 @@ public class FlightServiceImpl implements FlightSearchService, FlightManagementS
         dto.setFlightClass(flight.getFlightClass());
         return dto;
     }
+
+    @Override
+    public List<FlightResponseDTO> getFlightsByAirline(String airlineName) {
+        // Fetch flights by airline name
+        List<Flight> flights = flightRepository.findByAirline(airlineName);
+        return flights.stream()
+                .map(this::convertToFlightResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+
 }
