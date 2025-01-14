@@ -1,4 +1,4 @@
-package com.airTransport.atm_backend.service.impl;
+package com.airTransport.atm_backend.service.Impl;
 
 import com.airTransport.atm_backend.dto.BookingDTO;
 import com.airTransport.atm_backend.exceptions.NotFoundException;
@@ -19,8 +19,6 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     private FlightRepository flightRepository;
 
-    @Autowired
-    private CharterRepository charterRepository;
 
     @Autowired
     private PassengerRepository passengerRepository;
@@ -28,9 +26,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Booking createBooking(BookingDTO bookingDTO) {
         Booking booking = new Booking();
-        booking.setBookingDate(bookingDTO.getBookingDate());
-        booking.setTravelDate(bookingDTO.getTravelDate());
-        booking.setStatus(bookingDTO.getStatus());
+
 
         if (bookingDTO.getFlightId() != null) {
             Flight flight = flightRepository.findById(bookingDTO.getFlightId())
@@ -38,16 +34,11 @@ public class BookingServiceImpl implements BookingService {
             booking.setFlight(flight);
         }
 
-        if (bookingDTO.getCharterId() != null) {
-            Charter charter = charterRepository.findById(bookingDTO.getCharterId())
-                    .orElseThrow(() -> new NotFoundException("Charter not found with ID: " + bookingDTO.getCharterId()));
-            booking.setCharter(charter);
-        }
+        booking.setTravellerCount(bookingDTO.getTravellerCount());
 
-        if (bookingDTO.getPassengerIds() != null) {
-            List<Passenger> passengers = passengerRepository.findAllById(bookingDTO.getPassengerIds());
-            booking.setPassengers(passengers);
-        }
+
+
+
 
         return bookingRepository.save(booking);
     }

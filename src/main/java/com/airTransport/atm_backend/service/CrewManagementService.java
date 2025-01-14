@@ -20,4 +20,7 @@ public interface CrewManagementService {
     List<CrewManagementDTO> getAvailableCrewMembers();
 
     List<CrewManagementDTO> getCrewByAdmin(Long adminId);
+
+    // New method to fetch all crew management details
+    List<CrewManagementDTO> getAllCrewMembers();
 }

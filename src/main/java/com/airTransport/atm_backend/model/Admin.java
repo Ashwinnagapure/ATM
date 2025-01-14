@@ -3,6 +3,9 @@ package com.airTransport.atm_backend.model;
 import jakarta.persistence.*;
 import java.util.List;
 
+
+// for internal operations
+// user admin for login to admin dahsboard
 @Entity
 @Table(name = "admins")
 public class Admin {
@@ -22,9 +25,6 @@ public class Admin {
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<Flight> flights;
-
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<Charter> charters;
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<CrewManagement> crewManagements;
@@ -70,13 +70,6 @@ public class Admin {
         this.flights = flights;
     }
 
-    public List<Charter> getCharters() {
-        return charters;
-    }
-
-    public void setCharters(List<Charter> charters) {
-        this.charters = charters;
-    }
 
     public List<CrewManagement> getCrewManagements() {
         return crewManagements;

@@ -11,4 +11,8 @@ public interface FlightSearchService {
     List<FlightResponseDTO> getFlightsByAirline(String airlineName);
 
     List<FlightResponseDTO> searchFlights(String source, String destination);
+
+    List<FlightResponseDTO> getFlightsByAirline(String airlineName);
+
+
 }

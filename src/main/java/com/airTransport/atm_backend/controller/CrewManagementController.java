@@ -54,4 +54,9 @@ public class CrewManagementController {
     public ResponseEntity<List<CrewManagementDTO>> getCrewByAdmin(@PathVariable Long adminId) {
         return ResponseEntity.ok(crewService.getCrewByAdmin(adminId));
     }
+    // New endpoint to fetch all crew management details
+    @GetMapping("/all")
+    public ResponseEntity<List<CrewManagementDTO>> getAllCrewMembers() {
+        return ResponseEntity.ok(crewService.getAllCrewMembers());
+    }
 }
