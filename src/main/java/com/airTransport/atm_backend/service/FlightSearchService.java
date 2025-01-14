@@ -10,4 +10,8 @@ public interface FlightSearchService {
     List<FlightResponseDTO> sortByClass(); // Return DTO
 
     List<FlightResponseDTO> searchFlights(String source, String destination);
+
+    List<FlightResponseDTO> getFlightsByAirline(String airlineName);
+
+
 }

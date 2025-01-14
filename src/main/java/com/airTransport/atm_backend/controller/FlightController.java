@@ -69,4 +69,13 @@ public class FlightController {
         List<FlightResponseDTO> flights = flightManagementService.getAllFlights();
         return ResponseEntity.ok(flights);
     }
+
+
+    @GetMapping("/airline/{airlineName}")
+    public ResponseEntity<List<FlightResponseDTO>> getFlightsByAirline(@PathVariable String airlineName) {
+        List<FlightResponseDTO> flights = flightSearchService.getFlightsByAirline(airlineName);
+        return ResponseEntity.ok(flights);
+    }
+
+
 }

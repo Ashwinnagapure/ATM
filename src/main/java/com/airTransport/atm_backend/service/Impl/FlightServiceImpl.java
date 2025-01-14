@@ -122,4 +122,15 @@ public class FlightServiceImpl implements FlightSearchService, FlightManagementS
         dto.setFlightClass(flight.getFlightClass());
         return dto;
     }
+
+    @Override
+    public List<FlightResponseDTO> getFlightsByAirline(String airlineName) {
+        // Fetch flights by airline name
+        List<Flight> flights = flightRepository.findByAirline(airlineName);
+        return flights.stream()
+                .map(this::convertToFlightResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+
 }
