@@ -1,23 +1,29 @@
 package com.airTransport.atm_backend.service.Impl;
 
-import com.airTransport.atm_backend.dto.PaymentReceiptDTO;
-import com.airTransport.atm_backend.model.Booking;
+import com.airTransport.atm_backend.exceptions.NotFoundException;
 import com.airTransport.atm_backend.model.Payment;
 import com.airTransport.atm_backend.model.PaymentReceipt;
 import com.airTransport.atm_backend.repository.PaymentReceiptRepository;
 import com.airTransport.atm_backend.repository.PaymentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class PaymentReceiptServiceImplTest {
+
+    @InjectMocks
+    private PaymentReceiptServiceImpl receiptService;
 
     @Mock
     private PaymentReceiptRepository receiptRepository;
@@ -25,111 +31,79 @@ class PaymentReceiptServiceImplTest {
     @Mock
     private PaymentRepository paymentRepository;
 
-    @InjectMocks
-    private PaymentReceiptServiceImpl receiptService;
+    private Payment payment;
+    private PaymentReceipt receipt;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        payment = new Payment();
+        payment.setId(1L);
+        payment.setAmount(100.0);
+        payment.setStatus("COMPLETED");
+
+        receipt = new PaymentReceipt();
+        receipt.setTransactionId(1L);
+        receipt.setPayment(payment);
+        receipt.setReceiptDetails("Receipt Details");
     }
 
-//    @Test
-//    void createPaymentReceipt() {
-//        PaymentReceiptDTO receiptDTO = new PaymentReceiptDTO();
-//        receiptDTO.setPaymentId(1L);
-//
-//        Payment payment = new Payment();
-//        payment.setPaymentId(1L);
-//
-//        PaymentReceipt receipt = new PaymentReceipt();
-//        receipt.setTransactionId(1L);
-//        receipt.setPayment(payment);
-//
-//        when(paymentRepository.findById(receiptDTO.getPaymentId())).thenReturn(Optional.of(payment));
-//        when(receiptRepository.save(any(PaymentReceipt.class))).thenReturn(receipt);
-//
-//        PaymentReceiptDTO result = receiptService.createPaymentReceipt(receiptDTO);
-//
-//        assertNotNull(result);
-//        assertEquals(receipt.getTransactionId(), result.getTransactionId());
-//        verify(paymentRepository, times(1)).findById(receiptDTO.getPaymentId());
-//        verify(receiptRepository, times(1)).save(any(PaymentReceipt.class));
-//    }
-//
-//    @Test
-//    void createReceiptForPayment() {
-//        Long paymentId = 1L;
-//
-//        Payment payment = new Payment();
-//        payment.setPaymentId(paymentId);
-//
-//        Booking booking = new Booking();
-//        booking.setId(10L);
-//        payment.setBooking(booking);
-//
-//        PaymentReceipt receipt = new PaymentReceipt();
-//        receipt.setTransactionId(1L);
-//        receipt.setPayment(payment);
-//        receipt.setBooking(booking);
-//
-//        when(paymentRepository.findById(paymentId)).thenReturn(Optional.of(payment));
-//        when(receiptRepository.save(any(PaymentReceipt.class))).thenReturn(receipt);
-//
-//        PaymentReceiptDTO result = receiptService.createReceiptForPayment(paymentId);
-//
-//        assertNotNull(result);
-//        assertEquals(receipt.getTransactionId(), result.getTransactionId());
-//        verify(paymentRepository, times(1)).findById(paymentId);
-//        verify(receiptRepository, times(1)).save(any(PaymentReceipt.class));
-//    }
+    @Test
+    void testGenerateReceiptForPayment() {
+        when(paymentRepository.findById(1L)).thenReturn(Optional.of(payment));
+        when(receiptRepository.save(any(PaymentReceipt.class))).thenReturn(receipt);
+
+        PaymentReceipt result = receiptService.generateReceiptForPayment(1L, "Receipt Details");
+
+        assertNotNull(result);
+        assertEquals("Receipt Details", result.getReceiptDetails());
+        assertEquals(1L, result.getPayment().getId());
+        verify(receiptRepository, times(1)).save(any(PaymentReceipt.class));
+    }
 
     @Test
-    void createReceiptForPayment_PaymentNotFound() {
-        Long paymentId = 1L;
+    void testGenerateReceiptForPayment_PaymentNotFound() {
+        when(paymentRepository.findById(1L)).thenReturn(Optional.empty());
 
-        when(paymentRepository.findById(paymentId)).thenReturn(Optional.empty());
-
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            receiptService.createReceiptForPayment(paymentId);
-        });
-
-        assertEquals("Payment not found", exception.getMessage());
-        verify(paymentRepository, times(1)).findById(paymentId);
+        assertThrows(NotFoundException.class, () -> receiptService.generateReceiptForPayment(1L, "Receipt Details"));
         verify(receiptRepository, never()).save(any(PaymentReceipt.class));
     }
 
     @Test
-    void getPaymentReceiptById() {
-        Long receiptId = 1L;
+    void testGetReceiptByTransactionId() {
+        when(receiptRepository.findById(1L)).thenReturn(Optional.of(receipt));
 
-        Payment payment = new Payment();
-        payment.setPaymentId(1L);
-
-        PaymentReceipt receipt = new PaymentReceipt();
-        receipt.setTransactionId(receiptId);
-        receipt.setPayment(payment);
-
-        when(receiptRepository.findById(receiptId)).thenReturn(Optional.of(receipt));
-
-        PaymentReceiptDTO result = receiptService.getPaymentReceiptById(receiptId);
+        PaymentReceipt result = receiptService.getReceiptByTransactionId(1L);
 
         assertNotNull(result);
-        assertEquals(receipt.getTransactionId(), result.getTransactionId());
-        assertEquals(receipt.getPayment().getPaymentId(), result.getPaymentId());
-        verify(receiptRepository, times(1)).findById(receiptId);
+        assertEquals("Receipt Details", result.getReceiptDetails());
+        assertEquals(1L, result.getTransactionId());
     }
 
     @Test
-    void getPaymentReceiptById_NotFound() {
-        Long receiptId = 1L;
+    void testGetReceiptByTransactionId_NotFound() {
+        when(receiptRepository.findById(1L)).thenReturn(Optional.empty());
 
-        when(receiptRepository.findById(receiptId)).thenReturn(Optional.empty());
+        assertThrows(NotFoundException.class, () -> receiptService.getReceiptByTransactionId(1L));
+    }
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            receiptService.getPaymentReceiptById(receiptId);
-        });
+    @Test
+    void testGetAllReceipts() {
+        when(receiptRepository.findAll()).thenReturn(Arrays.asList(receipt));
 
-        assertEquals("Payment not found", exception.getMessage());
-        verify(receiptRepository, times(1)).findById(receiptId);
+        List<PaymentReceipt> result = receiptService.getAllReceipts();
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("Receipt Details", result.get(0).getReceiptDetails());
+    }
+
+    @Test
+    void testGetAllReceipts_EmptyList() {
+        when(receiptRepository.findAll()).thenReturn(Arrays.asList());
+
+        List<PaymentReceipt> result = receiptService.getAllReceipts();
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
     }
 }

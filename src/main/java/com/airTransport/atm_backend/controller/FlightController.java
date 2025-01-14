@@ -28,6 +28,13 @@ public class FlightController {
                 : ResponseEntity.badRequest().body("Failed to schedule flight");
     }
 
+    @GetMapping("/airline/{airlineName}")
+    public ResponseEntity<List<FlightResponseDTO>> getFlightsByAirline(@PathVariable String airlineName) {
+        List<FlightResponseDTO> flights = flightSearchService.getFlightsByAirline(airlineName);
+        return ResponseEntity.ok(flights);
+    }
+
+
     @DeleteMapping("/cancel/{flightId}")
     public ResponseEntity<String> cancelFlight(@PathVariable long flightId) {
         boolean isCancelled = flightManagementService.cancelFlights(flightId);
