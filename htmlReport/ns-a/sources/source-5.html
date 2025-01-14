@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CharterServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.airTransport.atm_backend.service.Impl</a>
+</div>
+
+<h1>Coverage Summary for Class: CharterServiceImpl (com.airTransport.atm_backend.service.Impl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CharterServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.service.Impl;
+&nbsp;
+&nbsp;import com.airTransport.atm_backend.model.Admin;
+&nbsp;import com.airTransport.atm_backend.model.Charter;
+&nbsp;import com.airTransport.atm_backend.model.Passenger;
+&nbsp;import com.airTransport.atm_backend.repository.CharterRepository;
+&nbsp;import com.airTransport.atm_backend.service.CharterService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+<b class="nc">&nbsp;public class CharterServiceImpl implements CharterService {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private CharterRepository charterRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private PassengerServiceImpl passengerService;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Charter saveCharter(Charter charter) {
+<b class="nc">&nbsp;        return charterRepository.save(charter);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Charter&gt; getAllCharters() {
+<b class="nc">&nbsp;        return charterRepository.findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Charter getCharterById(long id) {
+<b class="nc">&nbsp;        return charterRepository.findById(id)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new RuntimeException(&quot;Charter not found with ID: &quot; + id));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Charter updateCharter(long id, Charter charter) {
+<b class="nc">&nbsp;        Charter existingCharter = getCharterById(id);</b>
+<b class="nc">&nbsp;        existingCharter.setVehicleType(charter.getVehicleType());</b>
+<b class="nc">&nbsp;        existingCharter.setSource(charter.getSource());</b>
+<b class="nc">&nbsp;        existingCharter.setDestination(charter.getDestination());</b>
+<b class="nc">&nbsp;        existingCharter.setDeparture(charter.getDeparture());</b>
+<b class="nc">&nbsp;        existingCharter.setArrival(charter.getArrival());</b>
+<b class="nc">&nbsp;        existingCharter.setStatus(charter.getStatus());</b>
+<b class="nc">&nbsp;        return charterRepository.save(existingCharter);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deleteCharter(long id) {
+<b class="nc">&nbsp;        charterRepository.deleteById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Charter&gt; getChartersByPassenger(Long passengerId) {
+<b class="nc">&nbsp;        Passenger passenger = passengerService.getPassengerById(passengerId);</b>
+<b class="nc">&nbsp;        return charterRepository.findByPassenger(passenger);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-09 10:47</div>
+</div>
+</body>
+</html>

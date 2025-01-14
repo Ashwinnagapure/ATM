@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AdminController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.airTransport.atm_backend.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: AdminController (com.airTransport.atm_backend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AdminController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.controller;
+&nbsp;
+&nbsp;import com.airTransport.atm_backend.model.Admin;
+&nbsp;import com.airTransport.atm_backend.model.Notification;
+&nbsp;import com.airTransport.atm_backend.service.AdminService;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/admin&quot;)
+&nbsp;public class AdminController {
+&nbsp;    private final AdminService adminService;
+&nbsp;
+<b class="nc">&nbsp;    public AdminController(AdminService adminService){</b>
+<b class="nc">&nbsp;        this.adminService=adminService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/{id}&quot;)
+&nbsp;    public Admin getAdminById(@PathVariable Long id){
+<b class="nc">&nbsp;        return adminService.getAdminById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping
+&nbsp;    public List&lt;Admin&gt; getAllAdmins(){
+<b class="nc">&nbsp;        return adminService.getAllAdmins();</b>
+&nbsp;    }
+&nbsp;    @PostMapping
+&nbsp;    public String createAdmin(@RequestBody Admin admin){
+<b class="nc">&nbsp;        adminService.createAdmin(admin);</b>
+<b class="nc">&nbsp;        return &quot;Admin created&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping
+&nbsp;    public String updateAdmin(@RequestBody Admin admin){
+<b class="nc">&nbsp;        adminService.updateAdmin(admin);</b>
+<b class="nc">&nbsp;        return &quot;Admin updated&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;/{id}&quot;)
+&nbsp;    public String deleteAdmin(@PathVariable Long id){
+<b class="nc">&nbsp;        adminService.deleteAdmin(id);</b>
+<b class="nc">&nbsp;        return &quot;Admin deleted&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;//    @PostMapping(&quot;/{id}/notification&quot;)
+&nbsp;//    public Notification sendNotification(@PathVariable Long id,@RequestBody Notification notification){
+&nbsp;//        return adminService.sendNotification(id, notification);
+&nbsp;//    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-09 10:47</div>
+</div>
+</body>
+</html>
