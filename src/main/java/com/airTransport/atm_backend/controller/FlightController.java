@@ -21,7 +21,6 @@ public class FlightController {
     @Autowired
     private FlightSearchService flightSearchService;
 
-    // for admin
     @PostMapping("/schedule")
     public ResponseEntity<String> scheduleFlight(@RequestBody FlightCreateDTO flightCreateDTO) {
         boolean isScheduled = flightManagementService.scheduleFlights(flightCreateDTO);
@@ -29,7 +28,13 @@ public class FlightController {
                 : ResponseEntity.badRequest().body("Failed to schedule flight");
     }
 
-    // for admin
+    @GetMapping("/airline/{airlineName}")
+    public ResponseEntity<List<FlightResponseDTO>> getFlightsByAirline(@PathVariable String airlineName) {
+        List<FlightResponseDTO> flights = flightSearchService.getFlightsByAirline(airlineName);
+        return ResponseEntity.ok(flights);
+    }
+
+
     @DeleteMapping("/cancel/{flightId}")
     public ResponseEntity<String> cancelFlight(@PathVariable long flightId) {
         boolean isCancelled = flightManagementService.cancelFlights(flightId);
@@ -37,7 +42,11 @@ public class FlightController {
                 : ResponseEntity.badRequest().body("Failed to cancel flight");
     }
 
-
+    @GetMapping("/{flightId}")
+    public ResponseEntity<FlightResponseDTO> getFlightById(@PathVariable Long flightId) {
+        FlightResponseDTO flight = flightManagementService.getFlightById(flightId);
+        return ResponseEntity.ok(flight);
+    }
 
     @GetMapping("/sort/price")
     public ResponseEntity<List<FlightResponseDTO>> sortByPrice() {
@@ -54,7 +63,7 @@ public class FlightController {
         return ResponseEntity.ok(flightSearchService.sortByClass());
     }
 
-    //for user
+    // New endpoint for searching flights based on source and destination
     @GetMapping("/search")
     public ResponseEntity<List<FlightResponseDTO>> searchFlights(
             @RequestParam String source,
@@ -63,19 +72,10 @@ public class FlightController {
         return ResponseEntity.ok(flights); // Return the list of flights based on source and destination
     }
 
-    // for users as well as admin
+    // New endpoint to get all flights
     @GetMapping("/all")
     public ResponseEntity<List<FlightResponseDTO>> getAllFlights() {
         List<FlightResponseDTO> flights = flightManagementService.getAllFlights();
         return ResponseEntity.ok(flights);
     }
-
-
-    @GetMapping("/airline/{airlineName}")
-    public ResponseEntity<List<FlightResponseDTO>> getFlightsByAirline(@PathVariable String airlineName) {
-        List<FlightResponseDTO> flights = flightSearchService.getFlightsByAirline(airlineName);
-        return ResponseEntity.ok(flights);
-    }
-
-
 }
