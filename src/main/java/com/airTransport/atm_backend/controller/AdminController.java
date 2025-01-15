@@ -17,10 +17,6 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable Long id) {
-        return ResponseEntity.ok(adminService.getAdminById(id));
-    }
 
     @GetMapping("/all")
     public ResponseEntity<List<Admin>> getAllAdmins() {

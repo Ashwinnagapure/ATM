@@ -50,7 +50,7 @@ public class BaggageServiceImpl implements BaggageService {
         Baggage baggage = baggageRepository.findById(baggageId)
                 .orElseThrow(() -> new RuntimeException("Baggage not found"));
         baggage.setWeight(baggageDTO.getWeight());
-        baggage.setIsOverweight(baggageDTO.getIsOverweight());
+        baggage.setBagCount(baggageDTO.getBagCount());
         Baggage updatedBaggage = baggageRepository.save(baggage);
         return convertToDTO(updatedBaggage);
     }
@@ -64,7 +64,7 @@ public class BaggageServiceImpl implements BaggageService {
         BaggageDTO dto = new BaggageDTO();
         dto.setId(baggage.getId());
         dto.setWeight(baggage.getWeight());
-        dto.setIsOverweight(baggage.getIsOverweight());
+        dto.setBagCount(baggage.getBagCount());
         dto.setBookingId(baggage.getBooking().getId()); // Use the booking's ID
         return dto;
     }
@@ -74,7 +74,7 @@ public class BaggageServiceImpl implements BaggageService {
         Baggage baggage = new Baggage();
         baggage.setId(dto.getId());
         baggage.setWeight(dto.getWeight());
-        baggage.setIsOverweight(dto.getIsOverweight());
+        baggage.setBagCount(dto.getBagCount());
         // The booking is set separately in the addBaggageToBooking method
         return baggage;
     }

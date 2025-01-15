@@ -44,13 +44,6 @@ public class BookingController {
     private BookingDTO convertToDTO(Booking booking) {
         BookingDTO bookingDTO = new BookingDTO();
         bookingDTO.setId(booking.getId());
-        bookingDTO.setBookingDate(booking.getBookingDate());
-        bookingDTO.setTravelDate(booking.getTravelDate());
-        bookingDTO.setStatus(booking.getStatus());
-        bookingDTO.setFlightId(booking.getFlight() != null ? booking.getFlight().getFlightId() : null);
-        bookingDTO.setCharterId(booking.getCharter() != null ? booking.getCharter().getId() : null);
-        bookingDTO.setPassengerIds(booking.getPassengers() != null ?
-                booking.getPassengers().stream().map(p -> p.getId()).toList() : null);
         return bookingDTO;
     }
 }
