@@ -1,0 +1,204 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TravelPreferences</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.airTransport.atm_backend.model</a>
+</div>
+
+<h1>Coverage Summary for Class: TravelPreferences (com.airTransport.atm_backend.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TravelPreferences</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.airTransport.atm_backend.model;
+&nbsp;
+&nbsp;import com.airTransport.atm_backend.model.enums.*;
+&nbsp;import jakarta.persistence.*;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;travel_preferences&quot;)  // Specifies the table name in the database
+&nbsp;public class TravelPreferences {
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Auto-generated primary key
+&nbsp;    private Long travelPreferenceId;
+&nbsp;
+&nbsp;    @Column(nullable = false)
+&nbsp;    private Long passengerId;
+&nbsp;
+&nbsp;    @Enumerated(EnumType.STRING)  // Enum will be stored as a string
+&nbsp;    private TravelClass travelClass; // Preferred travel class
+&nbsp;
+&nbsp;    @Enumerated(EnumType.STRING)
+&nbsp;    private MealPreference mealPreference; // Meal preferences
+&nbsp;
+&nbsp;    @Enumerated(EnumType.STRING)
+&nbsp;    private AirlinePreference airlinePreference; // Enum for flight-related preferences
+&nbsp;
+&nbsp;    @Enumerated(EnumType.STRING)
+&nbsp;    private DepartureTime departureTime;
+&nbsp;
+&nbsp;    @Enumerated(EnumType.STRING)
+&nbsp;    private ArrivalTime arrivalTime;
+&nbsp;
+&nbsp;    // Constructors
+<b class="nc">&nbsp;    public TravelPreferences() {</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public TravelPreferences(Long passengerId, TravelClass travelClass, MealPreference mealPreference, AirlinePreference airlinePreference, DepartureTime departureTime, ArrivalTime arrivalTime) {</b>
+<b class="nc">&nbsp;        this.passengerId = passengerId;</b>
+<b class="nc">&nbsp;        this.travelClass = travelClass;</b>
+<b class="nc">&nbsp;        this.mealPreference = mealPreference;</b>
+<b class="nc">&nbsp;        this.airlinePreference = airlinePreference;</b>
+<b class="nc">&nbsp;        this.departureTime = departureTime;</b>
+<b class="nc">&nbsp;        this.arrivalTime = arrivalTime;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Getters and Setters
+&nbsp;    public Long getPassengerId() {
+<b class="nc">&nbsp;        return passengerId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPassengerId(Long passengerId) {
+<b class="nc">&nbsp;        this.passengerId = passengerId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Long getTravelPreferenceId() {
+<b class="nc">&nbsp;        return travelPreferenceId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setTravelPreferenceId(Long travelPreferenceId) {
+<b class="nc">&nbsp;        this.travelPreferenceId = travelPreferenceId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public TravelClass getTravelClass() {
+<b class="nc">&nbsp;        return travelClass;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setTravelClass(TravelClass travelClass) {
+<b class="nc">&nbsp;        this.travelClass = travelClass;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public MealPreference getMealPreference() {
+<b class="nc">&nbsp;        return mealPreference;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setMealPreference(MealPreference mealPreference) {
+<b class="nc">&nbsp;        this.mealPreference = mealPreference;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public AirlinePreference getAirlinePreference() {
+<b class="nc">&nbsp;        return airlinePreference;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAirlinePreference(AirlinePreference airlinePreference) {
+<b class="nc">&nbsp;        this.airlinePreference = airlinePreference;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public DepartureTime getDepartureTime() {
+<b class="nc">&nbsp;        return departureTime;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setDepartureTime(DepartureTime departureTime) {
+<b class="nc">&nbsp;        this.departureTime = departureTime;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public ArrivalTime getArrivalTime() {
+<b class="nc">&nbsp;        return arrivalTime;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setArrivalTime(ArrivalTime arrivalTime) {
+<b class="nc">&nbsp;        this.arrivalTime = arrivalTime;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-09 10:47</div>
+</div>
+</body>
+</html>

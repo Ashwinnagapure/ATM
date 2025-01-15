@@ -36,9 +36,9 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.updatePayment(id, paymentDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePayment(@PathVariable Long id) {
-        paymentService.deletePayment(id);
-        return ResponseEntity.ok("Deleted payment with id " + id);
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<String> deletePayment(@PathVariable Long id) {
+//        paymentService.deletePayment(id);
+//        return ResponseEntity.ok("Deleted payment with id " + id);
+//    }
 }
