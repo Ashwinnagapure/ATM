@@ -1,111 +1,122 @@
-//package com.airTransport.atm_backend.controller;
-//
-//import com.airTransport.atm_backend.model.CrewManagement;
-//import com.airTransport.atm_backend.model.enums.Role;
-//import com.airTransport.atm_backend.service.CrewManagementService;
-//import org.junit.jupiter.api.AfterEach;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.MockitoAnnotations;
-//import org.springframework.http.ResponseEntity;
-//
-//import java.util.Collections;
-//import java.util.List;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.ArgumentMatchers.anyLong;
-//import static org.mockito.Mockito.*;
-//
-//class CrewManagementControllerTest {
-//
-//    @Mock
-//    private CrewManagementService crewManagementService;
-//
-//    @InjectMocks
-//    private CrewManagementController crewManagementController;
-//
-//    private AutoCloseable closeable;
-//    private CrewManagement crewMember;
-//
-//    @BeforeEach
-//    void setUp() {
-//        closeable = MockitoAnnotations.openMocks(this);
-//        crewMember = new CrewManagement();
-//        crewMember.setId(1L);
-//        crewMember.setName("John Doe");
-//        crewMember.setRole(Role.PILOT);
-//        crewMember.setAvailability(true);
-//    }
-//
-//    @AfterEach
-//    void tearDown() throws Exception {
-//        closeable.close();
-//    }
-//
-//    @Test
-//    void addCrewMember() {
-//        when(crewManagementService.addCrewMember(any(CrewManagement.class))).thenReturn(crewMember);
-//
-//        CrewManagement result = crewManagementController.addCrewMember(crewMember);
-//        assertEquals(crewMember.getName(), result.getName());
-//        verify(crewManagementService, times(1)).addCrewMember(any(CrewManagement.class));
-//    }
-//
-//    @Test
-//    void updateCrewMember() {
-//        when(crewManagementService.updateCrewMember(anyLong(), any(CrewManagement.class))).thenReturn(crewMember);
-//
-//        CrewManagement result = crewManagementController.updateCrewMember(1L, crewMember);
-//        assertEquals(crewMember.getName(), result.getName());
-//        verify(crewManagementService, times(1)).updateCrewMember(1L, crewMember);
-//    }
-//
-//    @Test
-//    void deleteCrewMember() {
-//        doNothing().when(crewManagementService).deleteCrewMember(anyLong());
-//
-//        crewManagementController.deleteCrewMember(1L);
-//        verify(crewManagementService, times(1)).deleteCrewMember(1L);
-//    }
-//
-//    @Test
-//    void getCrewMemberById() {
-//        when(crewManagementService.getCrewMemberById(anyLong())).thenReturn(crewMember);
-//
-//        CrewManagement result = crewManagementController.getCrewMemberById(1L);
-//        assertEquals(crewMember.getId(), result.getId());
-//        verify(crewManagementService, times(1)).getCrewMemberById(1L);
-//    }
-//
-//    @Test
-//    void getCrewMembersByRole() {
-//        when(crewManagementService.getCrewMembersByRole(any(Role.class))).thenReturn(Collections.singletonList(crewMember));
-//
-//        List<CrewManagement> result = crewManagementController.getCrewMembersByRole(Role.PILOT);
-//        assertEquals(1, result.size());
-//        assertEquals(Role.PILOT, result.get(0).getRole());
-//        verify(crewManagementService, times(1)).getCrewMembersByRole(Role.PILOT);
-//    }
-//
-//    @Test
-//    void getAvailableCrewMembers() {
-//        when(crewManagementService.getAvailableCrewMembers()).thenReturn(Collections.singletonList(crewMember));
-//
-//        List<CrewManagement> result = crewManagementController.getAvailableCrewMembers();
-//        assertEquals(1, result.size());
-//        assertEquals(true, result.get(0).isAvailability());
-//        verify(crewManagementService, times(1)).getAvailableCrewMembers();
-//    }
-//
-//    @Test
-//    void getCrewByAdmin() {
-//        when(crewManagementService.getCrewByAdmin(anyLong())).thenReturn(Collections.singletonList(crewMember));
-//
-//        List<CrewManagement> result = crewManagementController.getCrewByAdmin(1L);
-//        assertEquals(1, result.size());
-//        verify(crewManagementService, times(1)).getCrewByAdmin(1L);
-//    }
-//}
+package com.airTransport.atm_backend.controller;
+
+import com.airTransport.atm_backend.config.TestSecurityConfig;
+import com.airTransport.atm_backend.dto.CrewManagementDTO;
+import com.airTransport.atm_backend.model.Admin;
+import com.airTransport.atm_backend.model.enums.Role;
+import com.airTransport.atm_backend.service.CrewManagementService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.Collections;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+
+@Import(TestSecurityConfig.class)
+@WebMvcTest(controllers = CrewManagementController.class, excludeAutoConfiguration = TestSecurityConfig.class)
+public class CrewManagementControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private CrewManagementService crewManagementService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    private CrewManagementDTO crewManagementDTO;
+
+    @BeforeEach
+    void setUp() {
+        Admin admin = new Admin();
+        admin.setId(1L);
+        admin.setName("Admin Test");
+
+        crewManagementDTO = new CrewManagementDTO();
+        crewManagementDTO.setName("John Doe");
+        crewManagementDTO.setRole(Role.PILOT);
+        crewManagementDTO.setAvailability(true);
+        crewManagementDTO.setAdminId(admin.getId());
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void shouldAddCrewMemberSuccessfully() throws Exception {
+        Mockito.when(crewManagementService.addCrewMember(any(CrewManagementDTO.class)))
+                .thenReturn(crewManagementDTO);
+
+        MvcResult result = mockMvc.perform(post("/crew-management")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(crewManagementDTO)))
+                .andReturn();
+
+        assertEquals(200, result.getResponse().getStatus());
+        assertTrue(result.getResponse().getContentAsString().contains("John Doe"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void shouldUpdateCrewMemberSuccessfully() throws Exception {
+        Mockito.when(crewManagementService.updateCrewMember(any(Long.class), any(CrewManagementDTO.class)))
+                .thenReturn(crewManagementDTO);
+
+        MvcResult result = mockMvc.perform(put("/crew-management/{id}", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(crewManagementDTO)))
+                .andReturn();
+
+        assertEquals(200, result.getResponse().getStatus());
+        assertTrue(result.getResponse().getContentAsString().contains("John Doe"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void shouldGetCrewMemberByIdSuccessfully() throws Exception {
+        Mockito.when(crewManagementService.getCrewMemberById(1L))
+                .thenReturn(crewManagementDTO);
+
+        MvcResult result = mockMvc.perform(get("/crew-management/{id}", 1L))
+                .andReturn();
+
+        assertEquals(200, result.getResponse().getStatus());
+        assertTrue(result.getResponse().getContentAsString().contains("John Doe"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void shouldGetAllCrewMembersSuccessfully() throws Exception {
+        Mockito.when(crewManagementService.getAllCrewMembers())
+                .thenReturn(Collections.singletonList(crewManagementDTO));
+
+        MvcResult result = mockMvc.perform(get("/crew-management/all"))
+                .andReturn();
+
+        assertEquals(200, result.getResponse().getStatus());
+        assertTrue(result.getResponse().getContentAsString().contains("John Doe"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void shouldDeleteCrewMemberSuccessfully() throws Exception {
+        Mockito.doNothing().when(crewManagementService).deleteCrewMember(1L);
+
+        MvcResult result = mockMvc.perform(delete("/crew-management/{id}", 1L))
+                .andReturn();
+
+        assertEquals(204, result.getResponse().getStatus());
+    }
+}

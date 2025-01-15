@@ -35,11 +35,11 @@ public class BookingController {
         return ResponseEntity.ok(bookings.stream().map(this::convertToDTO).toList());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
-        bookingService.deleteBooking(id);
-        return ResponseEntity.noContent().build();
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
+//        bookingService.deleteBooking(id);
+//        return ResponseEntity.noContent().build();
+//    }
 
     private BookingDTO convertToDTO(Booking booking) {
         BookingDTO bookingDTO = new BookingDTO();

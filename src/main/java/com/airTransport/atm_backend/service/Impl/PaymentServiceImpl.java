@@ -1,4 +1,4 @@
-package com.airTransport.atm_backend.service.impl;
+package com.airTransport.atm_backend.service.Impl;
 
 import com.airTransport.atm_backend.dto.PaymentDTO;
 import com.airTransport.atm_backend.exceptions.NotFoundException;
