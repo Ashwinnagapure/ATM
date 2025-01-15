@@ -20,11 +20,11 @@
 		<java.version>17</java.version>
 		<sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths> <!-- Corrected path -->
 		<sonar.host.url>http://localhost:9000</sonar.host.url>
-		<sonar.projectName>ATM</sonar.projectName>
-		<sonar.projectKey>ATM</sonar.projectKey>
+		<sonar.projectName>alpha_atm</sonar.projectName>
+		<sonar.projectKey>alpha_atm</sonar.projectKey>
 		<sonar.projectVersion>1.0</sonar.projectVersion>
 
-		<sonar.token>squ_3a4ab1de4b71eedc30c2ac9f59cb1011eca7b056</sonar.token>
+		<sonar.token>squ_f1b820f9f1f02fd549a635be302a302cbd84802f</sonar.token>
 	</properties>
 
 	<dependencies>

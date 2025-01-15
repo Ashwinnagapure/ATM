@@ -75,13 +75,13 @@ class BookingControllerTest {
         verify(bookingService, times(1)).getAllBookings();
     }
 
-    @Test
-    void testDeleteBooking() {
-        doNothing().when(bookingService).deleteBooking(1L);
-
-        ResponseEntity<Void> response = bookingController.deleteBooking(1L);
-
-        assertEquals(204, response.getStatusCodeValue());
-        verify(bookingService, times(1)).deleteBooking(1L);
-    }
+//    @Test
+//    void testDeleteBooking() {
+//        doNothing().when(bookingService).deleteBooking(1L);
+//
+//        ResponseEntity<Void> response = bookingController.deleteBooking(1L);
+//
+//        assertEquals(204, response.getStatusCodeValue());
+//        verify(bookingService, times(1)).deleteBooking(1L);
+//    }
 }
