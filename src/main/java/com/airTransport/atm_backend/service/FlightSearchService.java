@@ -8,7 +8,6 @@ public interface FlightSearchService {
     List<FlightResponseDTO> sortByPrice();  // Return DTO
     List<FlightResponseDTO> sortByAirline(); // Return DTO
     List<FlightResponseDTO> sortByClass(); // Return DTO
-    List<FlightResponseDTO> getFlightsByAirline(String airlineName);
 
     List<FlightResponseDTO> searchFlights(String source, String destination);
 

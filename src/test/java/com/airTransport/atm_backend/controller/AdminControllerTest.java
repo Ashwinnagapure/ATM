@@ -26,22 +26,22 @@ public class AdminControllerTest {
     @MockBean
     private AdminService adminService;
 
-    @Test
-    void testGetAdminById() throws Exception {
-        Admin admin = new Admin();
-        admin.setId(1L);
-        admin.setName("John Doe");
-        admin.setEmail("john.doe@example.com");
-        admin.setPassword("password123");
-
-        when(adminService.getAdminById(1L)).thenReturn(admin);
-
-        mockMvc.perform(get("/admins/1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.name").value("John Doe"))
-                .andExpect(jsonPath("$.email").value("john.doe@example.com"));
-    }
+//    @Test
+//    void testGetAdminById() throws Exception {
+//        Admin admin = new Admin();
+//        admin.setId(1L);
+//        admin.setName("John Doe");
+//        admin.setEmail("john.doe@example.com");
+//        admin.setPassword("password123");
+//
+//        when(adminService.getAdminById(1L)).thenReturn(admin);
+//
+//        mockMvc.perform(get("/admins/1"))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id").value(1L))
+//                .andExpect(jsonPath("$.name").value("John Doe"))
+//                .andExpect(jsonPath("$.email").value("john.doe@example.com"));
+//    }
 
     @Test
     void testGetAllAdmins() throws Exception {

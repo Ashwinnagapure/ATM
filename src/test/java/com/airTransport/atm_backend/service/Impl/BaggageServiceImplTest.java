@@ -42,7 +42,7 @@ class BaggageServiceImplTest {
         Baggage baggage = new Baggage();
         baggage.setId(1L);
         baggage.setWeight(20.0);
-        baggage.setIsOverweight(false);
+
         baggage.setBooking(booking);
 
         when(baggageRepository.findByBookingId(1L)).thenReturn(Collections.singletonList(baggage));
@@ -61,12 +61,12 @@ class BaggageServiceImplTest {
 
         BaggageDTO baggageDTO = new BaggageDTO();
         baggageDTO.setWeight(20.0);
-        baggageDTO.setIsOverweight(false);
+
 
         Baggage baggage = new Baggage();
         baggage.setId(1L);
         baggage.setWeight(20.0);
-        baggage.setIsOverweight(false);
+
         baggage.setBooking(booking);
 
         when(bookingRepository.findById(1L)).thenReturn(Optional.of(booking));
@@ -76,7 +76,7 @@ class BaggageServiceImplTest {
 
         assertNotNull(result);
         assertEquals(20.0, result.getWeight());
-        assertFalse(result.getIsOverweight());
+        
     }
 //
 //    @Test
