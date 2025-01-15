@@ -1,9 +1,7 @@
 package com.airTransport.atm_backend.repository;
 
-import com.airTransport.atm_backend.model.Booking;
 import com.airTransport.atm_backend.model.Flight;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
