@@ -1,106 +1,129 @@
-//package com.airTransport.atm_backend.controller;
-//
-//import com.airTransport.atm_backend.dto.BaggageDTO;
-//import com.airTransport.atm_backend.service.BaggageService;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.Mockito;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-//import org.springframework.boot.test.mock.mockito.MockBean;
-//import org.springframework.http.MediaType;
-//import org.springframework.test.web.servlet.MockMvc;
-//
-//import java.util.Arrays;
-//import java.util.List;
-//
-//import static org.hamcrest.Matchers.hasSize;
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.ArgumentMatchers.eq;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-//
-//@WebMvcTest(BaggageController.class)
-//class BaggageControllerTest {
-//
-//    @Autowired
-//    private MockMvc mockMvc;
-//
-//    @MockBean
-//    private BaggageService baggageService;
-//
-//    @Autowired
-//    private ObjectMapper objectMapper;
-//
-//    private BaggageDTO baggageDTO;
-//
-//    @BeforeEach
-//    void setUp() {
-//        baggageDTO = new BaggageDTO();
-//        baggageDTO.setId(1L);
-//        baggageDTO.setWeight(15.0);
-//        baggageDTO.setBagCount(2);
-//        baggageDTO.setBookingId(1L);
-//    }
-//
-//    @Test
-//    void testGetBaggageByBookingId() throws Exception {
-//        List<BaggageDTO> baggageList = Arrays.asList(baggageDTO);
-//
-//        Mockito.when(baggageService.getBaggageByBookingId(1L)).thenReturn(baggageList);
-//
-//        mockMvc.perform(get("/baggages/booking/{bookingId}", 1L)
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", hasSize(1)))
-//                .andExpect(jsonPath("$[0].id").value(1))
-//                .andExpect(jsonPath("$[0].weight").value(15.0))
-//                .andExpect(jsonPath("$[0].bagCount").value(2))
-//                .andExpect(jsonPath("$[0].bookingId").value(1));
-//    }
-//
-//    @Test
-//    void testAddBaggageToBooking() throws Exception {
-//        Mockito.when(baggageService.addBaggageToBooking(eq(1L), any(BaggageDTO.class))).thenReturn(baggageDTO);
-//
-//        mockMvc.perform(post("/baggages/booking/{bookingId}", 1L)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(baggageDTO)))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id").value(1))
-//                .andExpect(jsonPath("$.weight").value(15.0))
-//                .andExpect(jsonPath("$.bagCount").value(2))
-//                .andExpect(jsonPath("$.bookingId").value(1));
-//    }
-//
-//    @Test
-//    void testUpdateBaggage() throws Exception {
-//        BaggageDTO updatedBaggage = new BaggageDTO();
-//        updatedBaggage.setId(1L);
-//        updatedBaggage.setWeight(20.0);
-//        updatedBaggage.setBagCount(3);
-//        updatedBaggage.setBookingId(1L);
-//
-//        Mockito.when(baggageService.updateBaggage(eq(1L), any(BaggageDTO.class))).thenReturn(updatedBaggage);
-//
-//        mockMvc.perform(put("/baggages/{baggageId}", 1L)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(updatedBaggage)))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id").value(1))
-//                .andExpect(jsonPath("$.weight").value(20.0))
-//                .andExpect(jsonPath("$.bagCount").value(3))
-//                .andExpect(jsonPath("$.bookingId").value(1));
-//    }
-//
-//    @Test
-//    void testDeleteBaggage() throws Exception {
-//        Mockito.doNothing().when(baggageService).deleteBaggage(1L);
-//
-//        mockMvc.perform(delete("/baggages/{baggageId}", 1L)
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(content().string("Baggage deleted successfully."));
-//    }
-//}
+package com.airTransport.atm_backend.controller;
+
+import com.airTransport.atm_backend.dto.BaggageDTO;
+import com.airTransport.atm_backend.service.BaggageService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
+
+class BaggageControllerTest {
+
+    @Mock
+    private BaggageService baggageService;
+
+    @InjectMocks
+    private BaggageController baggageController;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testGetBaggageByBookingId() {
+        Long bookingId = 1L;
+
+        // Mock the response from service
+        List<BaggageDTO> mockBaggageList = new ArrayList<>();
+        BaggageDTO baggageDTO = new BaggageDTO();
+        baggageDTO.setId(1L);
+        baggageDTO.setWeight(20.0);
+        baggageDTO.setBagCount(2);
+        baggageDTO.setBookingId(bookingId);
+        mockBaggageList.add(baggageDTO);
+
+        when(baggageService.getBaggageByBookingId(bookingId)).thenReturn(mockBaggageList);
+
+        // Call the controller method
+        ResponseEntity<List<BaggageDTO>> response = baggageController.getBaggageByBookingId(bookingId);
+
+        // Assertions
+        assertNotNull(response);
+        assertEquals(1, response.getBody().size());
+        assertEquals(20.0, response.getBody().get(0).getWeight());
+        assertEquals(2, response.getBody().get(0).getBagCount());
+        verify(baggageService, times(1)).getBaggageByBookingId(bookingId);
+    }
+
+    @Test
+    void testAddBaggageToBooking() {
+        Long bookingId = 1L;
+
+        // Mock the request and response
+        BaggageDTO baggageDTO = new BaggageDTO();
+        baggageDTO.setWeight(25.0);
+        baggageDTO.setBagCount(3);
+
+        BaggageDTO mockResponse = new BaggageDTO();
+        mockResponse.setId(1L);
+        mockResponse.setWeight(25.0);
+        mockResponse.setBagCount(3);
+        mockResponse.setBookingId(bookingId);
+
+        when(baggageService.addBaggageToBooking(bookingId, baggageDTO)).thenReturn(mockResponse);
+
+        // Call the controller method
+        ResponseEntity<BaggageDTO> response = baggageController.addBaggageToBooking(bookingId, baggageDTO);
+
+        // Assertions
+        assertNotNull(response);
+        assertEquals(1L, response.getBody().getId());
+        assertEquals(25.0, response.getBody().getWeight());
+        assertEquals(3, response.getBody().getBagCount());
+        assertEquals(bookingId, response.getBody().getBookingId());
+        verify(baggageService, times(1)).addBaggageToBooking(bookingId, baggageDTO);
+    }
+
+    @Test
+    void testUpdateBaggage() {
+        Long baggageId = 1L;
+
+        // Mock the request and response
+        BaggageDTO baggageDTO = new BaggageDTO();
+        baggageDTO.setWeight(30.0);
+        baggageDTO.setBagCount(1);
+
+        BaggageDTO mockResponse = new BaggageDTO();
+        mockResponse.setId(baggageId);
+        mockResponse.setWeight(30.0);
+        mockResponse.setBagCount(1);
+
+        when(baggageService.updateBaggage(baggageId, baggageDTO)).thenReturn(mockResponse);
+
+        // Call the controller method
+        ResponseEntity<BaggageDTO> response = baggageController.updateBaggage(baggageId, baggageDTO);
+
+        // Assertions
+        assertNotNull(response);
+        assertEquals(baggageId, response.getBody().getId());
+        assertEquals(30.0, response.getBody().getWeight());
+        assertEquals(1, response.getBody().getBagCount());
+        verify(baggageService, times(1)).updateBaggage(baggageId, baggageDTO);
+    }
+
+    @Test
+    void testDeleteBaggage() {
+        Long baggageId = 1L;
+
+        // No return value for void methods
+        doNothing().when(baggageService).deleteBaggage(baggageId);
+
+        // Call the controller method
+        ResponseEntity<String> response = baggageController.deleteBaggage(baggageId);
+
+        // Assertions
+        assertNotNull(response);
+        assertEquals("Baggage deleted successfully.", response.getBody());
+        verify(baggageService, times(1)).deleteBaggage(baggageId);
+    }
+}

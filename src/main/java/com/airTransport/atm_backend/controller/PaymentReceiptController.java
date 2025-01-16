@@ -22,11 +22,13 @@ public class PaymentReceiptController {
         return ResponseEntity.ok(receipt);
     }
 
-    @GetMapping("/{transactionId}")
-    public ResponseEntity<PaymentReceipt> getReceiptByTransactionId(@PathVariable Long transactionId) {
-        PaymentReceipt receipt = receiptService.getReceiptByTransactionId(transactionId);
-        return ResponseEntity.ok(receipt);
-    }
+//    @GetMapping("/{transactionId}")
+//    public ResponseEntity<PaymentReceipt> getReceiptByTransactionId(@PathVariable Long transactionId) {
+//        PaymentReceipt receipt = receiptService.getReceiptByTransactionId(transactionId);
+//        return ResponseEntity.ok(receipt);
+//    }
+
+
 
     @GetMapping
     public ResponseEntity<List<PaymentReceipt>> getAllReceipts() {

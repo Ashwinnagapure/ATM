@@ -1,57 +1,44 @@
-//package com.airTransport.atm_backend.repository;
-//
-//import com.airTransport.atm_backend.model.Flight;
-//import com.airTransport.atm_backend.model.Flight.FlightStatus;
-//import com.airTransport.atm_backend.repository.FlightRepository;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.Mockito.*;
-//
-//import java.time.LocalDateTime;
-//import java.util.List;
-//import java.util.Optional;
-//
-//public class FlightRepositoryTest {
-//
-//    @Mock
-//    private FlightRepository flightRepository;
-//
-//    @InjectMocks
-//    private FlightRepository flightRepositoryMock;
-//
-//    private Flight flight;
-//
-//    @BeforeEach
-//    void setUp() {
-//        flight = new Flight();
-//        flight.setFlightName("Flight A");
-//        flight.setDeparture(LocalDateTime.of(2025, 1, 12, 10, 0));
-//        flight.setArrival(LocalDateTime.of(2025, 1, 12, 12, 0));
-//        flight.setSource("New York");
-//        flight.setDestination("Los Angeles");
-//        flight.setPrice(500.00);
-//        flight.setAirline("Airline X");
-//        flight.setFlightClass("Economy");
-//        flight.setStatus(FlightStatus.ON_TIME);
-//    }
-//
-//    @Test
-//    void testFindFlightById() {
-//        when(flightRepository.findById(1L)).thenReturn(Optional.of(flight));
-//        Optional<Flight> foundFlight = flightRepository.findById(1L);
-//        assertTrue(foundFlight.isPresent());
-//        assertEquals("Flight A", foundFlight.get().getFlightName());
-//    }
-//
-//    @Test
-//    void testFindAllFlightsByPrice() {
-//        when(flightRepository.findAllByOrderByPriceAsc()).thenReturn(List.of(flight));
-//        List<Flight> flights = flightRepository.findAllByOrderByPriceAsc();
-//        assertFalse(flights.isEmpty());
-//        assertEquals(500.00, flights.get(0).getPrice());
-//    }
-//}
+package com.airTransport.atm_backend.repository;
+
+import com.airTransport.atm_backend.model.Admin;
+import com.airTransport.atm_backend.model.Flight;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@DataJpaTest
+public class FlightRepositoryTest {
+
+    @Autowired
+    private FlightRepository flightRepository;
+
+    @Autowired
+    private AdminRepository adminRepository; // Inject AdminRepository
+
+    @Test
+    void testFindBySourceAndDestination() {
+        // Save an Admin object
+        Admin admin = new Admin();
+        admin.setName("Admin Test");
+        admin.setEmail("admin@test.com");
+        admin.setPassword("password123");
+        adminRepository.save(admin); // Use AdminRepository to save the Admin
+
+        // Create a Flight object and associate it with the Admin
+        Flight flight = new Flight();
+        flight.setFlightName("Test Flight");
+        flight.setSource("NYC");
+        flight.setDestination("LAX");
+        flight.setAdmin(admin); // Associate the Flight with the Admin
+        flightRepository.save(flight); // Save the Flight
+
+        // Test the repository method
+        List<Flight> flights = flightRepository.findBySourceAndDestination("NYC", "LAX");
+        assertEquals(1, flights.size());
+        assertEquals("Test Flight", flights.get(0).getFlightName());
+    }
+}
