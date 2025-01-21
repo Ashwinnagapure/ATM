@@ -7,6 +7,7 @@ public class PassengerDTO {
     private String email;
     private String phone;
     private Long bookingId; // To represent the associated booking
+    private Long userId;    // New field to represent the associated user
 
     // Getters and Setters
     public Long getId() {
@@ -47,5 +48,13 @@ public class PassengerDTO {
 
     public void setBookingId(Long bookingId) {
         this.bookingId = bookingId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

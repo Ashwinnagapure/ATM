@@ -1,5 +1,6 @@
 package com.airTransport.atm_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -21,7 +22,15 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String role = "USER";  // Default role for all users
+    private String role = "USER"; // Default role for all users
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Booking> bookings; // Mapping to Booking
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Passenger> passengers; // Mapping to Passenger
 
     @ManyToMany
     @JoinTable(
@@ -30,13 +39,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "flight_id")
     )
     private List<Flight> flights;
-
-    @ManyToMany
-    @JoinTable(
-            name = "user_charters",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "charter_id")
-    )
 
     // Getters and Setters
     public Long getId() {
@@ -79,6 +81,22 @@ public class User {
         this.role = role;
     }
 
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(List<Passenger> passengers) {
+        this.passengers = passengers;
+    }
+
     public List<Flight> getFlights() {
         return flights;
     }
@@ -86,5 +104,4 @@ public class User {
     public void setFlights(List<Flight> flights) {
         this.flights = flights;
     }
-
 }

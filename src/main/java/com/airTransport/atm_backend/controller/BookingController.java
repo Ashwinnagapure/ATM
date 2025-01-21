@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bookings")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
 public class BookingController {
 
     @Autowired
@@ -35,15 +35,24 @@ public class BookingController {
         return ResponseEntity.ok(bookings.stream().map(this::convertToDTO).toList());
     }
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
-//        bookingService.deleteBooking(id);
-//        return ResponseEntity.noContent().build();
-//    }
+    // New endpoint to fetch bookings by user ID
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<BookingDTO>> getBookingsByUserId(@PathVariable Long userId) {
+        List<Booking> bookings = bookingService.getBookingsByUserId(userId);
+        return ResponseEntity.ok(bookings.stream().map(this::convertToDTO).toList());
+    }
 
     private BookingDTO convertToDTO(Booking booking) {
         BookingDTO bookingDTO = new BookingDTO();
         bookingDTO.setId(booking.getId());
+        bookingDTO.setTravellerCount(booking.getTravellerCount());
+        if (booking.getFlight() != null) {
+            bookingDTO.setFlightId(booking.getFlight().getFlightId());
+        }
+        // Add logic to include userId if the user is not null
+        if (booking.getUser() != null) {
+            bookingDTO.setUserId(booking.getUser().getId());
+        }
         return bookingDTO;
     }
 }
