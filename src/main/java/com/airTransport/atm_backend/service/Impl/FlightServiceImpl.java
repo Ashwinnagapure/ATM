@@ -58,9 +58,6 @@ public class FlightServiceImpl implements FlightSearchService, FlightManagementS
         return false;
     }
 
-
-
-
     @Override
     public List<FlightResponseDTO> getAllFlights() {
         List<Flight> flights = flightRepository.findAll(); // Fetch all flights from the database
