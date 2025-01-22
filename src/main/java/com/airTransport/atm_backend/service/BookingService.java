@@ -10,4 +10,7 @@ public interface BookingService {
     Booking getBookingById(Long id);
     List<Booking> getAllBookings();
     void deleteBooking(Long id);
+
+    // New method to fetch bookings by user ID
+    List<Booking> getBookingsByUserId(Long userId);
 }

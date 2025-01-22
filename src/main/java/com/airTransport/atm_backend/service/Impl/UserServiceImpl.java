@@ -3,7 +3,9 @@ package com.airTransport.atm_backend.service.Impl;
 import com.airTransport.atm_backend.dto.LoginDTO;
 import com.airTransport.atm_backend.dto.UserDTO;
 import com.airTransport.atm_backend.exceptions.NotFoundException;
+import com.airTransport.atm_backend.model.Passenger;
 import com.airTransport.atm_backend.model.User;
+import com.airTransport.atm_backend.repository.PassengerRepository;
 import com.airTransport.atm_backend.repository.UserRepository;
 import com.airTransport.atm_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PassengerRepository passengerRepository;
 
     @Override
     public List<UserDTO> getAllUsers() {
@@ -64,6 +69,8 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NotFoundException("User not found with ID: " + userId));
         return convertToDTO(user);
     }
+
+
 
     private UserDTO convertToDTO(User user) {
         UserDTO dto = new UserDTO();

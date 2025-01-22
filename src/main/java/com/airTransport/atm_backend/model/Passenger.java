@@ -1,8 +1,8 @@
 package com.airTransport.atm_backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "passengers")
@@ -20,6 +20,11 @@ public class Passenger {
 
     @Column(nullable = false)
     private String phone;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
+    private User user; // New mapping to User
 
     @ManyToOne
     @JoinColumn(name = "booking_id", nullable = false)
@@ -57,6 +62,14 @@ public class Passenger {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Booking getBooking() {

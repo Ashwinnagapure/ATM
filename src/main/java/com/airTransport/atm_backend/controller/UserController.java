@@ -1,6 +1,7 @@
 package com.airTransport.atm_backend.controller;
 
 import com.airTransport.atm_backend.dto.LoginDTO;
+import com.airTransport.atm_backend.dto.PassengerDTO;
 import com.airTransport.atm_backend.dto.UserDTO;
 import com.airTransport.atm_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    // for admin
+    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> users = userService.getAllUsers();
@@ -25,6 +26,7 @@ public class UserController {
     }
 
     // for registration users
+    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
         String response = userService.registerUser(userDTO);
@@ -32,14 +34,14 @@ public class UserController {
     }
 
     // for login of users
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
         String response = userService.loginUser(loginDTO);
         return ResponseEntity.ok(response);
     }
 
-    // for logout of users
+    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
     @PostMapping("/logout")
     public ResponseEntity<String> logoutUser() {
         userService.logout();

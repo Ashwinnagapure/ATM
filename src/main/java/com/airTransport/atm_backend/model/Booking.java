@@ -3,7 +3,6 @@ package com.airTransport.atm_backend.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -18,13 +17,14 @@ public class Booking {
     private int travellerCount;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false) // Foreign key to User table
+    @JsonBackReference
+    private User user; // New mapping to User
+
+    @ManyToOne
     @JoinColumn(name = "flight_id")
     @JsonBackReference
     private Flight flight;
-
-
-
-
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     private List<Baggage> baggages;
@@ -32,7 +32,6 @@ public class Booking {
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     @JsonManagedReference("payment-booking")
     private Payment payment;
-
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     private BoardingPass boardingPass;
@@ -54,6 +53,14 @@ public class Booking {
         this.travellerCount = travellerCount;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Flight getFlight() {
         return flight;
     }
@@ -61,10 +68,6 @@ public class Booking {
     public void setFlight(Flight flight) {
         this.flight = flight;
     }
-
-
-
-
 
     public List<Baggage> getBaggages() {
         return baggages;
