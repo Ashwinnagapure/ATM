@@ -10,13 +10,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/payment-receipts")
-@CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class PaymentReceiptController {
 
     @Autowired
     private PaymentReceiptService receiptService;
 
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/{paymentId}")
     public ResponseEntity<PaymentReceipt> generateReceiptForPayment(@PathVariable Long paymentId, @RequestBody String receiptDetails) {
         PaymentReceipt receipt = receiptService.generateReceiptForPayment(paymentId, receiptDetails);
@@ -30,7 +30,7 @@ public class PaymentReceiptController {
 //    }
 
 
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping
     public ResponseEntity<List<PaymentReceipt>> getAllReceipts() {
         return ResponseEntity.ok(receiptService.getAllReceipts());

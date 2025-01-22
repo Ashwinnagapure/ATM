@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/passengers")
-@CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class PassengerController {
 
     @Autowired
     private PassengerService passengerService;
 
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/add/{bookingId}/{userId}")
     public ResponseEntity<List<PassengerDTO>> addPassengersToBooking(
             @RequestBody List<PassengerDTO> passengerDTOs,
@@ -35,7 +35,7 @@ public class PassengerController {
         return ResponseEntity.ok(result);
     }
 
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<PassengerDTO>> getPassengersByUserId(@PathVariable Long userId) {
         // Fetch passengers by userId
@@ -47,14 +47,14 @@ public class PassengerController {
 
 
 
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/booking/{bookingId}")
     public ResponseEntity<List<PassengerDTO>> getPassengersByBookingId(@PathVariable Long bookingId) {
         List<Passenger> passengers = passengerService.getPassengersByBookingId(bookingId);
         return ResponseEntity.ok(passengers.stream().map(this::mapToDTO).collect(Collectors.toList()));
     }
 
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/{passengerId}")
     public ResponseEntity<PassengerDTO> getPassengerById(@PathVariable Long passengerId) {
         Passenger passenger = passengerService.getPassengerById(passengerId);

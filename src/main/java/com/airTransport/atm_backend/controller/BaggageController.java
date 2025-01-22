@@ -10,13 +10,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/baggages")
-@CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class BaggageController {
 
     @Autowired
     private BaggageService baggageService;
 
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/booking/{bookingId}")
     public ResponseEntity<List<BaggageDTO>> getBaggageByBookingId(@PathVariable Long bookingId) {
         List<BaggageDTO> baggages = baggageService.getBaggageByBookingId(bookingId);
@@ -26,21 +26,21 @@ public class BaggageController {
 
 
     // Add a new baggage to a specific booking
-   @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+   @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/booking/{bookingId}")
     public ResponseEntity<BaggageDTO> addBaggageToBooking(@PathVariable Long bookingId, @RequestBody BaggageDTO baggageDTO) {
         BaggageDTO createdBaggage = baggageService.addBaggageToBooking(bookingId, baggageDTO);
         return ResponseEntity.ok(createdBaggage);
     }
 
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PutMapping("/{baggageId}")
     public ResponseEntity<BaggageDTO> updateBaggage(@PathVariable Long baggageId, @RequestBody BaggageDTO baggageDTO) {
         BaggageDTO updatedBaggage = baggageService.updateBaggage(baggageId, baggageDTO);
         return ResponseEntity.ok(updatedBaggage);
     }
 
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @DeleteMapping("/{baggageId}")
     public ResponseEntity<String> deleteBaggage(@PathVariable Long baggageId) {
         baggageService.deleteBaggage(baggageId);
