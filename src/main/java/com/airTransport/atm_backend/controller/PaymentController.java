@@ -1,12 +1,12 @@
 package com.airTransport.atm_backend.controller;
 
-import com.airTransport.atm_backend.dto.PaymentDTO;
-import com.airTransport.atm_backend.service.PaymentService;
+import com.airTransport.atm_backend.dto.CreateSessionRequestDTO;
+import com.airTransport.atm_backend.dto.SessionResponseDTO;
+import com.airTransport.atm_backend.service.StripeCheckoutService;
+import com.stripe.exception.StripeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/payments")
@@ -14,31 +14,22 @@ import java.util.List;
 public class PaymentController {
 
     @Autowired
-    private PaymentService paymentService;
+    private StripeCheckoutService stripeCheckoutService;
 
-    @PostMapping
-    public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) {
-        return ResponseEntity.ok(paymentService.createPayment(paymentDTO));
+    /**
+     * Endpoint to create a Stripe Checkout Session.
+     *
+     * @param request the session creation details
+     * @return ResponseEntity containing the SessionResponseDTO with the session URL
+     */
+    @PostMapping("/stripe/create-checkout-session")
+    public ResponseEntity<SessionResponseDTO> createCheckoutSession(@RequestBody CreateSessionRequestDTO request) {
+        try {
+            SessionResponseDTO response = stripeCheckoutService.createCheckoutSession(request);
+            return ResponseEntity.ok(response);
+        } catch (StripeException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(new SessionResponseDTO("Error: " + e.getMessage()));
+        }
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable Long id) {
-        return ResponseEntity.ok(paymentService.getPaymentById(id));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<PaymentDTO>> getAllPayments() {
-        return ResponseEntity.ok(paymentService.getAllPayments());
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<PaymentDTO> updatePayment(@PathVariable Long id, @RequestBody PaymentDTO paymentDTO) {
-        return ResponseEntity.ok(paymentService.updatePayment(id, paymentDTO));
-    }
-
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<String> deletePayment(@PathVariable Long id) {
-//        paymentService.deletePayment(id);
-//        return ResponseEntity.ok("Deleted payment with id " + id);
-//    }
 }
