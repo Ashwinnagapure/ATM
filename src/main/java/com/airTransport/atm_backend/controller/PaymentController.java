@@ -8,13 +8,16 @@ import com.airTransport.atm_backend.service.BookingService;
 import com.airTransport.atm_backend.service.StripeCheckoutService;
 import com.stripe.exception.StripeException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/payments")
-@CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
 public class PaymentController {
+
+    @Value("${CORS}")
+    private String corsUrl;
 
     @Autowired
     private BookingService bookingService;
@@ -28,6 +31,7 @@ public class PaymentController {
      * @param bookingId The ID of the booking to be paid for.
      * @return Stripe Checkout session URL.
      */
+    @CrossOrigin(origins = "${CORS}", allowCredentials = "true")
     @GetMapping("/proceed/{bookingId}")
     public ResponseEntity<SessionResponseDTO> proceedToPayment(@PathVariable Long bookingId) {
         try {
@@ -40,7 +44,7 @@ public class PaymentController {
 
             // Get flight details and calculate total amount
             Flight flight = booking.getFlight();
-            double totalAmount = flight.getPrice() * booking.getTravellerCount()*100 ;
+            double totalAmount = flight.getPrice() * booking.getTravellerCount() * 100; // Amount in cents
 
             // Create Stripe Checkout session
             CreateSessionRequestDTO sessionRequest = new CreateSessionRequestDTO();
