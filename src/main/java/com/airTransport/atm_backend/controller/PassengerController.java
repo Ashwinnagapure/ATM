@@ -2,7 +2,9 @@ package com.airTransport.atm_backend.controller;
 
 import com.airTransport.atm_backend.dto.PassengerDTO;
 import com.airTransport.atm_backend.model.Passenger;
+import com.airTransport.atm_backend.model.Seat;
 import com.airTransport.atm_backend.service.PassengerService;
+import com.airTransport.atm_backend.service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ public class PassengerController {
     @Autowired
     private PassengerService passengerService;
 
+    @Autowired
+    private SeatService seatService; // Added SeatService to fetch Seat by seatId
+
     @CrossOrigin(origins = "${CORS}", allowCredentials = "true")
     @PostMapping("/add/{bookingId}/{userId}")
     public ResponseEntity<List<PassengerDTO>> addPassengersToBooking(
@@ -31,7 +36,11 @@ public class PassengerController {
         List<Passenger> passengers = passengerService.addPassengersToBooking(
                 passengerDTOs.stream()
                         .map(this::mapToEntity) // Map DTO to entity
-                        .collect(Collectors.toList()), bookingId, userId);
+                        .collect(Collectors.toList()),
+                bookingId,
+                userId,
+                passengerDTOs.stream().map(PassengerDTO::getSeatId).collect(Collectors.toList()) // Pass seat IDs
+        );
 
         // Map the passengers to DTOs
         List<PassengerDTO> result = passengers.stream().map(this::mapToDTO).collect(Collectors.toList());
@@ -62,14 +71,24 @@ public class PassengerController {
         return ResponseEntity.ok(mapToDTO(passenger));
     }
 
+    // Map PassengerDTO to Passenger entity
     private Passenger mapToEntity(PassengerDTO dto) {
         Passenger passenger = new Passenger();
         passenger.setName(dto.getName());
         passenger.setEmail(dto.getEmail());
         passenger.setPhone(dto.getPhone());
+
+        if (dto.getSeatId() != null) {
+            // Fetch the Seat entity by seatId
+            Seat seat = seatService.getSeatById(dto.getSeatId())
+                    .orElseThrow(() -> new RuntimeException("Seat not found with ID: " + dto.getSeatId()));
+            passenger.setSeat(seat); // Associate seat with passenger
+        }
+
         return passenger;
     }
 
+    // Map Passenger entity to PassengerDTO
     private PassengerDTO mapToDTO(Passenger passenger) {
         PassengerDTO dto = new PassengerDTO();
         dto.setId(passenger.getId());
@@ -78,6 +97,9 @@ public class PassengerController {
         dto.setPhone(passenger.getPhone());
         dto.setBookingId(passenger.getBooking().getId());
         dto.setUserId(passenger.getUser() != null ? passenger.getUser().getId() : null); // Ensure userId is set
+        if (passenger.getSeat() != null) {
+            dto.setSeatId(passenger.getSeat().getSeatId()); // Set seatId in DTO
+        }
         return dto;
     }
 }

@@ -24,12 +24,18 @@ public class Passenger {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
-    private User user; // New mapping to User
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "booking_id", nullable = false)
     @JsonBackReference
     private Booking booking;
+
+    @OneToOne
+    @JoinColumn(name = "seat_id", unique = true)
+    @JsonBackReference("passenger-seat")
+
+    private Seat seat;
 
     // Getters and Setters
     public Long getId() {
@@ -79,4 +85,13 @@ public class Passenger {
     public void setBooking(Booking booking) {
         this.booking = booking;
     }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
+    }
 }
+

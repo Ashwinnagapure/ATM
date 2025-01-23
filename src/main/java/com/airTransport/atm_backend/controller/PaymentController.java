@@ -50,7 +50,7 @@ public class PaymentController {
             CreateSessionRequestDTO sessionRequest = new CreateSessionRequestDTO();
             sessionRequest.setFlightName(flight.getFlightName());
             sessionRequest.setAmount((long) totalAmount);
-            sessionRequest.setSuccessUrl("http://localhost:5173/success");
+            sessionRequest.setSuccessUrl("http://localhost:5173/metronic8/react/demo8/payment/status");
             sessionRequest.setCancelUrl("http://localhost:5173/cancel");
 
             SessionResponseDTO sessionResponse = stripeCheckoutService.createCheckoutSession(sessionRequest);
