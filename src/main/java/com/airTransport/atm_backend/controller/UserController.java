@@ -12,13 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+@CrossOrigin(origins = "${CORS}", allowCredentials = "true")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "${CORS}", allowCredentials = "true")
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> users = userService.getAllUsers();
@@ -26,7 +26,7 @@ public class UserController {
     }
 
     // for registration users
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "${CORS}", allowCredentials = "true")
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
         String response = userService.registerUser(userDTO);
@@ -34,19 +34,17 @@ public class UserController {
     }
 
     // for login of users
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "${CORS}", allowCredentials = "true")
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
-        String response = userService.loginUser(loginDTO);
+    public ResponseEntity<UserDTO> loginUser(@RequestBody LoginDTO loginDTO) {
+        UserDTO response = userService.loginUser(loginDTO);
         return ResponseEntity.ok(response);
     }
 
-    @CrossOrigin(origins = "http://ec2-54-197-168-131.compute-1.amazonaws.com:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "${CORS}", allowCredentials = "true")
     @PostMapping("/logout")
     public ResponseEntity<String> logoutUser() {
         userService.logout();
         return ResponseEntity.ok("Logout successful!");
     }
-
-
 }

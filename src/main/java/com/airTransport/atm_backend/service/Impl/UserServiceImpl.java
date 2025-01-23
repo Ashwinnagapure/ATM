@@ -50,13 +50,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String loginUser(LoginDTO loginDTO) {
+    public UserDTO loginUser(LoginDTO loginDTO) {
         User user = userRepository.findByEmail(loginDTO.getEmail());
         if (user == null || !user.getPassword().equals(loginDTO.getPassword())) {
             throw new RuntimeException("Invalid email or password!");
         }
-        return "Login successful!";
+
+        // Map the User entity to a UserDTO and return
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setUsername(user.getUsername());
+        userDTO.setRole(user.getRole());
+        return userDTO;
     }
+
 
     @Override
     public void logout() {

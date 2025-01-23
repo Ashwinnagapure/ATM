@@ -5,7 +5,9 @@ import com.airTransport.atm_backend.model.Passenger;
 import java.util.List;
 
 public interface PassengerService {
-    List<Passenger> addPassengersToBooking(List<Passenger> passengers, Long bookingId, Long userId);  // Modified method signature
+    // Modified method to include seatId
+    List<Passenger> addPassengersToBooking(List<Passenger> passengers, Long bookingId, Long userId, List<Long> seatIds);
+
     List<Passenger> getPassengersByBookingId(Long bookingId);
     Passenger getPassengerById(Long passengerId);
 

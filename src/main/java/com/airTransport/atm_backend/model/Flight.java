@@ -32,6 +32,14 @@ public class Flight {
     @JsonManagedReference
     private List<Booking> bookings;
 
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
+    @JsonManagedReference("flight-seats")
+    private List<Seat> seats;
+
+    // Getter and Setter for seats
+
+
+
     public enum FlightStatus {
         ON_TIME, DELAYED, CANCELLED
     }
@@ -131,5 +139,13 @@ public class Flight {
 
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
     }
 }

@@ -23,6 +23,7 @@
 		<sonar.projectName>alpha_atm</sonar.projectName>
 		<sonar.projectKey>alpha_atm</sonar.projectKey>
 		<sonar.projectVersion>1.0</sonar.projectVersion>
+
 		<sonar.token>squ_f1b820f9f1f02fd549a635be302a302cbd84802f</sonar.token>
 	</properties>
 
@@ -75,19 +76,25 @@
 			<artifactId>byte-buddy-agent</artifactId>
 			<version>1.14.6</version> <!-- or the latest version -->
 		</dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>20.130.0</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>3.1.2</version> <!-- Updated version -->
-			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -107,6 +114,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 		</plugins>
 	</build>
 </project>
